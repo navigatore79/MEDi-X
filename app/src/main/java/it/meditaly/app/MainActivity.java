@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         if(Build.VERSION.SDK_INT>=33 && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)!= PackageManager.PERMISSION_GRANTED){
             notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS);
         }
-        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(this::deliverToken);
+        try { FirebaseMessaging.getInstance().getToken().addOnSuccessListener(this::deliverToken); } catch (Exception ignored) {}
     }
 
     private void initTts(){
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             runOnUiThread(()->{if(tts!=null && text!=null && !text.isBlank()) tts.speak(text,TextToSpeech.QUEUE_FLUSH,null,"medi");});
         }
         @JavascriptInterface public void stopSpeaking(){ runOnUiThread(()->{if(tts!=null)tts.stop();}); }
-        @JavascriptInterface public void requestPushToken(){ FirebaseMessaging.getInstance().getToken().addOnSuccessListener(MainActivity.this::deliverToken); }
+        @JavascriptInterface public void requestPushToken(){ try { FirebaseMessaging.getInstance().getToken().addOnSuccessListener(MainActivity.this::deliverToken); } catch (Exception ignored) {} }
         @JavascriptInterface public boolean toggleTherapySiren(){
             SharedPreferences p=getSharedPreferences(PREFS,MODE_PRIVATE);
             boolean next=!p.getBoolean(SIREN,true);p.edit().putBoolean(SIREN,next).apply();return next;
