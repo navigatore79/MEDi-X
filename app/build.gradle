@@ -36,7 +36,9 @@ android {
 
 dependencies {
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
-    implementation 'androidx.core:core:1.16.0'\n    implementation 'androidx.appcompat:appcompat:1.7.1'\n    implementation 'androidx.activity:activity:1.10.1'
+    implementation 'androidx.core:core:1.16.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.activity:activity:1.10.1'
     implementation platform('com.google.firebase:firebase-bom:34.19.0')
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.mlkit:text-recognition:16.0.1'
