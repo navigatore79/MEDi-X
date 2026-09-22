@@ -14,8 +14,8 @@ android {
         applicationId 'it.meditaly.app'
         minSdk 29
         targetSdk 36
-        versionCode 20
-        versionName '0.5.0-beta1'
+        versionCode 21
+        versionName '0.5.1-beta2'
     }
 
     buildTypes {
