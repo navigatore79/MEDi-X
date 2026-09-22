@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#f7fbff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>Meditaly</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="app">
+    <div id="startup" style="min-height:100vh;display:grid;place-items:center;background:#f7fbff;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#123f7c;padding:24px;text-align:center">
+      <div><div style="font-size:44px">♡+</div><strong style="font-size:24px">Meditaly</strong><div style="margin-top:8px;color:#6b829a">Avvio in corso…</div></div>
+    </div>
+  </main>
+  <script>
+    (function(){
+      const app=document.getElementById('app');
+      const fail=(message)=>{
+        app.innerHTML='<div style="min-height:100vh;display:grid;place-items:center;background:#f7fbff;font-family:system-ui,-apple-system,Segoe UI,sans-serif;padding:24px"><div style="max-width:420px;background:white;border:1px solid #dceaf7;border-radius:20px;padding:22px;color:#173f69;box-shadow:0 12px 34px rgba(20,70,120,.10)"><h2 style="margin-top:0">Meditaly non si è avviata</h2><p>'+String(message||'Errore di avvio')+'</p><button onclick="location.reload()" style="border:0;border-radius:12px;padding:11px 16px;background:#1677e8;color:white;font-weight:700">Riprova</button></div></div>';
+      };
+      window.addEventListener('error',e=>{ if(e && e.message) fail(e.message); });
+      window.addEventListener('unhandledrejection',e=>{ const m=e?.reason?.message||e?.reason||'Errore imprevisto'; fail(m); });
+      const load=(src)=>new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=()=>reject(new Error('Impossibile caricare '+src));document.body.appendChild(s);});
+      (async()=>{
+        try{
+          try{ await load('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2'); }
+          catch(_){ await load('https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js'); }
+          if(!window.supabase) throw new Error('Libreria Supabase non disponibile. Controlla la connessione Internet.');
+          await load('supabase-config.js');
+          if(!window.MEDITALY_SUPABASE) throw new Error('Configurazione Meditaly non disponibile.');
+          await load('live.js');
+        }catch(e){ fail(e.message||e); }
+      })();
+    })();
+  </script>
+</body>
+</html>
