@@ -33,3 +33,5 @@ Inclusi messaggi vocali in chat, questionari assegnati dal medico con interazion
 L'app comunica con il backend Supabase Meditaly. Diario e relativi audio/video restano locali fino alla condivisione esplicita; inclusa la migrazione della memoria locale durante l'aggiornamento dell'origine WebView.
 
 Configurazione e collaudo: [README_VIDEOCHIAMATE.md](README_VIDEOCHIAMATE.md). Le modifiche includono la sospensione di Medi durante l’ascolto dei vocali. Aggiornare l’app per ottenere i permessi video.
+
+Nuovo servizio gestito: [README_CLOUDFLARE_TURN.md](README_CLOUDFLARE_TURN.md). Richiede creazione dell’account e configurazione della chiave sul backend; nessun server dedicato necessario.

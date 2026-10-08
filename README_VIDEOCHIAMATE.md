@@ -8,7 +8,11 @@
 - Video: anteprima personale silenziata, video remoto, esclusione microfono e videocamera, chiusura dei flussi al termine. La videochiamata non è registrata.
 - Android: permesso CAMERA richiesto solo per video, soltanto nell'origine locale affidabile dell'app. Notifica di videochiamata distinta dalla chiamata audio.
 
-## Configurazione ancora necessaria
+## Nuovo servizio gestito Cloudflare
+
+Il backend supporta ora Cloudflare Realtime TURN. Seguire [README_CLOUDFLARE_TURN.md](README_CLOUDFLARE_TURN.md) per account, chiave e due variabili da salvare. La procedura coturn riportata sotto è un’alternativa. Nessun servizio è ancora attivo senza credenziali reali.
+
+## Configurazione coturn alternativa
 
 La funzione Supabase `voice-call` restituisce attualmente `calls_configured: false`: manca il servizio TURN. L'interfaccia pronta non equivale a una chiamata funzionante. Non è stato eseguito un collaudo tra telefoni reali.
 
