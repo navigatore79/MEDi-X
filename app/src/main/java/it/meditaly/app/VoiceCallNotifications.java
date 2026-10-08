@@ -22,7 +22,7 @@ public final class VoiceCallNotifications {
   NotificationManager manager=context.getSystemService(NotificationManager.class);
   if(manager==null)return;
   NotificationChannel channel=new NotificationChannel(CHANNEL,"Chiamate Meditaly",NotificationManager.IMPORTANCE_HIGH);
-  channel.setDescription("Chiamate vocali in ingresso dal medico");channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);channel.enableVibration(true);
+  channel.setDescription("Chiamate e videochiamate in ingresso dal medico");channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);channel.enableVibration(true);
   channel.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE),new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE).build());manager.createNotificationChannel(channel);
  }
  public static PendingIntent intent(Context context,String id,String action){
@@ -37,9 +37,9 @@ public final class VoiceCallNotifications {
   if(remaining<=0||remaining>75000)return;ensureChannel(context);
   Person caller=new Person.Builder().setName("Il tuo medico · Meditaly").setImportant(true).build();
   NotificationCompat.Builder builder=new NotificationCompat.Builder(context,CHANNEL)
-   .setSmallIcon(android.R.drawable.sym_call_incoming).setContentTitle("Chiamata Meditaly")
+   .setSmallIcon(android.R.drawable.sym_call_incoming).setContentTitle("video".equals(data.get("media_mode"))?"Videochiamata Meditaly":"Chiamata Meditaly")
    .setContentText("Il medico ti sta chiamando").setContentIntent(intent(context,id,"open"))
-   .setStyle(NotificationCompat.CallStyle.forIncomingCall(caller,intent(context,id,"reject"),intent(context,id,"answer")))
+   .setStyle(NotificationCompat.CallStyle.forIncomingCall(caller,intent(context,id,"reject"),intent(context,id,"answer")).setIsVideo("video".equals(data.get("media_mode"))))
    .setCategory(NotificationCompat.CATEGORY_CALL).setPriority(NotificationCompat.PRIORITY_MAX)
    .setVisibility(NotificationCompat.VISIBILITY_PRIVATE).setAutoCancel(true).setTimeoutAfter(remaining);
   NotificationManager manager=context.getSystemService(NotificationManager.class);

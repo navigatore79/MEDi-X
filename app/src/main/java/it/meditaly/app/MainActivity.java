@@ -194,10 +194,18 @@ public class MainActivity extends Activity {
         webView.setWebChromeClient(new WebChromeClient() {
             @Override public void onPermissionRequest(PermissionRequest request){
                 runOnUiThread(()->{
-                    if(!trustedAudioOrigin(request.getOrigin()) || !java.util.Arrays.asList(request.getResources()).contains(PermissionRequest.RESOURCE_AUDIO_CAPTURE)) {request.deny();return;}
-                    if(checkSelfPermission(Manifest.permission.RECORD_AUDIO)==PackageManager.PERMISSION_GRANTED){request.grant(new String[]{PermissionRequest.RESOURCE_AUDIO_CAPTURE});return;}
+                    if(!trustedAudioOrigin(request.getOrigin())) {request.deny();return;}
+                    java.util.ArrayList<String> missing=new java.util.ArrayList<>();
+                    for(String resource:request.getResources()){
+                        String permission;
+                        if(PermissionRequest.RESOURCE_AUDIO_CAPTURE.equals(resource)) permission=Manifest.permission.RECORD_AUDIO;
+                        else if(PermissionRequest.RESOURCE_VIDEO_CAPTURE.equals(resource)) permission=Manifest.permission.CAMERA;
+                        else {request.deny();return;}
+                        if(checkSelfPermission(permission)!=PackageManager.PERMISSION_GRANTED) missing.add(permission);
+                    }
+                    if(missing.isEmpty()){request.grant(request.getResources());return;}
                     if(pendingAudioPermission!=null){request.deny();return;}
-                    pendingAudioPermission=request;requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO},814);
+                    pendingAudioPermission=request;requestPermissions(missing.toArray(new String[0]),814);
                 });
             }
             @Override public void onPermissionRequestCanceled(PermissionRequest request){runOnUiThread(()->{if(pendingAudioPermission==request)pendingAudioPermission=null;});}
@@ -972,7 +980,19 @@ public class MainActivity extends Activity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode==814){PermissionRequest request=pendingAudioPermission;pendingAudioPermission=null;if(request!=null){if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED&&trustedAudioOrigin(request.getOrigin()))request.grant(new String[]{PermissionRequest.RESOURCE_AUDIO_CAPTURE});else request.deny();}return;}
+        if(requestCode==814){
+            PermissionRequest request=pendingAudioPermission;pendingAudioPermission=null;
+            if(request!=null){
+                boolean allowed=trustedAudioOrigin(request.getOrigin());
+                for(String resource:request.getResources()){
+                    if(PermissionRequest.RESOURCE_AUDIO_CAPTURE.equals(resource)) allowed &= checkSelfPermission(Manifest.permission.RECORD_AUDIO)==PackageManager.PERMISSION_GRANTED;
+                    else if(PermissionRequest.RESOURCE_VIDEO_CAPTURE.equals(resource)) allowed &= checkSelfPermission(Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED;
+                    else allowed=false;
+                }
+                if(allowed)request.grant(request.getResources());else request.deny();
+            }
+            return;
+        }
         if(requestCode==813){phoneHealth.afterPermissions();return;}
         if(requestCode==812){if(bleConnector.permitted())bleConnector.scan(bleRequestId);else bleConnector.denied(bleRequestId);return;}
         if (requestCode == NOTIFICATION_PERMISSION_REQUEST) {
