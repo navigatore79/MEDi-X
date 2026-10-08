@@ -1,32 +1,928 @@
 :root{
-  --blue:#176fbd;--blue2:#0f5fa8;--navy:#0d2340;--muted:#647b93;--line:#dce8f3;
-  --bg:#f6f9fc;--card:#fff;--soft:#edf6ff;--green:#159455;--yellow:#c78b00;--red:#d83b3b;
-  --shadow:0 8px 28px rgba(31,77,121,.09);--radius:20px
+  --primary:#2c968c;--primary-2:#1f756d;--primary-soft:#eaf5f2;--accent:#f2c078;
+  --bg:#faf7f5;--surface:#fff;--text:#253137;--muted:#718087;--line:#dce6e3;
+  --danger:#d22d2d;--warn:#f6a823;--success:#389466;--shadow:0 14px 40px rgba(33,60,64,.10);
+  --radius:18px;--radius-sm:12px;
 }
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--navy)}
-body{padding:env(safe-area-inset-top) 0 calc(78px + env(safe-area-inset-bottom))}
-button,input,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}
-.shell{max-width:720px;margin:auto;padding:18px 16px 38px}
-.auth{min-height:calc(100vh - 80px);display:grid;place-items:center;padding:22px}
-.auth-card{width:min(100%,430px);background:#fff;border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:var(--shadow)}
-.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:48px;height:48px;border-radius:16px;background:linear-gradient(145deg,#2b8bd8,#1264ad);display:grid;place-items:center;color:#fff;font-size:25px;font-weight:800}
-.brand-name{font-size:28px;font-weight:800;color:#0d5598}.tag{color:var(--muted);font-size:13px}
-.field{margin-top:14px}.field label{display:block;font-weight:700;font-size:13px;margin:0 0 6px}.field input,.field textarea{width:100%;border:1px solid #cfddea;border-radius:14px;padding:13px 14px;background:#fff;color:var(--navy);outline:none}.field input:focus,.field textarea:focus{border-color:#71aee0;box-shadow:0 0 0 3px #e8f4ff}
-.btn{border:0;border-radius:14px;padding:12px 16px;background:var(--blue);color:#fff;font-weight:750}.btn.secondary{background:#eef5fb;color:#174d7c}.btn.outline{background:#fff;color:var(--blue);border:1px solid #aacbea}.btn.full{width:100%}.err{color:#b22d2d;margin-top:10px;font-size:14px}.ok{color:#0d7c45;margin-top:10px;font-size:14px}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.top-actions{display:flex;gap:8px}.icon-btn{width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--blue);font-size:19px;display:grid;place-items:center}
-.greet{display:flex;justify-content:space-between;gap:18px;align-items:flex-end;margin:10px 0 18px}.greet h1{font-size:30px;line-height:1.05;margin:0 0 6px}.greet p{margin:0;color:var(--muted)}.date{text-align:right;color:var(--muted);font-size:14px;white-space:nowrap}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-.today{padding:16px;background:linear-gradient(145deg,#f7fbff,#eaf5ff);margin-bottom:16px}.sec-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.sec-title h2{margin:0;font-size:22px}.link{border:0;background:transparent;color:#0870d6;font-weight:700;padding:4px}
-.today-grid,.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.today-item,.feature{background:#fff;border:1px solid #e2edf6;border-radius:17px;padding:14px;min-height:100px}
-.today-item .label,.small{font-size:13px;color:var(--muted)}.today-item strong{display:block;font-size:23px;margin:4px 0}.feature{display:flex;gap:12px;align-items:center;min-height:92px}.feature .ico{width:48px;height:48px;flex:0 0 48px;border-radius:50%;display:grid;place-items:center;background:#e6f3ff;color:#0b68b6;font-size:23px}.feature strong{font-size:18px}.feature span{display:block;color:var(--muted);font-size:13px;margin-top:4px}
-.checkin{padding:17px;margin:16px 0}.checkin h2{margin:0 0 5px;font-size:22px}.checkin p{margin:0 0 13px;color:var(--muted)}.mood-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.mood{border-radius:15px;padding:13px 8px;font-weight:800;border:1px solid}.mood.green{background:#edf9f2;color:var(--green);border-color:#78d8a4}.mood.yellow{background:#fff9e9;color:var(--yellow);border-color:#efd37c}.mood.red{background:#fff0f0;color:var(--red);border-color:#f2a0a0}
-.section{padding:16px;margin:16px 0}.list{display:grid;gap:8px}.row{display:flex;align-items:center;gap:12px;padding:11px;border:1px solid #e3edf5;border-radius:15px;background:#fff}.row .grow{flex:1}.row strong{display:block}.row .meta{font-size:13px;color:var(--muted);margin-top:3px}.pill{font-size:12px;font-weight:800;padding:6px 9px;border-radius:999px;background:#eef5fb;color:#315d83}
-.doctor{display:flex;align-items:center;gap:12px}.avatar{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#e8f3ff;color:#176fbd;font-weight:800;font-size:20px}.doctor .actions{margin-left:auto;display:flex;gap:7px}
-.page-head{display:flex;align-items:center;gap:10px;margin:4px 0 18px}.page-head h1{margin:0;font-size:27px}.back{border:0;background:#eaf3fb;width:40px;height:40px;border-radius:12px;color:#176fbd;font-size:20px}
-.chatbox{height:52vh;overflow:auto;display:flex;flex-direction:column;gap:8px;padding:8px}.msg{max-width:82%;padding:10px 12px;border-radius:16px;background:#eef3f7;color:#17364f}.msg.mine{align-self:flex-end;background:#dcecff}.msg .time{font-size:11px;color:#71869a;margin-top:4px}.composer{display:flex;gap:8px;margin-top:10px}.composer textarea{flex:1;border:1px solid var(--line);border-radius:15px;padding:11px;resize:none}
-.bottom{position:fixed;left:0;right:0;bottom:0;height:72px;padding-bottom:env(safe-area-inset-bottom);background:rgba(255,255,255,.97);border-top:1px solid #dce8f3;display:flex;justify-content:center;z-index:30}.bottom-inner{width:min(720px,100%);display:grid;grid-template-columns:repeat(5,1fr)}.navbtn{border:0;background:transparent;color:#526d86;font-size:11px;font-weight:650}.navbtn b{display:block;font-size:21px;line-height:1.1;margin-bottom:4px}.navbtn.on{color:#0b6dbd}
-.medi-float{position:fixed;right:16px;bottom:84px;z-index:40;display:flex;align-items:center;gap:9px;background:#fff;border:1px solid #cfe1f1;border-radius:999px;padding:8px 10px 8px 8px;box-shadow:0 10px 30px rgba(22,72,120,.2);color:#112b47;font-weight:800}
-.medi-robot{width:45px;height:45px;border-radius:50%;background:#e8f4ff;border:2px solid #badcf7;position:relative;display:grid;place-items:center}.medi-head{width:27px;height:23px;border-radius:9px;background:#1971bb;position:relative}.medi-head:before,.medi-head:after{content:"";position:absolute;top:8px;width:4px;height:4px;border-radius:50%;background:#fff}.medi-head:before{left:6px}.medi-head:after{right:6px}.medi-mouth{position:absolute;left:8px;right:8px;bottom:4px;height:4px;border-bottom:2px solid #fff;border-radius:50%}.medi-ant{position:absolute;width:2px;height:6px;background:#1971bb;top:4px;left:21px}.medi-ant:after{content:"";position:absolute;width:5px;height:5px;border-radius:50%;background:#1971bb;left:-1.5px;top:-4px}.medi-text small{display:block;color:#668198;font-size:11px;font-weight:600}.mic{width:37px;height:37px;border-radius:50%;display:grid;place-items:center;background:#e8f4ff;color:#146db5;font-size:19px}
-.modal{position:fixed;inset:0;background:rgba(10,30,50,.42);z-index:60;display:grid;place-items:end center;padding:16px}.sheet{width:min(720px,100%);background:#fff;border-radius:24px 24px 14px 14px;padding:20px;box-shadow:0 -12px 35px rgba(0,0,0,.16)}.sheet h2{margin:0 0 8px}.sheet p{color:var(--muted);line-height:1.5}.medi-big{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.notice{padding:12px 14px;border-radius:14px;background:#eef6fd;color:#285577;font-size:13px;margin:10px 0}.empty{text-align:center;color:var(--muted);padding:20px}
-@media(max-width:390px){.shell{padding-left:12px;padding-right:12px}.greet h1{font-size:27px}.feature strong{font-size:16px}.mood-grid{grid-template-columns:1fr}.medi-text{display:none}.today-grid{grid-template-columns:1fr 1fr}.doctor{align-items:flex-start}.doctor .actions{margin-left:0;flex-direction:column}}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:"Nunito Sans",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+.offline-banner{position:fixed;z-index:9999;left:50%;transform:translateX(-50%);top:12px;background:#525252;color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;box-shadow:var(--shadow)}
+.toast{position:fixed;z-index:9998;right:22px;bottom:22px;background:#173e3a;color:#fff;padding:12px 16px;border-radius:12px;opacity:0;transform:translateY(12px);pointer-events:none;transition:.2s;max-width:360px}.toast.show{opacity:1;transform:none}
+.hidden{display:none!important}.muted{color:var(--muted)}.small{font-size:13px}.tiny{font-size:11px}.strong{font-weight:800}.nowrap{white-space:nowrap}.spacer{flex:1}
+.btn{border:0;border-radius:12px;padding:11px 16px;font-weight:800;background:var(--primary);color:#fff;box-shadow:none}.btn:hover{filter:brightness(.97)}.btn.secondary{background:var(--primary-soft);color:var(--primary-2)}.btn.ghost{background:transparent;color:var(--primary-2);border:1px solid var(--line)}.btn.danger{background:var(--danger)}.btn.small{padding:8px 11px;font-size:13px}.btn.full{width:100%}.btn:disabled{opacity:.45;cursor:not-allowed}
+.field{display:grid;gap:7px}.field label{font-size:13px;font-weight:800;color:#485b61}.input,.select,.textarea{width:100%;border:1px solid #cfdad7;background:#fff;border-radius:12px;padding:11px 12px;outline:none}.textarea{min-height:96px;resize:vertical}.input:focus,.select:focus,.textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(44,150,140,.12)}
+.card{background:var(--surface);border:1px solid #e6ecea;border-radius:var(--radius);box-shadow:0 5px 18px rgba(38,59,63,.05)}.card-pad{padding:20px}.stack{display:grid;gap:14px}.row{display:flex;gap:12px;align-items:center}.row.wrap{flex-wrap:wrap}.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 10px;background:var(--primary-soft);color:var(--primary-2);font-size:12px;font-weight:800}.badge.warn{background:#fff5df;color:#8a5e06}.badge.danger{background:#ffe9e9;color:#a22121}.badge.success{background:#e7f6ee;color:#246d4b}.badge.gray{background:#eef1f1;color:#5d696d}
+.title{margin:0;font-size:26px;line-height:1.15}.subtitle{margin:4px 0 0;color:var(--muted)}.section-title{font-size:16px;font-weight:900;margin:0}.divider{height:1px;background:var(--line);margin:4px 0}
+.auth-shell{min-height:100vh;display:grid;place-items:center;padding:28px;background:radial-gradient(circle at 15% 0%,#dff7f2,transparent 34%),radial-gradient(circle at 90% 85%,#fff0d7,transparent 30%),var(--bg)}
+.auth-card{width:min(470px,100%);padding:28px}.brand{display:flex;align-items:center;gap:12px;margin-bottom:20px}.brand-mark{width:46px;height:46px;border-radius:15px;background:linear-gradient(145deg,var(--primary),#55c6b9);display:grid;place-items:center;color:#fff;font-size:24px;font-weight:900}.brand-name{font-size:26px;font-weight:900;letter-spacing:-.4px}.demo-box{background:#f4f8f7;border:1px dashed #abc9c3;border-radius:14px;padding:14px;font-size:13px}.demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.patient-shell{min-height:100vh;max-width:520px;margin:0 auto;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.03),0 20px 70px rgba(31,60,65,.08);position:relative;padding-bottom:84px}.mobile-top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 18px;display:flex;align-items:center;gap:12px}.mobile-content{padding:18px;display:grid;gap:16px}.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);z-index:30;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:8px 6px max(8px,env(safe-area-inset-bottom));box-shadow:0 -8px 26px rgba(31,60,65,.08)}.nav-btn{background:transparent;border:0;padding:7px 2px;color:#718087;font-size:11px;display:grid;gap:3px;place-items:center}.nav-btn span:first-child{font-size:20px}.nav-btn.active{color:var(--primary-2);font-weight:900}
+.hero{background:linear-gradient(145deg,#eaf5f2,#fdf8ef);padding:20px;border-radius:20px;border:1px solid #dcebe7}.risk-card{display:flex;align-items:center;gap:14px}.risk-dot{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-weight:900;background:#fff0d5;color:#8a5e06;border:6px solid #f7d99f}.list{display:grid;gap:10px}.list-item{padding:14px;border:1px solid var(--line);border-radius:14px;background:#fff}.list-item.clickable:hover{border-color:#a8cbc4;background:#fbfefd}.notif-unread{border-left:4px solid var(--primary)}
+.progress{height:8px;border-radius:999px;background:#edf2f1;overflow:hidden}.progress>span{display:block;height:100%;background:var(--primary);transition:.2s}.choice-grid{display:grid;gap:10px}.choice{padding:13px;border:1px solid var(--line);border-radius:12px;background:#fff;text-align:left}.choice.active{border-color:var(--primary);background:var(--primary-soft);font-weight:800}.check-row{display:flex;gap:10px;align-items:flex-start}.check-row input{margin-top:4px;accent-color:var(--primary)}
+.desktop-shell{min-height:100vh;display:grid;grid-template-columns:260px 1fr}.side{background:#173e3a;color:#fff;padding:22px 16px;position:sticky;top:0;height:100vh}.side .brand{margin:0 0 26px}.side .brand-mark{background:#fff;color:var(--primary-2)}.side-nav{display:grid;gap:7px}.side-btn{border:0;background:transparent;color:#d8eeea;text-align:left;padding:11px 12px;border-radius:10px;font-weight:800}.side-btn.active,.side-btn:hover{background:rgba(255,255,255,.12);color:#fff}.side-foot{position:absolute;left:16px;right:16px;bottom:18px}.desktop-main{padding:26px;min-width:0}.desktop-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.workspace{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px}.patients-panel{padding:14px;height:calc(100vh - 116px);overflow:auto}.patient-row{width:100%;border:0;background:transparent;text-align:left;padding:12px;border-radius:12px;display:flex;gap:10px;align-items:center}.patient-row:hover,.patient-row.active{background:var(--primary-soft)}.avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#dcefeb;color:#226b64;font-weight:900;flex:0 0 auto}.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:16px}.tab{border:0;background:transparent;padding:10px 12px;border-radius:10px;font-weight:800;color:#627378}.tab.active{background:var(--primary);color:#fff}.panel{padding:20px}.metric-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.metric{padding:14px;background:#f8fbfa;border:1px solid var(--line);border-radius:13px}.metric b{display:block;font-size:18px;margin-top:4px}.timeline{display:grid;gap:10px}.timeline-item{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:start;padding:12px;border:1px solid var(--line);border-radius:12px}.timeline-item.done{opacity:.62}.template{padding:12px;border:1px solid var(--line);border-radius:12px;display:grid;gap:8px}.chat{display:grid;gap:10px;max-height:430px;overflow:auto;padding:6px}.bubble{max-width:76%;padding:10px 12px;border-radius:14px;background:#eef3f2}.bubble.me{margin-left:auto;background:var(--primary);color:#fff}.chat-input{display:flex;gap:8px;margin-top:12px}.chat-input textarea{min-height:46px}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}.table th{color:#607177;font-size:12px;text-transform:uppercase;letter-spacing:.05em}.alert{padding:12px 14px;border-radius:12px;background:#fff5df;border:1px solid #f2d79f;color:#76520a}.info{padding:12px 14px;border-radius:12px;background:#edf7f5;border:1px solid #bfe0da;color:#245c56}.danger-box{padding:12px 14px;border-radius:12px;background:#fff0f0;border:1px solid #f3c0c0;color:#912525}
+.sheet{position:fixed;z-index:80;inset:0;background:rgba(13,33,36,.35);display:grid;align-items:end}.sheet-card{background:#fff;border-radius:22px 22px 0 0;padding:22px;max-height:82vh;overflow:auto;width:min(520px,100%);margin:0 auto}.modal{position:fixed;z-index:90;inset:0;background:rgba(13,33,36,.40);display:grid;place-items:center;padding:18px}.modal-card{width:min(520px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:20px;padding:22px;box-shadow:var(--shadow)}
+.beta-launch-overlay{z-index:250;background:rgba(12,35,61,.64);backdrop-filter:blur(5px)}.beta-launch-card{border:1px solid #d3e3f1;border-radius:26px;padding:26px;box-shadow:0 24px 72px rgba(9,35,65,.24)}.beta-launch-card h2{margin:8px 0 12px;color:#133556;font-size:clamp(25px,5vw,30px);line-height:1.16}.beta-launch-card p{color:#405a70;font-size:17px;line-height:1.5}.beta-launch-card .small{font-size:14px}.beta-launch-card .btn{margin-top:18px;min-height:52px;font-size:17px}.beta-launch-mark{display:grid;place-items:center;width:48px;height:48px;border-radius:15px;background:#e6f2ff;color:#155eaa;font-size:28px;font-weight:800}
+.consent-copy{white-space:pre-line;max-height:48vh;overflow:auto;padding:14px;background:#f8fbfa;border:1px solid var(--line);border-radius:12px;font-size:13px;line-height:1.55}
+@media(max-width:880px){.desktop-shell{grid-template-columns:1fr}.side{height:auto;position:static;padding:14px 16px}.side .brand{margin:0}.side-nav{display:flex;overflow:auto;margin-top:12px}.side-foot{position:static;margin-top:10px}.desktop-main{padding:16px}.workspace{grid-template-columns:1fr}.patients-panel{height:auto;max-height:290px}.grid-3,.metric-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.grid-2,.grid-3,.metric-grid{grid-template-columns:1fr}.desktop-header{align-items:flex-start;flex-direction:column}.demo-grid{grid-template-columns:1fr}.auth-card{padding:20px}.tabs{overflow:auto}.patient-shell{box-shadow:none}}
+
+/* Meditaly professional UI v3 */
+body{background:#eef3f2}
+a{color:var(--primary-2)}
+.auth-hero{margin:4px 0 22px}.auth-hero h1{font-size:30px;line-height:1.08;margin:12px 0 8px;letter-spacing:-.7px;color:#183b38}.auth-hero p{margin:0;color:#657479;line-height:1.5}
+.security-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.security-strip>div{padding:9px;border-radius:11px;background:#f3f8f7;border:1px solid #dbe9e6;font-size:11px;text-align:center;font-weight:800;color:#47635f}
+.legal-box{display:grid;gap:11px;margin:16px 0;padding:15px;border-radius:14px;background:#fbfcfc;border:1px solid #e0e8e6;font-size:12px;line-height:1.45}.legal-box a{font-weight:800;text-decoration:none}.auth-primary{min-width:130px}.auth-foot{margin:14px 0 0;line-height:1.45}
+.brand-mini{display:flex;align-items:center;gap:10px}.brand-mark.mini{width:34px;height:34px;border-radius:10px;font-size:17px}.icon-btn{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:#fff;color:#315c58;font-size:18px}
+.pro-hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#0d5954 0%,#16766d 55%,#2a9b90 100%);color:#fff;border:none;box-shadow:0 16px 34px rgba(24,103,96,.18)}.pro-hero:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08);right:-70px;top:-75px}.pro-hero h1{font-size:32px;letter-spacing:-.8px;margin:3px 0 8px}.pro-hero p{margin:0 0 18px;color:#e9f8f6}.eyebrow{font-size:10px;letter-spacing:.16em;font-weight:900;opacity:.82}.eyebrow.dark{color:#60817c;opacity:1}.hero-actions{display:flex;gap:9px;flex-wrap:wrap;position:relative;z-index:2}.pro-hero .btn{background:#fff;color:#0f5d57}.pro-hero .btn.ghost.light{background:rgba(255,255,255,.10);color:#fff;border-color:rgba(255,255,255,.28)}
+.home-metrics{grid-template-columns:repeat(3,1fr)}.action-metric{border:1px solid var(--line);text-align:left;cursor:pointer}.action-metric small{display:block;color:#718087;font-weight:700}.action-metric b{font-size:25px;color:#183f3b}.metric-icon{display:inline-grid;width:30px;height:30px;place-items:center;border-radius:10px;background:#e6f4f1;color:#126b63;margin-bottom:8px}
+.section-head{display:flex;align-items:center;gap:12px}.status-dot{width:12px;height:12px;border-radius:50%;background:#c6cfcd;box-shadow:0 0 0 5px #f0f3f2}.status-dot.on{background:#38a56f;box-shadow:0 0 0 5px #e2f5ea}.status-dot.off{background:#d59f3f;box-shadow:0 0 0 5px #fff5df}
+.quick-grid{display:grid;gap:10px}.quick-card{appearance:none;text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:16px;padding:14px;display:grid;grid-template-columns:42px 1fr 20px;gap:12px;align-items:center;color:var(--text);text-align:left}.quick-card>span{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:#edf7f5;color:#176b64;font-size:18px}.quick-card strong{display:block;font-size:14px}.quick-card small{display:block;color:#718087;margin-top:3px;line-height:1.35}.quick-card>b{font-size:22px;color:#86a19d}.secure-footer{text-align:center;color:#72837f;font-size:11px;padding:4px 0 8px}
+.page-title{padding:2px 2px 4px}.page-title h1{font-size:29px;margin:4px 0 6px;letter-spacing:-.6px}.back-link{border:0;background:transparent;color:#1d726a;font-weight:800;padding:4px 0 12px}.doc-grid{display:grid;grid-template-columns:1fr;gap:10px}.doc-card{text-decoration:none;color:var(--text);display:flex;gap:12px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:15px;padding:14px}.doc-card>span{width:38px;height:38px;border-radius:11px;background:#eaf6f3;display:grid;place-items:center;color:#166a62}.doc-card strong,.doc-card small{display:block}.doc-card small{color:#778581;margin-top:3px}.legal-history{margin-top:14px}
+.notice{padding:12px 14px;border-radius:12px;background:#fff7dd;border:1px solid #eedc9b;margin-bottom:12px}.notice.ok{background:#e9f8ee;border-color:#b8dfc3;color:#215b3d}.notice.error{background:#fff0f0;border-color:#efbaba;color:#8d2727}
+@media(max-width:430px){.security-strip{grid-template-columns:1fr}.home-metrics{grid-template-columns:repeat(3,1fr);gap:8px}.action-metric{padding:11px}.action-metric b{font-size:22px}.action-metric small{font-size:10px}.pro-hero h1{font-size:29px}}
+
+
+/* Meditaly V5 - mobile professional polish */
+.field-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.text-link{border:0;background:transparent;color:var(--primary-2);font-size:12px;font-weight:850;padding:0}.text-link:hover{text-decoration:underline}
+.auth-card{border-radius:28px!important;box-shadow:0 24px 80px rgba(23,62,58,.14)!important}.auth-hero{padding:18px;border-radius:18px;background:linear-gradient(145deg,#edf8f5,#fffaf1);margin-bottom:18px}.auth-hero h1{margin:10px 0 6px;font-size:25px;letter-spacing:-.5px}.auth-hero p{margin:0;color:#61736f;line-height:1.5}.security-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.security-strip>div{font-size:11px;text-align:center;padding:9px 6px;border-radius:11px;background:#f2f7f5;color:#4b625e;font-weight:750}.legal-box{display:grid;gap:10px;background:#fafcfb;border:1px solid var(--line);padding:14px;border-radius:15px;margin:14px 0}.auth-primary{min-width:125px}
+.mobile-top{padding-top:max(14px,env(safe-area-inset-top));height:auto;box-shadow:0 4px 18px rgba(26,61,57,.04)}.brand-mini{display:flex;align-items:center;gap:10px}.brand-mark.mini{width:38px;height:38px;border-radius:13px;font-size:18px}.icon-btn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;font-weight:900;color:var(--primary-2)}
+.bottom-nav{grid-template-columns:repeat(5,1fr);padding:9px 8px max(10px,env(safe-area-inset-bottom));border-radius:20px 20px 0 0}.nav-btn{border-radius:14px;padding:7px 2px;transition:.18s}.nav-btn .nav-icon{width:31px;height:28px;border-radius:10px;display:grid;place-items:center;font-size:18px}.nav-btn.active{color:var(--primary-2)}.nav-btn.active .nav-icon{background:var(--primary-soft)}
+.pro-hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#124f4a 0%,#18796f 55%,#2e9d90 100%);color:#fff;border:0;box-shadow:0 18px 50px rgba(20,93,84,.22);padding:24px}.pro-hero .eyebrow{color:#bbebe4}.pro-hero h1{font-size:30px;letter-spacing:-.7px;margin:6px 0}.pro-hero p{margin:0 0 18px;color:#e8f8f5}.hero-orb{position:absolute;width:170px;height:170px;border-radius:50%;right:-55px;top:-65px;background:rgba(255,255,255,.08)}.hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-primary{background:#fff;color:#155d56}.hero-secondary{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28)}
+.home-metrics{grid-template-columns:repeat(3,1fr);gap:10px}.action-metric{border:1px solid var(--line);background:#fff;text-align:left;min-height:112px;box-shadow:0 7px 22px rgba(34,71,66,.05)}.metric-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;background:var(--primary-soft);color:var(--primary-2);font-weight:900}.action-metric small{display:block;color:var(--muted);margin-top:7px}.action-metric b{font-size:24px}.care-card{padding:20px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.care-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.status-dot{width:12px;height:12px;border-radius:50%;background:#c9d1cf;box-shadow:0 0 0 5px #f1f4f3}.status-dot.on{background:#38a773;box-shadow:0 0 0 5px #e6f6ee}.quick-grid{display:grid;gap:10px}.quick-card{width:100%;display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center;text-align:left;padding:15px;border-radius:16px;border:1px solid var(--line);background:#fff;color:inherit;text-decoration:none}.quick-card .quick-icon{width:42px;height:42px;border-radius:13px;background:#f0f7f5;color:var(--primary-2);display:grid;place-items:center;font-size:20px}.quick-card strong{display:block}.quick-card small{display:block;color:var(--muted);margin-top:3px}.secure-footer{text-align:center;color:#7a8b87;font-size:11px;padding:3px 0 7px}
+.page-title{padding:3px 2px}.page-title h1{margin:5px 0 5px;font-size:28px;letter-spacing:-.5px}.eyebrow{font-size:10px;letter-spacing:.14em;font-weight:900}.eyebrow.dark{color:var(--primary-2)}.upload-card{padding:20px;display:grid;gap:14px}.upload-icon{width:48px;height:48px;border-radius:15px;background:linear-gradient(145deg,var(--primary),#5abeb2);color:#fff;display:grid;place-items:center;font-size:26px}.file-drop{display:grid;place-items:center;text-align:center;gap:5px;padding:20px;border:1.5px dashed #a8c9c3;border-radius:16px;background:#f9fcfb;cursor:pointer}.file-drop>span{font-size:25px}.file-drop small{color:var(--muted)}.report-list{display:grid;gap:10px;margin-top:12px}.report-card{display:grid;grid-template-columns:48px 1fr 40px;align-items:center;gap:12px;padding:13px;border:1px solid var(--line);background:#fff;border-radius:16px}.report-file-icon{width:48px;height:48px;border-radius:14px;background:#eef7f5;color:var(--primary-2);display:grid;place-items:center;font-size:11px;font-weight:950}.report-body{min-width:0}.report-body strong,.report-body small{display:block}.report-body small{color:var(--muted);margin-top:4px}.empty-state{padding:32px 18px;text-align:center;border:1px dashed #cddbd8;border-radius:17px;color:var(--muted);display:grid;gap:7px}.empty-state>div{font-size:28px}.empty-state strong{color:var(--text)}
+@media(max-width:390px){.hero-actions,.care-actions,.grid-2{grid-template-columns:1fr}.security-strip{grid-template-columns:1fr 1fr}.nav-btn{font-size:10px}}
+
+/* V5.3 multi-page reports */
+.center{text-align:center}.page-preview-list{display:grid;gap:9px}.captured-page{display:grid;grid-template-columns:42px 1fr auto auto;gap:9px;align-items:center;padding:10px 11px;border:1px solid var(--line);border-radius:14px;background:#fbfdfc}.page-thumb{width:42px;height:42px;border-radius:12px;background:var(--primary-soft);color:var(--primary-2);display:grid;place-items:center;font-weight:950}.page-meta{min-width:0}.page-meta strong,.page-meta small{display:block}.page-meta small{color:var(--muted);margin-top:2px}.camera-drop{width:100%;font:inherit;color:inherit}
+
+/* V5.3 clinician dashboard */
+.clinician-shell{min-height:100vh;background:#f3f7f6;display:grid;grid-template-columns:250px minmax(0,1fr)}.clinician-side{background:linear-gradient(180deg,#153f3a,#0e302d);color:#fff;padding:20px 15px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column}.clinician-brand{margin-bottom:20px}.clinician-brand .brand-name{color:#fff}.clinician-user{display:flex;gap:11px;align-items:center;padding:13px;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.06);border-radius:16px;margin-bottom:18px}.clinician-user small{display:block;color:#bcd8d3;margin-top:2px}.avatar.large{width:46px;height:46px;background:#fff;color:#17685f}.clinician-nav{display:grid;gap:6px}.clinician-nav-btn{border:0;background:transparent;color:#d8ebe8;padding:11px 12px;border-radius:12px;text-align:left;font-weight:850;display:flex;gap:10px;align-items:center}.clinician-nav-btn:hover,.clinician-nav-btn.active{background:rgba(255,255,255,.12);color:#fff}.clinician-side .side-foot{margin-top:auto;position:static;display:grid;gap:4px}.clinician-main{min-width:0}.clinician-top{padding:22px 28px 15px;display:flex;justify-content:space-between;align-items:center;gap:14px;background:rgba(243,247,246,.92);backdrop-filter:blur(8px);position:sticky;top:0;z-index:15}.clinician-top h1{margin:4px 0 0;font-size:26px}.secure-chip{padding:9px 12px;border-radius:999px;background:#e7f4f1;color:#1f6d65;font-size:12px;font-weight:900}.clinician-content{padding:12px 28px 30px;display:grid;gap:16px}.clinician-hero{background:linear-gradient(135deg,#1a756b,#2d9588);color:#fff;border-radius:22px;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;box-shadow:0 16px 34px rgba(25,92,84,.18)}.clinician-hero h2{font-size:27px;margin:4px 0 7px}.clinician-hero p{margin:0;color:#e3f4f1}.clinical-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.clinical-kpi{background:#fff;border:1px solid var(--line);border-radius:17px;padding:16px}.clinical-kpi span,.clinical-kpi small{display:block;color:var(--muted)}.clinical-kpi b{display:block;font-size:27px;margin:5px 0 2px}.clinical-kpi.warn{background:#fff9eb;border-color:#f1ddb1}.clinical-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.clinical-card{padding:18px}.clinical-row{width:100%;border:0;border-top:1px solid var(--line);background:transparent;padding:11px 2px;display:flex;gap:11px;align-items:center;text-align:left;color:var(--text)}.clinical-row:first-of-type{border-top:0}.clinical-row:hover{background:#f8fbfa}.clinical-row strong,.clinical-row small{display:block}.clinical-row small{color:var(--muted);margin-top:3px}.date-tile{width:46px;height:50px;border-radius:13px;background:var(--primary-soft);color:var(--primary-2);display:grid;place-items:center;line-height:1;flex:0 0 auto}.date-tile b{font-size:17px}.date-tile span{font-size:10px;text-transform:uppercase;font-weight:900}.activity-icon{width:40px;height:40px;border-radius:12px;background:#eef7f5;color:var(--primary-2);display:grid;place-items:center;font-weight:900}.activity-icon.big{width:60px;height:60px;font-size:28px;margin:auto}.clinician-workspace{display:grid;grid-template-columns:310px minmax(0,1fr);gap:14px}.patient-list-panel{padding:15px;align-self:start;position:sticky;top:98px;max-height:calc(100vh - 118px);overflow:auto}.patient-list{display:grid;gap:5px;margin-top:10px}.patient-list-panel .patient-row{border-radius:14px}.patient-row span:last-child strong,.patient-row span:last-child small{display:block}.patient-row span:last-child small{color:var(--muted);font-size:11px;margin-top:3px}.patient-detail-panel{min-width:0}.empty-patient{text-align:center;padding:60px 20px}.agenda-list{display:grid}.clinician-bottom-nav{display:none}.badge.danger{background:#fdeaea;color:#a53232}.bubble small{display:block;opacity:.72;font-size:10px;margin-top:5px}
+@media(max-width:900px){.clinician-shell{grid-template-columns:1fr}.clinician-side{display:none}.clinician-top{padding:15px 17px}.clinician-content{padding:10px 14px 88px}.clinician-hero{padding:19px;align-items:flex-start;flex-direction:column}.clinical-kpis{grid-template-columns:1fr 1fr}.clinical-grid{grid-template-columns:1fr}.clinician-workspace{grid-template-columns:1fr}.patient-list-panel{position:static;max-height:300px}.clinician-bottom-nav{display:grid;position:fixed;bottom:0;left:0;right:0;z-index:30;grid-template-columns:repeat(4,1fr);background:#fff;border-top:1px solid var(--line);padding:8px 6px max(9px,env(safe-area-inset-bottom));box-shadow:0 -8px 26px rgba(31,60,65,.08)}}
+
+
+/* Meditaly 2FA / Google Authenticator */
+.mfa-shell{min-height:100vh;display:grid;place-items:center;padding:24px 16px;background:radial-gradient(circle at top,#e9f6f3 0,#f5f8f7 44%,#eef4f2 100%)}
+.mfa-card{width:min(100%,520px);background:#fff;border:1px solid #dce9e5;border-radius:28px;padding:26px;box-shadow:0 24px 70px rgba(20,67,61,.14);position:relative;overflow:hidden}
+.mfa-card:before{content:'';position:absolute;inset:0 0 auto;height:5px;background:linear-gradient(90deg,#176b64,#45aa9c)}
+.mfa-brand{display:flex;align-items:center;gap:11px;margin-bottom:24px}.mfa-brand strong,.mfa-brand small{display:block}.mfa-brand small{font-size:11px;color:var(--muted);margin-top:2px}
+.mfa-icon{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;margin:4px auto 16px;background:#edf8f5;color:#176b64;font-size:29px;font-weight:950}.mfa-icon.shield{box-shadow:inset 0 0 0 1px #cfe6e0}
+.mfa-card h1{text-align:center;margin:6px 0 9px;font-size:27px;letter-spacing:-.5px}.mfa-card>p{text-align:center;color:#647773;line-height:1.55;margin:0 auto 18px;max-width:430px}.mfa-card .eyebrow{text-align:center}.mfa-primary{width:100%;padding:13px 16px;border-radius:14px}.mfa-secondary-action{width:100%;margin-top:9px}.mfa-help{margin-top:16px;padding:12px 14px;border-radius:13px;background:#f7faf9;color:#6f807c;font-size:11px;line-height:1.5;text-align:center}
+.mfa-code-wrap{display:grid;place-items:center;margin:18px 0 6px}.mfa-code{font-size:30px!important;letter-spacing:.24em!important;text-align:center!important;font-weight:900!important;padding:13px 10px!important;border:1.5px solid #b9d4ce!important;border-radius:14px!important;background:#fbfdfc!important}
+.mfa-benefits{display:grid;gap:8px;margin:18px 0;padding:14px;border-radius:15px;background:#f7fbfa;color:#47625d;font-size:13px;font-weight:700}.mfa-step{display:inline-flex;padding:6px 9px;border-radius:999px;background:#edf6f4;color:#1c6b63;font-size:10px;font-weight:900;letter-spacing:.06em}.mfa-setup-box{margin-top:20px;border-top:1px solid var(--line);padding-top:18px}.mfa-setup-box h2{margin:10px 0 5px}.mfa-google{width:100%;background:#fff;color:#1f403b;border:1px solid #cbded9;box-shadow:none}.mfa-or{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;color:#94a39f;font-size:11px;margin:16px 0}.mfa-or span{height:1px;background:#e1eae7}.mfa-qr{width:210px;height:210px;margin:0 auto 16px;border:1px solid #d7e5e1;border-radius:18px;padding:12px;background:#fff;display:grid;place-items:center;box-shadow:0 8px 24px rgba(20,67,61,.07)}.mfa-qr img{width:100%;height:100%;object-fit:contain}.mfa-secret{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:14px;background:#fbfdfc;margin-bottom:14px}.mfa-secret small,.mfa-secret strong{display:block}.mfa-secret small{color:var(--muted);margin-bottom:4px}.mfa-secret strong{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;word-break:break-all;letter-spacing:.04em}
+@media(max-width:430px){.mfa-card{padding:22px 18px;border-radius:24px}.mfa-card h1{font-size:24px}.mfa-qr{width:190px;height:190px}.mfa-code{font-size:27px!important}}
+
+/* Meditaly ownership footer */
+.creator-footer{margin:8px 0 90px;text-align:center;color:#7b8d89;font-size:10.5px;line-height:1.55;padding:10px 14px;border-top:1px solid #e6eeec}.creator-footer strong{color:#4c625e;font-weight:800}
+
+/* 2FA V5.6: OTP immediately visible after returning from Google Authenticator */
+.mfa-otp-first{margin-top:14px;padding:14px;border-radius:16px;background:#f4faf8;border:1px solid #dcebe7}.mfa-otp-first label{display:block;text-align:center;margin-bottom:10px;font-size:13px;color:#294d47}.mfa-success{text-align:center}.mfa-success .notice{margin:16px 0}
+.admin-mode-btn{background:#edf8f5;border-color:#cfe8e2;color:#17685f}
+.admin-context-banner{margin:16px 16px 10px;padding:14px 16px;border:1px solid #d8ebe7;border-radius:16px;background:#f4faf8;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.admin-context-banner>div{display:grid;gap:3px;min-width:220px;flex:1}.admin-context-banner span{font-size:12px;color:#70837f}
+@media(max-width:560px){.admin-context-banner{margin:12px}.admin-context-banner .btn{width:100%}}
+
+
+/* V5.9 - password visibility control */
+.password-wrap{position:relative}.password-wrap .password-input{padding-right:52px}.password-eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:38px;height:38px;border:0;border-radius:11px;background:transparent;color:#42645f;display:grid;place-items:center;cursor:pointer;font-size:18px;line-height:1}.password-eye:hover,.password-eye:focus-visible{background:#edf7f4;outline:none;box-shadow:0 0 0 2px rgba(36,126,114,.14)}
+
+/* V6.0 - Meditaly patient home redesign with Medi */
+.new-ui{background:linear-gradient(180deg,#f7fbff 0,#eef7ff 56%,#f8fbff 100%)}
+.new-ui .mobile-content{padding:12px 14px 102px;max-width:680px;margin:0 auto}
+.new-ui .mobile-top{background:rgba(248,252,255,.92);backdrop-filter:blur(14px);border-bottom:0;padding:14px 16px}
+.new-ui .brand-mini .brand-mark{background:#0b59b5;color:#fff;border-radius:15px;box-shadow:0 7px 18px rgba(15,96,190,.22)}
+.new-ui .brand-mini strong{font-size:21px;color:#0d438e;letter-spacing:-.4px}
+.medi-hero-card{position:relative;min-height:250px;border-radius:28px;padding:24px 18px 20px;background:linear-gradient(135deg,#edf7ff 0%,#dceeff 100%);border:1px solid #d5e9fb;overflow:hidden;box-shadow:0 12px 30px rgba(30,104,175,.09);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(130px,.9fr);align-items:stretch}
+.medi-copy{position:relative;z-index:3;align-self:center}.medi-copy h1{font-size:31px;line-height:1.05;color:#0d3f89;margin:0 0 6px;letter-spacing:-.8px}.medi-copy h1 span{font-size:25px}.medi-sub{color:#426c9c;font-size:16px;line-height:1.25;margin-bottom:15px}.medi-sub strong{color:#0d4b9e;font-size:20px}.medi-message{background:rgba(255,255,255,.88);border:1px solid rgba(255,255,255,.9);padding:14px 15px;border-radius:18px;color:#285a92;font-size:14px;line-height:1.48;box-shadow:0 8px 20px rgba(35,104,175,.07)}
+.medi-avatar-wrap{position:relative;min-width:0;display:flex;align-items:flex-end;justify-content:center}.medi-avatar{width:185px;max-width:185%;height:225px;object-fit:cover;object-position:50% 15%;border-radius:44% 44% 22% 22%;mix-blend-mode:multiply;filter:saturate(1.04);transform:translateY(10px)}.medi-tap{position:absolute;inset:0;border:0;background:transparent;cursor:pointer}
+.home-icon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 16px}.home-icon-card{position:relative;min-height:104px;border:1px solid #dcebf7;background:rgba(255,255,255,.95);border-radius:20px;box-shadow:0 8px 22px rgba(20,75,125,.07);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#153f78;font:inherit;padding:10px 4px}.home-icon-card:active{transform:scale(.98)}.home-icon-card strong{font-size:12px;line-height:1.1}.home-ico{font-size:30px;filter:saturate(1.1)}.home-badge{position:absolute;top:8px;right:8px;background:#f43e50;color:#fff;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:11px;border:2px solid #fff;box-shadow:0 4px 10px rgba(244,62,80,.25)}
+.next-card{background:#fff;border:1px solid #dbeaf7;border-radius:24px;padding:17px 15px;box-shadow:0 10px 28px rgba(32,91,143,.07)}.next-head{display:flex;align-items:center;gap:12px;margin-bottom:7px}.next-head h2{margin:0;color:#123f7c;font-size:23px;letter-spacing:-.45px}.next-head .text-link{margin-left:auto;color:#0f76e9;font-weight:800}.next-list{display:grid}.next-row{display:grid;grid-template-columns:48px 1fr auto 18px;gap:10px;align-items:center;border:0;border-top:1px solid #edf3f8;background:transparent;padding:12px 3px;text-align:left;color:#173f72;font:inherit}.next-row:first-child{border-top:0}.next-symbol{width:44px;height:44px;border-radius:16px;background:#e9f4ff;display:grid;place-items:center;font-size:23px}.next-row span:nth-child(2) strong,.next-row span:nth-child(2) small{display:block}.next-row span:nth-child(2) strong{font-size:15px}.next-row span:nth-child(2) small{color:#5b7da5;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px}.next-row em{font-style:normal;color:#5379a6;font-size:12px;white-space:nowrap}.next-row>b{font-size:24px;color:#55779f}.next-empty{padding:10px;color:#718aa4;font-size:13px}
+.health-quote{width:100%;border:0;border-radius:23px;margin:15px 0 3px;padding:17px 20px;background:linear-gradient(135deg,#83c5ff,#3d9fec);color:#fff;font:italic 500 17px/1.35 Georgia,serif;box-shadow:0 10px 24px rgba(39,136,219,.18)}.v6-footer{margin:6px 0 6px;border-top:0;color:#507199;font-size:10.5px}.v6-footer strong{color:#345e8f}
+.medi-modal{position:fixed;inset:0;background:rgba(10,39,72,.38);backdrop-filter:blur(6px);z-index:100;display:grid;place-items:end center;padding:18px}.medi-modal.hidden{display:none}.medi-modal-card{position:relative;width:min(100%,540px);background:#fff;border-radius:28px;padding:22px;box-shadow:0 24px 70px rgba(8,45,84,.28);display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:center}.medi-modal-card img{width:120px;height:155px;object-fit:cover;object-position:50% 10%;border-radius:24px;background:#eff7ff}.medi-modal-card h2{margin:5px 0 7px;color:#123f7c}.medi-modal-card p{color:#58738e;line-height:1.48}.medi-close{position:absolute;right:13px;top:10px;width:34px;height:34px;border:0;border-radius:50%;background:#eff5fa;color:#315b85;font-size:24px}.medi-actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.more-grid{display:grid;gap:10px}.v6-page{padding:4px 2px 10px}.admin-entry{border-color:#cbe7df;background:#f1fbf8}
+.v6-nav{grid-template-columns:repeat(4,1fr);background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-top:1px solid #deebf5;box-shadow:0 -8px 28px rgba(31,87,137,.08)}.v6-nav .nav-btn{color:#6e87a2}.v6-nav .nav-btn.active{color:#0d78ec}.v6-nav .nav-btn.active:before{background:#1786f5}.v6-nav .nav-icon{font-size:20px}
+@media(max-width:430px){.medi-hero-card{min-height:230px;padding:20px 14px;grid-template-columns:minmax(0,1.08fr) minmax(112px,.92fr)}.medi-copy h1{font-size:27px}.medi-sub{font-size:14px}.medi-sub strong{font-size:18px}.medi-message{font-size:12.5px;padding:12px}.medi-avatar{width:165px;height:205px}.home-icon-grid{gap:8px}.home-icon-card{min-height:94px;border-radius:18px}.home-ico{font-size:27px}.home-icon-card strong{font-size:11px}.next-head h2{font-size:21px}.next-row{grid-template-columns:44px 1fr auto 14px}.next-row em{font-size:11px}.medi-modal-card{grid-template-columns:90px 1fr;padding:18px}.medi-modal-card img{width:90px;height:125px}}
+
+/* V6.2 - Hybrid V5.6/V6 visual system */
+.new-ui{background:linear-gradient(180deg,#f7fbfa 0,#f3f8f7 62%,#f8fbfa 100%)}
+.new-ui .mobile-top{background:rgba(255,255,255,.96);border-bottom:1px solid #e4eeeb;box-shadow:0 3px 14px rgba(28,72,66,.04)}
+.new-ui .brand-mini .brand-mark{background:linear-gradient(145deg,#247e72,#3fa69a);box-shadow:0 6px 16px rgba(36,126,114,.17)}
+.new-ui .brand-mini strong{color:#153e39;font-size:20px}
+.medi-hero-card{min-height:220px;border-radius:23px;background:linear-gradient(135deg,#f2faf8 0%,#e6f4f1 100%);border:1px solid #d8ebe6;box-shadow:0 9px 24px rgba(27,93,84,.07);padding:22px 18px}
+.medi-copy h1{color:#173f39;font-size:29px}.medi-sub{color:#5c7974}.medi-sub strong{color:#247e72}.medi-message{color:#3f625d;border:1px solid #e0ece9;box-shadow:none;background:rgba(255,255,255,.9)}
+.medi-sub-row,.medi-title-row{display:flex;align-items:center;gap:10px}.medi-sub-row .medi-sub{margin-bottom:0;flex:1}.medi-title-row h2{margin-right:auto}
+.medi-speak{width:40px;height:40px;border:1px solid #cde4df;background:#fff;border-radius:13px;display:grid;place-items:center;font-size:17px;cursor:pointer;box-shadow:0 5px 14px rgba(27,93,84,.07)}.medi-speak.small{width:36px;height:36px}.medi-speak:active{transform:scale(.96)}
+.home-icon-card{border-color:#dfeae7;box-shadow:0 6px 18px rgba(28,76,69,.05);color:#244e48;border-radius:17px;min-height:98px}.home-icon-card strong{font-size:11.5px}.home-badge{background:#e84e5a}.next-card{border-color:#dfeae7;border-radius:20px;box-shadow:0 7px 22px rgba(28,76,69,.05)}.next-head h2{color:#244e48}.next-head .text-link{color:#247e72}.next-symbol{background:#edf7f4}.next-row{color:#284f49}.health-quote{background:linear-gradient(135deg,#4ba99b,#2f8579);box-shadow:0 8px 20px rgba(47,133,121,.16);font-size:16px}.v6-nav .nav-btn.active{color:#247e72}.v6-nav .nav-btn.active:before{background:#247e72}
+
+/* V6.2 - premium messaging */
+.chat-screen{min-height:calc(100vh - 180px);display:grid;grid-template-rows:auto auto minmax(320px,1fr) auto;background:#f7faf9;border:1px solid #e0ebe8;border-radius:22px;overflow:hidden;box-shadow:0 10px 26px rgba(25,71,64,.06)}
+.chat-header{display:flex;align-items:center;gap:10px;padding:13px 14px;background:#fff;border-bottom:1px solid #e5eeec}.chat-header strong,.chat-header small{display:block}.chat-header strong{color:#203f3b;font-size:15px}.chat-header small{color:#7d918d;font-size:10.5px;margin-top:2px}.chat-back{width:34px;height:34px;border:0;background:#f2f7f6;border-radius:11px;font-size:25px;color:#416660}.chat-doctor-avatar,.conversation-avatar,.chat-avatar{display:grid;place-items:center;border-radius:50%;font-weight:900;background:linear-gradient(145deg,#dff2ee,#c9e8e2);color:#20756b}.chat-doctor-avatar{width:42px;height:42px}.secure-dot{font-size:15px}.chat-notice{font-size:10.5px;line-height:1.4;color:#6d837e;background:#eef7f5;padding:8px 13px;border-bottom:1px solid #dcebe7}.chat-thread{overflow:auto;padding:14px 11px 18px;display:flex;flex-direction:column;gap:6px;background:linear-gradient(180deg,#f7faf9,#f2f7f6)}.chat-day{text-align:center;margin:8px 0}.chat-day span{display:inline-block;padding:5px 10px;border-radius:999px;background:#e6efed;color:#718681;font-size:10px;font-weight:800}.chat-line{display:flex;align-items:flex-end;gap:7px;max-width:88%}.chat-line.mine{align-self:flex-end}.chat-line.theirs{align-self:flex-start}.chat-avatar{width:29px;height:29px;flex:0 0 auto;font-size:11px}.chat-bubble{padding:9px 11px 6px;border-radius:17px 17px 17px 5px;background:#fff;border:1px solid #e2ebe9;box-shadow:0 4px 12px rgba(24,68,61,.04);min-width:80px}.chat-line.mine .chat-bubble{background:#dff3ee;border-color:#cce8e2;border-radius:17px 17px 5px 17px}.chat-text{font-size:13.5px;line-height:1.42;color:#243f3b;white-space:pre-wrap;word-break:break-word}.chat-meta{text-align:right;color:#81928f;font-size:9.5px;margin-top:4px}.chat-meta span{color:#2d8b7f;font-weight:900}.chat-compose{display:grid;grid-template-columns:1fr 45px;gap:9px;align-items:end;padding:10px 11px;background:#fff;border-top:1px solid #e3ecea}.chat-compose textarea{resize:none;min-height:42px;max-height:120px;border:1px solid #d6e5e1;border-radius:16px;padding:11px 13px;font:inherit;font-size:13px;outline:none;background:#fbfdfc}.chat-compose textarea:focus{border-color:#76b9ae;box-shadow:0 0 0 3px rgba(56,151,136,.09)}.chat-send{width:45px;height:45px;border:0;border-radius:15px;background:#247e72;color:#fff;font-size:18px;display:grid;place-items:center;box-shadow:0 7px 15px rgba(36,126,114,.2)}.chat-send:disabled{opacity:.5}.chat-empty-inline{text-align:center;color:#80928e;font-size:12px;margin:auto;padding:30px}.chat-empty{text-align:center;padding:35px 20px;display:grid;gap:7px}.chat-empty-icon{font-size:34px}
+.messages-workspace{display:grid;grid-template-columns:minmax(260px,.7fr) minmax(420px,1.3fr);gap:14px;align-items:start}.conversation-list{padding:12px}.conversation-search{margin:8px 0 6px}.conversation-row{width:100%;border:0;border-top:1px solid #edf2f0;background:#fff;display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:10px;padding:11px 5px;text-align:left;font:inherit}.conversation-row:first-of-type{border-top:0}.conversation-row:hover{background:#f7fbfa}.conversation-avatar{width:42px;height:42px}.conversation-copy{min-width:0}.conversation-copy strong,.conversation-copy small{display:block}.conversation-copy strong{color:#284943;font-size:13px}.conversation-copy small{color:#80918e;font-size:10.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:210px;margin-top:3px}.conversation-side{display:grid;justify-items:end;gap:5px}.conversation-side time{font-size:9.5px;color:#90a09d}.conversation-side b{width:20px;height:20px;border-radius:50%;background:#247e72;color:#fff;display:grid;place-items:center;font-size:9px}.premium-thread{padding:0;overflow:hidden}.thread-head{display:flex;align-items:center;gap:10px;padding:13px 15px;border-bottom:1px solid #e4eeeb;background:#fff}.thread-head strong,.thread-head small{display:block}.thread-head small{color:#81918e;font-size:10px;margin-top:2px}.clinician-thread{height:min(62vh,560px)}
+
+/* V6.2 - reports */
+.report-card{grid-template-columns:48px 1fr auto}.report-actions{display:flex;gap:6px}.report-actions .icon-btn{width:38px;height:38px}.report-share{color:#247e72;background:#eff8f5}.camera-drop{background:linear-gradient(180deg,#fbfefd,#f4faf8);border-color:#9ccdc4}.camera-drop strong{color:#215e55}.upload-card{border-color:#dfeae7;box-shadow:0 8px 22px rgba(28,76,69,.05)}
+
+@media(max-width:760px){.messages-workspace{grid-template-columns:1fr}.message-thread-panel{min-width:0}.conversation-copy small{max-width:240px}.clinician-thread{height:58vh}}
+@media(max-width:430px){.medi-hero-card{min-height:210px;border-radius:20px}.medi-speak{width:37px;height:37px}.chat-screen{border-radius:18px;min-height:calc(100vh - 170px)}.chat-thread{min-height:360px}.conversation-copy small{max-width:180px}}
+
+/* V6.3 daily monitoring */
+.daily-checkin-card{margin:14px 0;background:#fff;border:1px solid #dceaf6;border-radius:22px;padding:17px;box-shadow:0 12px 34px rgba(31,90,140,.08)}
+.daily-checkin-card.done{background:linear-gradient(180deg,#fff,#f8fcff)}
+.daily-checkin-head{display:flex;gap:12px;justify-content:space-between;align-items:flex-start}.daily-checkin-head h2{margin:3px 0 5px;color:#153f78;font-size:21px}.daily-checkin-head p{margin:0;color:#68819a;font-size:13px;line-height:1.45}.medi-speak.mini{width:38px;height:38px;flex:0 0 38px}
+.mood-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.mood-btn{border:1px solid #dfe9ef;background:#fff;border-radius:16px;padding:11px 7px;display:flex;flex-direction:column;align-items:center;gap:5px;color:#244a70;font-weight:800}.mood-btn span{font-size:27px}.mood-btn.green{background:#f0fbf4}.mood-btn.yellow{background:#fff9e9}.mood-btn.red{background:#fff2f2}.mood-btn.selected{outline:3px solid rgba(15,104,209,.18);border-color:#0b68d1}
+.center-link-card{margin:12px 0;border:1px dashed #a9c9e8;background:#f8fcff;border-radius:18px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px}.center-link-card>div{display:flex;align-items:center;gap:10px}.center-link-card strong,.center-link-card small{display:block}.center-link-card small{color:#6a829b;margin-top:2px}.center-link-icon{width:40px;height:40px;border-radius:12px;background:#e9f4ff;display:grid;place-items:center;font-size:21px}.center-link-card.linked{border-style:solid;background:#f3fbf8}
+.reason-grid{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.reason-chip input{display:none}.reason-chip span{display:block;border:1px solid #d9e6ee;background:#f7fbfd;padding:8px 10px;border-radius:999px;font-size:13px;color:#37566f}.reason-chip input:checked+span{background:#0b68d1;color:#fff;border-color:#0b68d1}.checkin-modal-card{max-width:520px}.textarea{width:100%;border:1px solid #cedce4;border-radius:12px;padding:11px 12px;resize:vertical}
+.home-icon-card small{font-size:10px;color:#6d8298;display:block;margin-top:2px;line-height:1.2}
+@media(max-width:520px){.mood-row{gap:6px}.mood-btn{padding:9px 3px}.mood-btn strong{font-size:11px}.center-link-card{align-items:flex-start}.center-link-card .btn{padding:9px 10px;font-size:12px}}
+
+/* V6.4 - doctor directory + patient imports */
+.doctor-directory{display:grid;gap:10px}.doctor-card{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:14px;border:1px solid #dceaf7;border-radius:16px;background:#fff}.doctor-avatar{width:48px;height:48px;border-radius:15px;background:#edf6ff;display:grid;place-items:center;font-size:24px}.doctor-card small{display:block;color:#6b829a;margin-top:3px}.doctor-current{border-color:#cfe4f7;background:linear-gradient(180deg,#fff,#f7fbff)}
+.import-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 14px}.choice-card{border:1px solid #dce8f2;background:#fff;border-radius:16px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:24px;color:#20466b}.choice-card strong{font-size:13px}.choice-card.active{border-color:#1677e8;background:#eef6ff;box-shadow:0 0 0 2px rgba(22,119,232,.08)}.photo-import{text-align:left}.photo-import>.upload-icon{margin:0 auto 8px}.notice{margin:12px 0;padding:12px;border-radius:12px;background:#eef7ff;color:#244b73}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.tabs button{border:0;background:#eef5f8;padding:9px 12px;border-radius:10px;cursor:pointer}.tabs button.on{background:#173f69;color:#fff}
+@media(max-width:520px){.import-choice{grid-template-columns:1fr 1fr 1fr}.doctor-card{grid-template-columns:auto 1fr}.doctor-card .btn{grid-column:1/-1;width:100%}}
+
+/* =========================================================
+   MEDITALY FINAL BLUE UI — POST RC1
+   Reference: approved login screen + final continuity brief
+   ========================================================= */
+:root{
+  --primary:#1677e8;
+  --primary-2:#0b5ebc;
+  --primary-soft:#edf6ff;
+  --accent:#7ec8ff;
+  --bg:#f6faff;
+  --surface:#ffffff;
+  --text:#17365d;
+  --muted:#6c83a0;
+  --line:#dceaf7;
+  --danger:#d92f3d;
+  --warn:#e9a11b;
+  --success:#2f9c69;
+  --shadow:0 18px 52px rgba(31,89,151,.10);
+}
+html,body{background:var(--bg);color:var(--text)}
+body{background:linear-gradient(180deg,#f4faff 0%,#ffffff 36%,#f7fbff 100%)}
+a{color:var(--primary-2)}
+.card{border-color:var(--line);box-shadow:0 10px 30px rgba(31,89,151,.06)}
+.btn{background:linear-gradient(135deg,#1677e8,#0f68d0);box-shadow:0 8px 20px rgba(22,119,232,.17)}
+.btn.secondary{background:#eef6ff;color:#0d63bd;border:1px solid #d6e9fb}
+.btn.ghost{color:#0d63bd;border-color:#cfe3f6;background:#fff}
+.input,.select,.textarea{border-color:#d3e2f0;color:#17365d}.input:focus,.select:focus,.textarea:focus{border-color:#2785eb;box-shadow:0 0 0 3px rgba(22,119,232,.10)}
+.badge{background:#edf6ff;color:#0d63bd}.badge.success{background:#edf8f2;color:#287b56}.badge.warn{background:#fff7e6;color:#8b630d}.badge.danger{background:#fff0f1;color:#a92b36}
+.choice.active,.tabs button.on{border-color:#1677e8;background:#1677e8;color:#fff}
+
+/* Brand heart + ECG */
+.meditaly-heart-mark{position:relative;background:linear-gradient(145deg,#1683ee,#0c62c3)!important;color:#fff!important;overflow:hidden;box-shadow:0 10px 24px rgba(22,119,232,.22)!important}
+.meditaly-heart-mark .heart-glyph{font-size:27px;line-height:1;transform:translateY(-1px)}
+.meditaly-heart-mark .ecg-glyph{position:absolute;color:#fff;font-size:22px;font-weight:900;left:50%;top:50%;transform:translate(-50%,-52%) rotate(-7deg);text-shadow:0 1px 1px rgba(0,0,0,.05)}
+.meditaly-heart-mark.mini .heart-glyph{font-size:21px}.meditaly-heart-mark.mini .ecg-glyph{font-size:16px}
+.brand-name{color:#0d5fb7}.brand-payoff{font-size:12px;color:#7388a2;font-weight:700;margin-top:1px}
+
+/* Approved login composition */
+.final-auth{display:block;min-height:100vh;padding:0;background:
+  radial-gradient(circle at 90% 8%,rgba(87,178,255,.17),transparent 28%),
+  radial-gradient(circle at 5% 62%,rgba(126,200,255,.12),transparent 28%),
+  linear-gradient(180deg,#fbfdff 0%,#eef7ff 46%,#f9fcff 100%);overflow:auto}
+.auth-stage{width:min(1120px,100%);margin:0 auto;padding:24px 20px 34px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(340px,.8fr);gap:22px;align-items:start}
+.login-brandbar{grid-column:1/-1;padding:4px 2px 0}.brand-lockup{display:flex;align-items:center;gap:12px}.brand-lockup .brand-mark{width:50px;height:50px;border-radius:16px}.brand-lockup .brand-name{font-size:29px;font-weight:950;letter-spacing:-.5px}
+.login-hero-card{min-height:560px;position:relative;overflow:hidden;border-radius:30px;padding:42px;background:linear-gradient(135deg,#eaf6ff 0%,#dff1ff 55%,#f8fcff 100%);border:1px solid #d4eafa;box-shadow:0 24px 65px rgba(29,91,153,.10);display:grid;grid-template-columns:minmax(0,1fr) minmax(190px,.68fr);gap:24px;align-items:center}
+.login-hero-card:before{content:"";position:absolute;width:400px;height:400px;border-radius:50%;right:-140px;bottom:-150px;border:1px solid rgba(80,163,232,.25);box-shadow:0 0 0 36px rgba(255,255,255,.22),0 0 0 78px rgba(255,255,255,.12)}
+.login-hero-copy{position:relative;z-index:2}.login-kicker{display:inline-block;font-size:11px;font-weight:950;letter-spacing:.14em;color:#1370c9;margin-bottom:15px}.login-hero-card h1{margin:0;font-size:46px;line-height:1.03;letter-spacing:-1.4px;color:#123c70}.login-hero-card h1 span{color:#1677e8}.login-hero-card p{font-size:16px;line-height:1.65;color:#617d9d;max-width:600px;margin:18px 0 26px}
+.login-feature-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.login-feature{display:flex;align-items:center;gap:9px;padding:12px;border-radius:16px;background:rgba(255,255,255,.82);border:1px solid rgba(203,226,246,.95);box-shadow:0 7px 20px rgba(31,89,151,.05)}.login-feature>span{width:36px;height:36px;display:grid;place-items:center;border-radius:11px;background:#edf7ff}.login-feature strong,.login-feature small{display:block}.login-feature strong{font-size:12px;color:#1d4b78}.login-feature small{font-size:9.5px;color:#7a91aa;margin-top:2px}
+.login-medi-wrap{position:relative;z-index:2;display:grid;place-items:center;align-self:end}.login-medi-halo{position:absolute;width:250px;height:250px;border-radius:50%;background:rgba(255,255,255,.65);filter:blur(2px)}.login-medi{width:min(300px,100%);position:relative;z-index:2;filter:drop-shadow(0 20px 28px rgba(44,98,150,.17));border-radius:24px;mix-blend-mode:multiply}
+.final-login-card{width:100%;padding:28px;border-radius:26px;border:1px solid #dceaf7;box-shadow:0 22px 65px rgba(31,89,151,.11);background:rgba(255,255,255,.96);backdrop-filter:blur(12px)}
+.login-card-heading{display:flex;align-items:center;gap:12px;margin-bottom:22px}.login-mini-shield{width:38px;height:38px;border-radius:12px;background:#eaf5ff;color:#1474d3;display:grid;place-items:center;font-weight:900}.login-card-heading h2{margin:0;font-size:28px;letter-spacing:-.5px;color:#143b68}.login-card-heading p{margin:4px 0 0;color:#7187a0;font-size:13px}
+.auth-input-wrap{position:relative}.auth-input-wrap .input{padding-left:42px;height:48px;background:#fbfdff}.password-wrap.auth-input-wrap .password-input{padding-left:42px;padding-right:46px}.auth-input-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);z-index:2;font-size:15px;filter:grayscale(.4)}
+.login-primary{height:49px;margin-top:16px;border-radius:14px;font-size:15px;display:flex;align-items:center;justify-content:center;gap:10px}.login-primary span{font-size:19px}.login-outline{height:47px;border:1px solid #bfdaf4;background:#fff;color:#0e65c2;box-shadow:none}.login-divider{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;color:#90a2b4;font-size:11px;margin:15px 0}.login-divider:before,.login-divider:after{content:"";height:1px;background:#e1ebf4}.login-divider span{padding:0 2px}.registration-fields{display:grid;gap:13px;margin-top:14px}.login-legal-box{background:#f8fbff;border-color:#dcebf8}.beta-note{display:grid;gap:3px;background:#fff8e8;border:1px solid #f0dfaa;border-radius:13px;padding:11px 12px;font-size:11px;color:#6f5a1b}.beta-note strong{color:#7c5c08}.login-trust{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}.login-trust span{font-size:9.5px;color:#7890a8;background:#f4f9fd;border:1px solid #e1edf7;padding:6px 8px;border-radius:999px}.auth-copyright{grid-column:1/-1;text-align:center;color:#8397ab;font-size:10.5px;line-height:1.5;padding:4px}
+
+/* Patient app final blue theme */
+.patient-shell{background:#fbfdff;box-shadow:0 0 0 1px rgba(16,74,135,.03),0 20px 70px rgba(24,84,145,.08)}
+.mobile-top{background:rgba(255,255,255,.96);border-color:#e1edf7}.brand-mini strong{color:#15528f}.icon-btn{border-color:#d8e7f4;color:#245d91;background:#fff}
+.bottom-nav{border-color:#dbe8f3;box-shadow:0 -8px 28px rgba(31,89,151,.08)}.v6-nav .nav-btn.active,.nav-btn.active{color:#126dcc!important}.v6-nav .nav-btn.active:before{background:#1677e8!important}
+.page-title h1,.section-title{color:#173e6c}.eyebrow.dark{color:#3573ab}.text-link{color:#1671cb}
+.home-icon-card,.next-card,.quick-card,.doctor-card,.daily-checkin-card,.center-link-card,.report-card{border-color:#dceaf7!important;box-shadow:0 8px 24px rgba(31,89,151,.05)!important;background:#fff!important}
+.home-icon-card{color:#244f79!important}.home-ico,.next-symbol,.quick-card>span,.doctor-avatar,.center-link-icon{background:#edf6ff!important;color:#126dcc!important}.home-badge{background:#e8505c!important}.next-head .text-link{color:#1671cb!important}.health-quote{background:linear-gradient(135deg,#2789ee,#1167c5)!important;box-shadow:0 10px 24px rgba(22,119,232,.18)!important}
+.medi-hero-card{border-color:#d9eafb!important;background:linear-gradient(135deg,#edf7ff 0%,#ffffff 58%,#eaf5ff 100%)!important;box-shadow:0 12px 34px rgba(31,89,151,.08)!important}.medi-hero-card h1,.medi-title-row h2{color:#174675!important}.medi-speak{border-color:#d3e6f6!important;color:#176fc8!important}.medi-message{background:#fff!important;border-color:#dceaf7!important;color:#365b7d!important}
+.daily-checkin-card{background:linear-gradient(180deg,#fff,#f8fbff)!important}.daily-checkin-head h2{color:#173f78}.mood-btn.selected{outline-color:rgba(22,119,232,.18)!important;border-color:#1677e8!important}.reason-chip input:checked+span{background:#1677e8!important;border-color:#1677e8!important}
+.center-link-card{background:#f8fbff!important}.center-link-card.linked{background:#f4fbf8!important}
+.chat-screen{background:#f7fbff;border-color:#dceaf7}.chat-header,.chat-compose{background:#fff;border-color:#dfeaf4}.chat-thread{background:linear-gradient(180deg,#f8fbff,#f2f8fd)}.chat-line.mine .chat-bubble{background:#e3f1ff;border-color:#cfe5f8}.chat-send{background:#1677e8;box-shadow:0 7px 15px rgba(22,119,232,.20)}.conversation-row:hover{background:#f4f9ff}.conversation-side b{background:#1677e8}
+
+/* Floating Medi pill */
+.medi-floating-wrap{position:fixed;z-index:44;right:max(14px,calc((100vw - 520px)/2 + 14px));bottom:82px;display:flex;align-items:center;gap:7px;pointer-events:none}.medi-floating-pill,.medi-floating-audio{pointer-events:auto;border:1px solid #cde2f5;background:rgba(255,255,255,.96);box-shadow:0 12px 30px rgba(31,89,151,.16);color:#145eaa}.medi-floating-pill{height:52px;border-radius:999px;padding:5px 15px 5px 5px;display:flex;align-items:center;gap:8px;font-weight:900;font-size:12px}.medi-floating-pill img{width:42px;height:42px;border-radius:50%;object-fit:cover;object-position:center 24%;background:#eef7ff}.medi-floating-audio{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:16px}
+.medi-wake-toggle{position:absolute;right:0;bottom:calc(100% + 8px);pointer-events:auto;border:1px solid #b8d6ef;background:#fff;color:#155797;border-radius:999px;padding:9px 13px;font:700 12px Inter,system-ui,sans-serif;white-space:nowrap;box-shadow:0 8px 20px #164c8022}.medi-wake-toggle.active{background:#145dba;color:#fff;border-color:#145dba}.medi-wake-toggle:focus-visible{outline:3px solid #72a7e9;outline-offset:2px}
+
+/* Report source chooser */
+.report-source-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:13px 0}.report-source-btn{border:1px solid #d6e7f5;background:#fafdff;border-radius:16px;padding:13px 8px;display:grid;place-items:center;gap:4px;color:#285d8b}.report-source-btn span{min-width:34px;height:34px;padding:0 5px;border-radius:10px;background:#edf6ff;color:#126dcc;display:grid;place-items:center;font-weight:900}.report-source-btn strong{font-size:12px}.report-source-btn small{font-size:9.5px;color:#7b91a7}.report-source-btn.camera{border-color:#b7d8f5;background:#f4faff}
+
+/* Clinician/admin Android UI follows same medical-blue system */
+.clinician-shell{background:#f5f9fd}.clinician-side{background:linear-gradient(180deg,#0f4f8f,#0b396b)!important;color:#fff}.clinician-brand .brand-name{color:#fff}.clinician-nav-btn{color:#dcecff!important}.clinician-nav-btn.active,.clinician-nav-btn:hover{background:rgba(255,255,255,.13)!important;color:#fff!important}.clinician-main{background:#f7fbff}.clinician-top{background:#fff;border-color:#dceaf7}.secure-chip{background:#edf6ff!important;color:#0f67c1!important;border-color:#d6e8f8!important}
+.desktop-shell{background:#f7fbff}.side{background:linear-gradient(180deg,#0f4f8f,#0b396b)}.side-btn{color:#dcecff}.side-btn.active,.side-btn:hover{background:rgba(255,255,255,.13)}.tab.active{background:#1677e8}.patient-row:hover,.patient-row.active{background:#edf6ff}.avatar{background:#e2f1ff;color:#1769b8}.metric{background:#f8fbff;border-color:#dceaf7}.info{background:#eef7ff;border-color:#cfe4f7;color:#295d8c}
+
+@media(max-width:820px){.auth-stage{grid-template-columns:1fr;max-width:600px}.login-brandbar,.auth-copyright{grid-column:1}.login-hero-card{min-height:390px;padding:28px;grid-template-columns:1.1fr .9fr}.login-hero-card h1{font-size:38px}.login-medi{width:220px}.final-login-card{margin-top:-2px}}
+@media(max-width:560px){.final-auth{background:linear-gradient(180deg,#fbfdff,#eef7ff 38%,#fbfdff)}.auth-stage{padding:15px 12px 28px;gap:14px}.login-brandbar{padding:3px 5px}.brand-lockup .brand-mark{width:43px;height:43px;border-radius:14px}.brand-lockup .brand-name{font-size:24px}.brand-payoff{font-size:10.5px}.login-hero-card{min-height:315px;border-radius:24px;padding:23px 20px;grid-template-columns:minmax(0,1fr) 130px;gap:4px}.login-kicker{font-size:8px;margin-bottom:10px}.login-hero-card h1{font-size:31px}.login-hero-card p{font-size:12px;line-height:1.5;margin:12px 0 17px}.login-feature-row{grid-template-columns:1fr;gap:6px;max-width:190px}.login-feature{padding:7px 9px;border-radius:12px}.login-feature>span{width:27px;height:27px;font-size:12px}.login-feature strong{font-size:10px}.login-feature small{display:none}.login-medi-wrap{align-self:end}.login-medi-halo{width:150px;height:150px}.login-medi{width:160px;transform:translate(12px,8px)}.final-login-card{padding:22px 18px;border-radius:22px}.login-card-heading h2{font-size:25px}.login-trust{gap:5px}.medi-floating-wrap{right:12px;bottom:78px}.medi-floating-pill{height:48px}.medi-floating-pill img{width:38px;height:38px}.medi-floating-pill span{font-size:11px}.medi-floating-audio{width:38px;height:38px}.report-source-grid{gap:6px}.report-source-btn{padding:10px 4px}.report-source-btn strong{font-size:10.5px}.report-source-btn small{font-size:8.5px}}
+
+/* Medi RC3: linee guida, screening e voce cloud */
+
+/* Beta 4: diario personale */
+.journal-home-feature{width:100%;display:grid;grid-template-columns:56px 1fr auto;align-items:center;gap:13px;text-align:left;border:0;border-radius:22px;padding:16px;margin:4px 0 16px;background:linear-gradient(135deg,#edf7ff,#f8fbff);color:#173f78;box-shadow:0 9px 25px rgba(18,105,204,.10);font:inherit}.journal-home-feature span:nth-child(2){display:grid;gap:3px}.journal-home-feature small{font-size:10px;letter-spacing:.08em;color:#397bad;font-weight:900}.journal-home-feature strong{font-size:18px}.journal-home-feature em{font-size:11px;color:#687f96;font-style:normal;line-height:1.35}.journal-home-feature>b{font-size:25px}.journal-feature-icon{width:54px;height:54px;border-radius:17px;background:#fff;display:grid;place-items:center;font-size:28px;box-shadow:0 5px 15px rgba(18,105,204,.10)}
+.journal-compose{padding:18px}.journal-moods{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:12px 0 18px}.journal-mood{border:1px solid #dceaf7;background:#fff;border-radius:15px;padding:9px 3px;color:#355f84;font:inherit}.journal-mood span,.journal-mood strong{display:block}.journal-mood span{font-size:25px}.journal-mood strong{font-size:10px;margin-top:3px}.journal-mood.selected{border-color:#1677e8;background:#edf6ff;box-shadow:0 0 0 3px rgba(22,119,232,.12)}.journal-media-actions{display:flex;gap:8px;flex-wrap:wrap;margin:11px 0}.journal-media-info{padding:11px;border:1px dashed #bdd7ec;border-radius:13px;background:#f8fbff;margin-bottom:13px}.journal-list{display:grid;gap:11px}.journal-entry{padding:15px;border:1px solid #dceaf7;border-radius:18px;background:#fff;box-shadow:0 6px 20px rgba(31,89,151,.05)}.journal-entry-head{display:flex;gap:9px;align-items:center}.journal-entry-head small{display:block;color:#74899d;font-size:10px;margin-top:2px}.journal-entry-mood{font-size:28px}.journal-entry p{color:#34526d;line-height:1.5;margin:12px 0;word-break:break-word}
+.guest-medi-pill{position:relative;z-index:4;margin-top:-4px;border:1px solid #bedcf5;background:rgba(255,255,255,.96);border-radius:999px;padding:8px 11px;display:grid;grid-template-columns:auto 1fr auto;gap:7px;align-items:center;color:#145eaa;box-shadow:0 10px 24px rgba(31,89,151,.12);text-align:left}.guest-medi-pill strong{font-size:11px}.guest-medi-pill span{font-size:9px;font-weight:800;line-height:1.1}.guest-medi-pill b{font-size:14px}.login-medi-wrap{gap:2px}
+.sponsored-banner{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding:11px 14px;border:1px solid #e1e8ef;border-radius:16px;background:#fff;box-shadow:0 8px 22px rgba(31,89,151,.05);color:#334f6d}.sponsored-banner>span{font-size:8px;font-weight:950;letter-spacing:.12em;color:#7b8ea1;border:1px solid #dce5ec;border-radius:999px;padding:4px 6px}.sponsored-banner div{display:grid;gap:2px;flex:1}.sponsored-banner strong{font-size:12px;color:#294b6d}.sponsored-banner small{font-size:9px;color:#8494a4}.sponsored-banner button{border:1px solid #bfdaf4;background:#f7fbff;color:#176fc8;border-radius:10px;padding:7px 10px;font-size:10px;font-weight:800}
+.medi-assistant-card{max-width:720px!important}.medi-assistant-main{min-width:0;flex:1}.medi-query-row{display:grid;grid-template-columns:1fr 48px;gap:8px;align-items:stretch;margin:14px 0}.medi-query-row .textarea{min-height:82px;resize:vertical}.medi-mic{border:1px solid #cce1f4;border-radius:15px;background:#edf7ff;color:#126dcc;font-size:20px;display:grid;place-items:center;box-shadow:0 7px 16px rgba(31,89,151,.08)}.medi-answer{margin-top:14px}.medi-answer-text{background:#f8fbff;border:1px solid #dceaf7;border-radius:16px;padding:14px;color:#294f73;line-height:1.55;font-size:13px}.medi-source-list{display:grid;gap:7px;margin-top:10px}.medi-source-list>strong{font-size:11px;color:#456987}.medi-source-list a{display:flex;align-items:center;justify-content:space-between;gap:10px;text-decoration:none;border:1px solid #dceaf7;background:#fff;border-radius:12px;padding:9px 11px;color:#176fc8}.medi-source-list a span{font-size:11px;font-weight:800}.medi-source-list a small{font-size:8.5px;color:#8797a7}.medi-disclaimer{margin-top:10px;font-size:9.5px;line-height:1.45;color:#7b8fa3}.medi-actions{flex-wrap:wrap}
+
+/* Scheda Medi nell'area paziente: intestazione stabile e azioni leggibili. */
+#mediModal{padding:12px;background:#16392c83;backdrop-filter:blur(8px)}
+#mediModal .medi-assistant-card{display:block!important;width:min(100%,660px);max-height:min(92dvh,820px);overflow:auto;padding:0!important;border:1px solid #d4e8dc;border-radius:22px;background:#fff;box-shadow:0 26px 70px #123c3050}
+#mediModal .medi-assistant-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 22px;background:#f4faf5;border-bottom:1px solid #dcece0}
+#mediModal .medi-assistant-identity{display:flex;align-items:center;gap:14px;min-width:0}
+#mediModal .medi-assistant-identity img{width:62px!important;height:62px!important;margin:0!important;object-fit:cover;object-position:50% 12%;border-radius:18px;background:#e1f1e7}
+#mediModal .medi-assistant-identity .eyebrow{font-size:10px;letter-spacing:.11em;color:#4d815f}
+#mediModal .medi-assistant-identity h2{margin:2px 0;color:#24573c;font-size:25px;line-height:1.05}
+#mediModal .medi-online{display:inline-flex;align-items:center;gap:6px;color:#4d765d;font-size:11px;font-weight:700}
+#mediModal .medi-online i{width:7px;height:7px;border-radius:50%;background:#61a876}
+#mediModal .medi-close{position:static;flex:none;width:40px;height:40px;color:#315f45;background:#e6f2e8}
+#mediModal .medi-assistant-main{padding:21px 24px 24px}
+#mediModal .medi-title-row{align-items:flex-start;gap:10px}
+#mediModal .medi-title-row h3{margin:0;color:#224b35;font-size:23px;line-height:1.22;letter-spacing:-.02em}
+#mediModal .medi-title-audio{flex:none}
+#mediModal .medi-assistant-intro{margin:9px 0 16px;color:#587563;font-size:14px;line-height:1.5}
+#mediModal .medi-suggestions{padding:12px 14px;border:1px solid #dceadf;border-radius:12px;background:#f6faf6}
+#mediModal .medi-suggestions span{color:#518065;font-size:10px;font-weight:900;letter-spacing:.11em}
+#mediModal .medi-suggestions p{margin:5px 0 0;color:#385f47;font-size:12px;line-height:1.45}
+#mediModal .medi-question-label{display:block;margin:17px 0 7px;color:#315c41;font-size:13px;font-weight:800}
+#mediModal .medi-query-row{grid-template-columns:minmax(0,1fr) 52px;margin:0 0 12px}
+#mediModal .medi-query-row .textarea{min-height:88px;border:1px solid #c5decb;border-radius:12px;background:#fff;color:#254434;font-size:15px}
+#mediModal .medi-mic{border-color:#c7dfcc;border-radius:12px;background:#ecf6ee;color:#28674a;box-shadow:none}
+#mediModal .medi-actions{display:flex;gap:9px;margin:0 0 15px}
+#mediModal .medi-actions .btn{min-height:44px;border-radius:10px;font-size:13px}
+#mediModal .medi-actions #mediTalk{flex:1;background:#2c7050;color:#fff}
+#mediModal .medi-actions #mediWakeToggle{background:#eef6ef;color:#2f6849;border:1px solid #cce2d1}
+#mediModal .medi-quick-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#mediModal .medi-quick-actions .btn{min-height:40px;padding:8px 10px;border:1px solid #d8e8dc;border-radius:10px;background:#fff;color:#326449;font-size:12px;text-align:center}
+#mediModal .medi-answer{margin-top:17px}
+#mediModal .medi-welcome{border-color:#dceadf;background:#f6faf6;color:#547360;font-size:11px}
+#mediModal .medi-safety-note{margin:15px 0 0;color:#667d6c;font-size:11px;line-height:1.45}
+@media(max-width:560px){#mediModal{place-items:end center;padding:0}#mediModal .medi-assistant-card{width:100%;max-height:94dvh;border-radius:22px 22px 0 0}#mediModal .medi-assistant-head{padding:13px 17px}#mediModal .medi-assistant-identity img{width:54px!important;height:54px!important}#mediModal .medi-assistant-main{padding:17px 18px max(24px,env(safe-area-inset-bottom))}#mediModal .medi-title-row h3{font-size:20px}#mediModal .medi-actions{display:grid;grid-template-columns:1fr 1fr}#mediModal .medi-actions .btn{font-size:11px;padding:8px 5px}#mediModal .medi-quick-actions .btn{font-size:11px}}
+.medi-floating-pill{max-width:min(360px,calc(100vw - 82px))}.medi-floating-pill span{white-space:normal;text-align:left;line-height:1.15}
+@media(max-width:560px){.guest-medi-pill{max-width:180px}.sponsored-banner{margin:0 2px}.medi-assistant-card{display:block!important;max-height:88vh;overflow:auto}.medi-assistant-card>img{width:88px!important;height:88px!important;margin:0 auto 8px;display:block}.medi-query-row{grid-template-columns:1fr 44px}.medi-floating-pill{max-width:270px;padding-right:11px}.medi-floating-pill span{font-size:9.5px!important}}
+
+/* Medi Engine Beta 6: conversazione adulta, leggibile e collegata al percorso */
+.medi-title-audio{display:flex;gap:6px;align-items:center}.medi-dialogue{display:grid;gap:10px;max-height:300px;overflow:auto;padding:2px 2px 5px}.medi-welcome{border:1px solid #d7e5f2;background:#f5f9fc;color:#587086;border-radius:12px;padding:10px 12px;font-size:10px;line-height:1.45}.medi-turn{max-width:92%;border-radius:14px;padding:10px 12px;line-height:1.5;font-size:12.5px}.medi-turn small{display:block;margin-bottom:4px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;font-weight:900}.medi-turn.user{justify-self:end;background:#153f69;color:#fff;border-bottom-right-radius:5px}.medi-turn.user small{color:#bcd1e6}.medi-turn.assistant{justify-self:start;background:#f5f9fc;border:1px solid #d9e7f3;color:#233f5d;border-bottom-left-radius:5px}.medi-turn.assistant small{color:#176fc8}.medi-turn .medi-source-list{margin-top:9px}.medi-thinking{width:max-content;max-width:80%;margin:8px 0;padding:9px 12px;border-radius:13px;background:#edf4fa;color:#587086;font-size:11px}.medi-doctor-link{margin-top:10px;border:1px solid #b9d2e8;background:#fff;color:#135b96;border-radius:9px;padding:8px 10px;font:inherit;font-size:10px;font-weight:850}.medi-actions .btn{min-height:40px}.medi-voice-notice{position:fixed;left:50%;bottom:92px;z-index:2000;transform:translate(-50%,14px);opacity:0;pointer-events:none;background:#173f69;color:#fff;border-radius:12px;padding:10px 14px;max-width:min(360px,calc(100vw - 28px));font-size:11px;box-shadow:0 12px 30px rgba(12,43,72,.24);transition:.2s}.medi-voice-notice.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:560px){.medi-dialogue{max-height:260px}.medi-turn{max-width:95%}.medi-actions{display:grid;grid-template-columns:1fr 1fr}.medi-actions .btn{width:100%;padding:9px 7px;font-size:10px}}
+
+/* Beta 5 — professional patient command home */
+.clinical-home-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:13px 2px 18px;border-bottom:1px solid #dce5ef;margin-bottom:14px}.clinical-home-head h1{margin:3px 0 7px;color:#102f52;font-size:29px;letter-spacing:-.7px}.clinical-home-head p{margin:0;color:#5e7185;font-size:13px;line-height:1.5;max-width:470px}.voice-control{border:1px solid #cbd9e7;background:#fff;color:#173f69;border-radius:10px;padding:9px 10px;display:flex;align-items:center;gap:8px;font:inherit;font-size:11px;font-weight:800;white-space:nowrap}.voice-control b{width:23px;height:23px;border-radius:50%;display:grid;place-items:center;background:#153f69;color:#fff;font-size:9px}.care-priority-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.care-priority{min-height:142px;border:1px solid #d5e0eb;border-radius:14px;background:#fff;text-align:left;padding:16px;display:flex;flex-direction:column;align-items:flex-start;color:#17324e;font:inherit;box-shadow:0 5px 16px rgba(31,69,105,.045)}.care-priority:before{content:"";width:34px;height:3px;border-radius:4px;background:#176fc8;margin-bottom:14px}.care-priority.control:before{background:#459d87}.care-kicker{font-size:9px;letter-spacing:.12em;color:#6d7f91;font-weight:900}.care-priority strong{font-size:17px;line-height:1.2;margin:7px 0 4px}.care-priority small{color:#708195;font-size:11px;line-height:1.35}.care-priority>b{margin-top:auto;padding-top:13px;font-size:11px;color:#145d9f}.doctor-care-strip{margin:10px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 15px;background:#102f52;color:#fff;border-radius:14px}.doctor-status{display:flex;align-items:center;gap:11px;min-width:0}.status-indicator{width:9px;height:9px;border-radius:50%;background:#8495a8;box-shadow:0 0 0 4px rgba(255,255,255,.08);flex:0 0 auto}.status-indicator.online{background:#63d3a9}.doctor-status small,.doctor-status strong,.doctor-status em{display:block}.doctor-status small{font-size:8px;letter-spacing:.13em;color:#aebfd0;font-weight:900}.doctor-status strong{font-size:14px;margin:3px 0}.doctor-status em{font-style:normal;color:#c6d3df;font-size:10px}.doctor-care-actions{display:flex;gap:6px}.doctor-care-actions button{border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;border-radius:9px;padding:8px 9px;font-size:10px;font-weight:800}.doctor-care-actions button:last-child{background:#fff;color:#143a60}.doctor-care-actions button:disabled{opacity:.45}.home-command-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0 14px}.home-command-grid>button{position:relative;min-width:0;border:1px solid #d8e2ec;background:#fff;border-radius:12px;padding:12px 8px;text-align:left;color:#173550;font:inherit;box-shadow:none}.command-mark{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:#eaf2f9;color:#174e7e;font-size:11px;font-weight:950;margin-bottom:10px}.command-mark.medi{background:#173f69;color:#fff}.home-command-grid strong,.home-command-grid small{display:block}.home-command-grid strong{font-size:11px}.home-command-grid small{font-size:8.5px;line-height:1.25;color:#718398;margin-top:3px}.command-badge{position:absolute;top:8px;right:8px;min-width:18px;height:18px;padding:0 4px;border-radius:10px;background:#c33c49;color:#fff;display:grid;place-items:center;font-size:9px}.daily-checkin-card{border-radius:14px!important;padding:16px!important}.daily-checkin-head h2{font-size:19px!important;color:#173550!important}.mood-btn{border-radius:10px!important;flex-direction:row!important;justify-content:center;padding:11px 7px!important;background:#fff!important}.mood-btn .mood-dot{width:9px;height:9px;border-radius:50%;font-size:0}.mood-btn.green .mood-dot{background:#3e9d76}.mood-btn.yellow .mood-dot{background:#d59c34}.mood-btn.red .mood-dot{background:#c84f5a}.mood-btn strong{font-size:10.5px!important}.next-card{border-radius:14px!important}.medi-floating-pill img{display:none}.medi-floating-pill{padding-left:14px!important;height:44px!important;border-radius:12px!important}.medi-floating-audio{display:none!important}.medi-voice-notice{position:fixed;z-index:300;left:50%;bottom:88px;transform:translate(-50%,18px);max-width:calc(100vw - 28px);background:#17324e;color:#fff;border-radius:10px;padding:11px 14px;font-size:12px;box-shadow:0 12px 34px rgba(9,30,50,.25);opacity:0;pointer-events:none;transition:.2s}.medi-voice-notice.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:520px){.clinical-home-head{padding-top:7px}.clinical-home-head h1{font-size:25px}.clinical-home-head p{font-size:11.5px}.voice-control span{display:none}.care-priority{min-height:132px;padding:14px}.care-priority strong{font-size:14px}.doctor-care-strip{align-items:flex-start}.doctor-status em{display:none}.doctor-care-actions{flex-direction:column}.home-command-grid{grid-template-columns:repeat(3,1fr)}.home-command-grid>button{min-height:88px}.mood-row{grid-template-columns:1fr 1fr 1fr}}
+.care-page-actions{display:flex;gap:8px;margin:0 0 13px}.care-page-actions .btn{flex:1}.care-shared-item{border-left:3px solid #246ca8!important;padding-left:13px!important}.shared-source{font-size:8px;letter-spacing:.11em;font-weight:950;color:#447598;margin-bottom:5px}
+
+/* Beta 8 — richer clinical palette and clearer functional icons */
+.care-priority{overflow:hidden;position:relative;transition:transform .16s ease,box-shadow .16s ease}.care-priority:active,.home-command-grid>button:active{transform:scale(.985)}
+.care-priority.therapy{background:linear-gradient(145deg,#fff 58%,#e7f8f6)}.care-priority.therapy:before{background:linear-gradient(90deg,#0c8f86,#3fc8ba);width:48px}
+.care-priority.control{background:linear-gradient(145deg,#fff 58%,#f1edff)}.care-priority.control:before{background:linear-gradient(90deg,#6d4fc2,#9b82e9);width:48px}
+.doctor-care-strip{background:linear-gradient(135deg,#123a5c,#0d6670);box-shadow:0 9px 24px rgba(14,63,81,.18)}
+.home-command-grid>button{overflow:hidden;transition:transform .16s ease,box-shadow .16s ease}.home-command-grid>button:before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--command-color,#176fc8)}
+.command-mark{font-size:15px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.55)}
+.command-mark.journal{background:#fff0ec;color:#c84f3e}.command-journal{--command-color:#e66d59}
+.command-mark.messages{background:#e9f2ff;color:#176fc8}.command-messages{--command-color:#2789ee}
+.command-mark.reports{background:#fff4df;color:#b96e0c}.command-reports{--command-color:#e9a23b}
+.command-mark.medi{background:linear-gradient(145deg,#d94a59,#ad2539);color:#fff}.home-command-grid>button:has(.command-mark.medi){--command-color:#cf4051}
+.command-mark.more{background:#f0edfb;color:#6b52aa}.command-more{--command-color:#8268c7}
+.daily-checkin-card{border-color:#cfe5e6!important;background:linear-gradient(145deg,#fff 62%,#eaf8f7)!important}.mood-btn.green{color:#247a5a!important}.mood-btn.yellow{color:#a06d14!important}.mood-btn.red{color:#a7434c!important}
+@media(prefers-reduced-motion:reduce){.care-priority,.home-command-grid>button{transition:none}}
+
+/* Beta 9 — login aligned with the richer clinical Home */
+.final-auth{background:radial-gradient(circle at 92% 4%,rgba(61,196,186,.16),transparent 27%),radial-gradient(circle at 5% 58%,rgba(123,93,199,.10),transparent 28%),linear-gradient(180deg,#fbfeff 0%,#edf7fb 46%,#f9fcff 100%)}
+.login-hero-card{background:linear-gradient(140deg,#eef9fb 0%,#e7f4fb 48%,#f3efff 100%);border-color:#d6e8ed;box-shadow:0 24px 65px rgba(18,81,104,.11)}
+.login-hero-card:after{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:linear-gradient(180deg,#0c8f86 0 34%,#6d4fc2 34% 67%,#e49a2c 67%)}
+.login-kicker{color:#0a7c82}.login-hero-card h1{color:#123b4d}.login-hero-card h1 span{color:#087a86}.login-hero-card p{color:#5f7885}
+.login-feature{position:relative;overflow:hidden;border-color:#d6e6eb;box-shadow:0 7px 20px rgba(15,76,96,.06)}.login-feature:before{content:"";position:absolute;inset:0 0 auto;height:3px;background:var(--login-feature-color)}
+.login-feature.therapy{--login-feature-color:#0c958a}.login-feature.control{--login-feature-color:#7255c5}.login-feature.reports{--login-feature-color:#df9224}
+.login-feature>span.login-feature-icon{font-size:15px;font-weight:950}.login-feature-icon.therapy{background:#dcf5f1;color:#087a72}.login-feature-icon.control{background:#ece7ff;color:#6547b7}.login-feature-icon.reports{background:#fff3de;color:#b86c0c}
+.final-login-card{border-color:#d7e6eb;box-shadow:0 22px 65px rgba(15,74,94,.12)}.login-mini-shield{background:linear-gradient(145deg,#dff6ef,#caeee2);color:#167359;box-shadow:inset 0 0 0 1px #b9e5d6}.login-card-heading h2{color:#133b4d}.login-card-heading p{color:#6b8089}
+.auth-input-wrap .input{height:50px;padding-left:52px;background:#fbfdfe;border-color:#d4e4e9}.password-wrap.auth-input-wrap .password-input{padding-left:52px}.auth-input-icon{left:10px;width:31px;height:31px;border-radius:10px;display:grid;place-items:center;font-size:12px;font-weight:950;filter:none}.auth-input-icon.email{background:#e7f3ff;color:#2675c2}.auth-input-icon.password{background:#eee9ff;color:#6b50bb}.auth-input-icon.profile{background:#fff0ec;color:#c35645}
+.login-primary{background:linear-gradient(135deg,#0d8a86,#126faa);box-shadow:0 9px 22px rgba(11,116,126,.22)}.login-outline{border-color:#b9d8e1;color:#0b6e82;background:#fbfeff}.login-outline:active{background:#eef8fa}
+.guest-medi-pill{border-color:#efcbd1;color:#a82b40;box-shadow:0 10px 24px rgba(167,42,64,.10)}.guest-medi-pill strong{color:#b52d44}.login-medi-halo{background:radial-gradient(circle,#fff 20%,rgba(213,242,241,.8) 62%,rgba(235,228,255,.45))}
+.login-trust span{position:relative;padding-left:19px}.login-trust span:before{content:"";position:absolute;left:7px;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--trust-color)}.login-trust .secure{--trust-color:#26966f;background:#eff9f5;color:#38735f;border-color:#d9eee5}.login-trust .roles{--trust-color:#6f55bd;background:#f5f2ff;color:#62548a;border-color:#e6dff8}.login-trust .docs{--trust-color:#d7891f;background:#fff8ec;color:#866532;border-color:#f2e4ca}
+.sponsored-banner{border-color:#eadfca;background:linear-gradient(90deg,#fffdf8,#fff9ee)}.sponsored-banner>span{color:#9a6d28;border-color:#ead7b7}.sponsored-banner button{border-color:#e5cfa8;background:#fff;color:#9a6513}
+
+/* Beta 11: states remain legible after the compact Home overrides above. */
+.mood-btn.green{background:linear-gradient(155deg,#d8f5e3,#f1fcf5)!important;border:1.5px solid #82d6a4!important;color:#145b35!important}
+.mood-btn.yellow{background:linear-gradient(155deg,#fff0bf,#fffaf0)!important;border:1.5px solid #edcc6d!important;color:#78510b!important}
+.mood-btn.red{background:linear-gradient(155deg,#ffd8d9,#fff1f1)!important;border:1.5px solid #ef9aa2!important;color:#912b37!important}
+.mood-btn .mood-dot{width:15px!important;height:15px!important;box-shadow:0 0 0 3px rgba(255,255,255,.76)}
+.mood-btn.green .mood-dot{background:#238550}.mood-btn.yellow .mood-dot{background:#ca8c1d}.mood-btn.red .mood-dot{background:#c3434e}
+.mood-btn.selected{outline:3px solid currentColor!important;outline-offset:2px;border-color:currentColor!important}
+.daily-checkin-card.status-green{border-left:5px solid #329b64!important}.daily-checkin-card.status-yellow{border-left:5px solid #dfab32!important}.daily-checkin-card.status-red{border-left:5px solid #d25660!important}
+.meditaly-heart-mark{background:transparent!important;box-shadow:none!important;overflow:visible!important}
+.meditaly-heart-mark img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 5px 10px rgba(16,63,103,.16))}
+@media(prefers-reduced-motion:no-preference){.meditaly-heart-mark img{animation:meditaly-breathe 5s ease-in-out infinite}}@keyframes meditaly-breathe{0%,89%,100%{transform:scale(1)}93%{transform:scale(1.055)}96%{transform:scale(1)}}
+@media(max-width:560px){.login-feature:before{width:3px;height:auto;inset:0 auto 0 0}.auth-input-wrap .input,.password-wrap.auth-input-wrap .password-input{padding-left:50px}}
+
+/* Login e primo accesso coerenti con la Home clinica. */
+.final-auth{background:#f7f9fc!important;color:#173550}.final-auth .auth-stage{gap:14px}.final-auth .login-brandbar{background:#fff;border:1px solid #dce5ef;border-radius:14px;padding:12px 16px}.final-auth .brand-payoff{color:#708195}
+.final-auth .login-hero-card{background:#edf5fb;border:1px solid #d5e3ee;border-radius:16px;box-shadow:none;padding:28px;min-height:0}.final-auth .login-hero-card:before,.final-auth .login-hero-card:after{display:none}.final-auth .login-kicker{color:#176fc8}.final-auth .login-hero-card h1,.final-auth .login-hero-card h1 span{color:#102f52}.final-auth .login-hero-card p{color:#5e7185;line-height:1.5;margin:12px 0 18px}.final-auth .login-feature{background:#fff;border-color:#d8e2ec;border-radius:12px;box-shadow:none}.final-auth .login-feature:before{background:#176fc8!important}.final-auth .login-feature strong{color:#173550}
+.final-auth .final-login-card{border:1px solid #d8e2ec;border-radius:16px;box-shadow:0 5px 16px rgba(31,69,105,.045);background:#fff}.final-auth .login-card-heading h2{color:#102f52}.final-auth .login-mini-shield{background:#eaf2f9;color:#174e7e;box-shadow:none}.final-auth .login-primary{background:#176fc8;box-shadow:none}.final-auth .login-outline{border:1px solid #cbd9e7;color:#173f69}.final-auth .guest-medi-pill{border-color:#cbd9e7;color:#173f69;box-shadow:none}.final-auth .guest-medi-pill strong{color:#173f69}
+.doctor-onboarding{width:min(520px,100%);min-height:100vh;margin:auto;padding:22px 16px 44px;background:#f7f9fc;display:flex;flex-direction:column;gap:14px}.doctor-onboarding>.brand-mini{padding:12px 4px;color:#102f52}.doctor-onboarding h1{font-size:29px;color:#102f52;margin:6px 0 12px}.doctor-onboarding .card{border:1px solid #d8e2ec;border-radius:16px;box-shadow:0 5px 16px rgba(31,69,105,.045)}.doctor-onboarding .doctor-directory{margin-top:14px}.doctor-onboarding .doctor-card{border:1px solid #d8e2ec;border-radius:12px;background:#fff}.doctor-onboarding .field{display:block;margin-top:16px}.doctor-onboarding .field span{display:block;margin-bottom:6px;font-weight:800}.doctor-onboarding .input{width:100%}
+@media(max-width:560px){.final-auth .auth-stage{gap:10px}.final-auth .login-hero-card{padding:20px 16px;min-height:0;grid-template-columns:minmax(0,1fr) 112px}.final-auth .login-hero-card h1{font-size:27px}.final-auth .login-hero-card p{font-size:12px}.final-auth .login-medi{width:136px}.final-auth .login-feature-row{max-width:175px}}
+
+/* Beta13 · percorso paziente leggibile e check-in in primo piano. */
+.patient-shell{font-size:16px;line-height:1.45}.patient-shell .mobile-top .tiny{font-size:13px}.patient-shell .btn{min-height:48px;font-size:16px}.patient-shell .small{font-size:14px}.patient-shell .nav-btn{font-size:13px;min-height:54px}.patient-shell .mobile-content{padding:15px 16px 112px}.patient-shell .page-title h1{font-size:29px}.patient-shell .doctor-card strong,.patient-shell .item strong{font-size:17px}.patient-shell .doctor-card small,.patient-shell .quick-card small{font-size:14px}.patient-shell .input,.patient-shell textarea{font-size:16px;min-height:48px}
+.clinical-home-head{padding:6px 2px 14px;margin-bottom:0;border-bottom:0}.clinical-home-head h1{font-size:30px!important}.clinical-home-head p{font-size:16px!important;line-height:1.45}.voice-control{min-width:48px;min-height:48px;font-size:14px}.daily-checkin-card{margin:0 0 12px!important;padding:20px!important;border:2px solid #c5d9ea!important;border-radius:18px!important;box-shadow:0 9px 28px rgba(18,93,158,.10)!important}.daily-checkin-head h2{font-size:28px!important;line-height:1.2}.daily-checkin-head p{font-size:16px;line-height:1.45;color:#405a71}.daily-checkin-card .eyebrow{font-size:12px}.daily-checkin-card .medi-speak{width:48px;height:48px;flex-basis:48px}.mood-row{display:grid;grid-template-columns:1fr;gap:10px;margin-top:18px}.mood-btn{min-height:58px;justify-content:flex-start!important;gap:14px;padding:12px 18px!important;border-radius:14px!important;text-align:left}.mood-btn strong{font-size:18px!important}.mood-btn .mood-dot{width:19px!important;height:19px!important}
+.care-priority-grid{grid-template-columns:1fr 1fr}.care-kicker{font-size:12px}.care-priority strong{font-size:18px}.care-priority small{font-size:14px}.care-priority>b{font-size:14px}.doctor-status small{font-size:11px}.doctor-status strong{font-size:17px}.doctor-status em{font-size:13px}.doctor-care-actions button{min-height:46px;font-size:14px}.home-command-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.home-command-grid>button{min-height:90px}.home-command-grid strong{font-size:16px}.home-command-grid small{font-size:13px}.command-mark{width:34px;height:34px;font-size:17px}.next-row strong{font-size:16px}.next-row small{font-size:14px}
+.checkin-modal-card{width:min(100%,520px);max-height:calc(100dvh - 16px);display:flex!important;flex-direction:column;gap:0!important;padding:0!important;overflow:hidden;border-radius:22px 22px 0 0!important}.checkin-modal-header{min-height:60px;padding:18px 22px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e5edf3}.checkin-modal-header .eyebrow{font-size:12px}.checkin-modal-header .medi-close{position:static;width:44px;height:44px;flex-shrink:0;font-size:28px}.checkin-modal-scroll{min-height:0;overflow-y:auto;padding:16px 22px 18px;overscroll-behavior:contain}.checkin-modal-scroll h2{font-size:28px;margin:3px 0 8px;color:#123d72}.checkin-modal-scroll>p{font-size:16px;line-height:1.45;margin:0 0 15px}.checkin-modal-scroll h3{font-size:17px;margin:16px 0 10px}.checkin-modal-scroll h3 span{font-size:14px;font-weight:500}.checkin-modal-scroll .field label{font-size:16px}.checkin-modal-scroll .textarea{font-size:16px;min-height:88px}.reason-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:0 0 18px}.reason-chip{position:relative}.reason-chip input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}.reason-chip span{min-height:52px;display:flex;align-items:center;padding:10px 12px;border-radius:12px;font-size:15px;line-height:1.3;font-weight:700}.reason-chip input:focus-visible+span{outline:3px solid #318bec;outline-offset:2px}.checkin-modal-scroll .checkin-emergency{color:#705438;font-size:14px;margin:14px 0 0}.checkin-modal-actions{flex:none;background:#fff;border-top:1px solid #e4edf4;padding:12px 22px max(16px,env(safe-area-inset-bottom))}.checkin-modal-actions .btn{min-height:54px;font-size:17px}.checkin-modal-actions [role=status]:not(:empty){margin-bottom:10px}
+@media(max-width:560px){.mood-row{grid-template-columns:1fr}.clinical-home-head h1{font-size:29px!important}.clinical-home-head p{font-size:16px!important}.care-priority-grid{grid-template-columns:1fr}.care-priority{min-height:124px}.care-priority strong{font-size:18px}.doctor-care-strip{flex-direction:column}.doctor-status em{display:block}.doctor-care-actions{flex-direction:row;width:100%}.doctor-care-actions button{flex:1}.home-command-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.final-auth .login-hero-card p{font-size:16px}.final-auth .login-hero-card h1{font-size:29px}.final-auth .login-feature strong{font-size:13px}.final-auth .login-feature-row{max-width:220px}.final-auth .login-kicker{font-size:11px}.final-auth .login-card-heading p{font-size:16px}.final-auth .auth-card .field label{font-size:16px}.final-auth .auth-card .input{font-size:16px;min-height:50px}.doctor-onboarding p,.doctor-onboarding .doctor-card small{font-size:16px}.doctor-onboarding .btn,.doctor-onboarding .input{min-height:50px;font-size:16px}.doctor-onboarding .doctor-card strong{font-size:18px}.checkin-modal-card{border-radius:20px 20px 0 0!important}}
+.checkin-voice-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:10px 0 12px}.checkin-voice-row button{min-height:52px;font-size:17px}.checkin-voice-row span{font-size:15px;line-height:1.4;flex:1 1 180px}
+.patient-shell .quick-card strong{font-size:17px}.patient-shell .quick-card{min-height:76px}.patient-shell .pill{font-size:14px}.patient-shell .eyebrow{font-size:12px}.patient-shell .shared-source{font-size:12px}.patient-shell .chat-notice{font-size:15px;line-height:1.45}.patient-shell .chat-text{font-size:16px;line-height:1.5}.patient-shell .chat-meta{font-size:13px}.patient-shell .chat-compose textarea{font-size:16px}.patient-shell .next-head h2{font-size:22px}.patient-shell .next-row{min-height:70px}
+
+/* Beta 15: identità clinica essenziale, attività leggibili e cinque voci principali. */
+.final-auth .login-clinical-mark{background:#173b5a!important;color:#fff;border-radius:12px!important;box-shadow:none!important;font-size:26px;letter-spacing:-.12em;font-weight:750;line-height:1}
+.login-clinical-mark span{font-size:12px;align-self:start;margin:11px 0 0 2px;color:#9fd6d3}
+.final-auth .login-hero-card{background:#f0f5f8;border-color:#d8e3e9}
+.final-auth .login-hero-card h1 span{color:#0b6975}
+.login-clinical-symbol{width:100%;max-width:255px;aspect-ratio:1;display:grid;place-items:center;position:relative;border:1px solid #d3e2e9;border-radius:30px;background:linear-gradient(145deg,#fff,#e8f1f5);color:#1a566a;box-shadow:0 20px 35px rgba(31,75,101,.08)}
+.login-clinical-symbol span{font-size:100px;font-weight:600;line-height:1;letter-spacing:-.12em;margin-right:14px}
+.login-clinical-symbol svg{position:absolute;bottom:35px;width:65%;height:48px;fill:none;stroke:#2b868a;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.final-auth .guest-medi-pill{position:relative;z-index:3;background:#fff;color:#163d54;min-height:54px}
+.v6-nav{grid-template-columns:repeat(5,minmax(0,1fr));gap:1px}
+.patient-shell .v6-nav .nav-btn{font-size:12px;min-width:0;padding:7px 0}
+.patient-shell .v6-nav .nav-icon{font-size:19px;width:29px;height:27px}
+.care-priority-grid{gap:12px}
+.care-priority.therapy,.care-priority.control{border:2px solid transparent;border-radius:19px;padding:20px 20px 20px 26px;min-height:170px;box-shadow:none;text-align:left}
+.care-priority.therapy{background:#ddf3ed;border-color:#a6d7c7;color:#174b3e}
+.care-priority.control{background:#ebe5fa;border-color:#c8b9e8;color:#443277}
+.care-priority.therapy:before,.care-priority.control:before{position:absolute;width:7px;height:calc(100% - 28px);left:0;top:14px;border-radius:0 6px 6px 0;background:currentColor;margin:0}
+.care-priority .care-kicker{color:inherit;font-size:13px;font-weight:850;letter-spacing:.05em;opacity:.85}
+.care-priority strong{color:inherit;font-size:21px;line-height:1.24;margin:10px 0 5px}
+.care-priority small{color:inherit;font-size:15px;opacity:.82}
+.care-priority>b{color:inherit;font-size:15px;margin-top:14px}
+@media(max-width:560px){.login-clinical-symbol{width:100px;border-radius:18px}.login-clinical-symbol span{font-size:48px;margin-right:7px}.login-clinical-symbol svg{bottom:17px;height:20px}.final-auth .guest-medi-pill{width:170px;max-width:170px;margin-top:8px}.care-priority-grid{grid-template-columns:1fr}.care-priority.therapy,.care-priority.control{min-height:148px}.patient-shell .v6-nav .nav-btn{font-size:11px}}
+
+/* Beta 17: il contatto di prova è visibile ma distinto dai clinici verificati. */
+.doctor-card.test-contact-choice{border:2px solid #c6b9e7;background:#f6f2ff;gap:12px}
+.doctor-card.test-contact-choice .doctor-avatar{background:#e7defb;color:#473087;font-size:23px}
+.doctor-card.test-contact-choice strong{color:#3e306c}
+.doctor-card.test-contact-choice small{color:#5a5076}
+.doctor-card.test-contact-choice .btn{min-height:46px}
+
+/* Beta 21: Medi discreto nell'intestazione e check-in più compatto. */
+.home-medi-avatar{width:44px;height:44px;flex:0 0 44px;padding:2px;border:1px solid #d4e5ec;border-radius:15px;background:#f1f8fa;box-shadow:0 3px 10px rgba(31,86,113,.09);overflow:hidden;cursor:pointer}
+.home-medi-avatar img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 24%;border-radius:12px}
+@media(prefers-reduced-motion:no-preference){.home-medi-avatar img{animation:meditaly-breathe 5s ease-in-out infinite}}
+.daily-checkin-card{padding:14px 16px!important;margin:0 0 6px!important}
+.daily-checkin-head h2{font-size:23px!important;margin:2px 0 3px!important;line-height:1.17}
+.daily-checkin-head p{font-size:14px;line-height:1.35}
+.daily-checkin-card .eyebrow{font-size:11px}
+.daily-checkin-card .mood-row{gap:7px;margin-top:12px}
+.daily-checkin-card .mood-btn{min-height:47px;padding:8px 13px!important;gap:11px}
+.daily-checkin-card .mood-btn strong{font-size:16px!important}
+.daily-checkin-card .mood-dot{width:16px!important;height:16px!important}
+.report-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.report-send-doctor{font-size:12px!important;min-height:38px!important;padding:7px 9px!important}
+
+/* Home: informazioni principali subito leggibili, check-in in una sola fascia compatta. */
+.patient-shell.new-ui{background:#f7fafc}
+.patient-shell.new-ui .mobile-content{gap:12px;padding-top:14px}
+.patient-shell.new-ui .mobile-top{background:rgba(255,255,255,.97);border-bottom:1px solid #e2eaf0}
+.patient-shell.new-ui .clinical-home-head{padding:4px 2px 8px}
+.patient-shell.new-ui .clinical-home-head h1{font-size:30px!important;margin:2px 0 3px}
+.patient-shell.new-ui .clinical-home-head p{font-size:16px!important;line-height:1.38;color:#617789}
+.patient-shell.new-ui .daily-checkin-card{margin:0!important;padding:12px 13px!important;border:1px solid #d7e6ef!important;border-left:3px solid #328c9b!important;border-radius:16px!important;box-shadow:0 4px 16px rgba(27,78,115,.045)!important;background:#fff!important}
+.patient-shell.new-ui .daily-checkin-head h2{font-size:21px!important;line-height:1.2;margin:2px 0!important}
+.patient-shell.new-ui .daily-checkin-head p{font-size:14px!important;line-height:1.35;margin:2px 0 0;color:#627789}
+.patient-shell.new-ui .daily-checkin-card .eyebrow{font-size:11px;letter-spacing:.08em;color:#458a94}
+.patient-shell.new-ui .daily-checkin-card .mood-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:9px}
+.patient-shell.new-ui .daily-checkin-card .mood-btn{min-width:0;min-height:54px;padding:5px 3px!important;gap:3px!important;justify-content:center!important;align-items:center!important;border-radius:10px!important;text-align:center;background:#f8fbfc!important;border:1px solid #e0e9ed!important;flex-direction:column!important}
+.patient-shell.new-ui .daily-checkin-card .mood-btn.green{background:#edf9f3!important}
+.patient-shell.new-ui .daily-checkin-card .mood-btn.yellow{background:#fff8ea!important}
+.patient-shell.new-ui .daily-checkin-card .mood-btn.red{background:#fff0f1!important}
+.patient-shell.new-ui .daily-checkin-card .mood-btn strong{font-size:14px!important;line-height:1.12}
+.patient-shell.new-ui .daily-checkin-card .mood-dot{width:10px!important;height:10px!important;flex:0 0 10px}
+.patient-shell.new-ui .care-priority-grid{gap:9px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.patient-shell.new-ui .care-priority.therapy,.patient-shell.new-ui .care-priority.control{min-height:130px;padding:13px 11px 12px 16px;border-radius:16px}
+.patient-shell.new-ui .care-priority .care-kicker{font-size:11px;letter-spacing:.015em}
+.patient-shell.new-ui .care-priority strong{font-size:18px;line-height:1.22;margin:8px 0 2px}
+.patient-shell.new-ui .care-priority small{font-size:13px}
+.patient-shell.new-ui .care-priority>b{font-size:13px;margin-top:8px}
+.patient-shell.new-ui .home-command-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:0}
+.patient-shell.new-ui .home-command-grid>button{min-height:72px;padding:9px;border-radius:13px}
+.patient-shell.new-ui .home-command-grid .command-mark{width:25px;height:25px;font-size:14px;margin-bottom:5px}
+.patient-shell.new-ui .home-command-grid strong{font-size:14px}
+.patient-shell.new-ui .home-command-grid small{display:none}
+.patient-shell.new-ui .home-medi-avatar{border-radius:50%;width:42px;height:42px;flex-basis:42px;padding:2px;background:#eaf6f7}
+.patient-shell.new-ui .home-medi-avatar img{border-radius:50%}
+@media(max-width:390px){.patient-shell.new-ui .daily-checkin-card .mood-btn strong{font-size:13px!important}.patient-shell.new-ui .care-priority strong{font-size:16px}.patient-shell.new-ui .home-command-grid strong{font-size:13px}}
+.patient-shell.new-ui .doctor-status small{font-size:12px}
+.patient-shell.new-ui .doctor-status em{font-size:14px}
+.patient-shell.new-ui .v6-nav .nav-btn{font-size:14px}
+
+/* Beta25: Focus, con testi più grandi e prossima attività in primo piano. */
+.patient-shell.patient-home-focus{background:#f5f8fb}
+.patient-shell.patient-home-focus .mobile-top{background:#173b5c!important;border-color:#173b5c!important;box-shadow:none}
+.patient-shell.patient-home-focus .brand-mini,.patient-shell.patient-home-focus .brand-mini strong{color:#fff}
+.patient-shell.patient-home-focus .brand-mini .tiny{color:#d5e7ef!important;font-size:13px}
+.patient-shell.patient-home-focus .mobile-top .icon-btn{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff}
+.patient-shell.patient-home-focus .mobile-top .home-medi-avatar{border-color:#9ecdd9;background:#e7f4f6}
+.patient-shell.patient-home-focus .mobile-content{gap:11px;padding-top:0}
+.patient-shell.patient-home-focus .clinical-home-head{margin:0 -16px;padding:18px 19px 30px;border-radius:0 0 23px 23px;background:#173b5c;color:#fff}
+.patient-shell.patient-home-focus .clinical-home-head .eyebrow{color:#a5d4e0;font-size:12px}
+.patient-shell.patient-home-focus .clinical-home-head h1{color:#fff;font-size:33px!important;margin:5px 0 8px}
+.patient-shell.patient-home-focus .clinical-home-head p{color:#d9e8ef;font-size:16px!important;line-height:1.38}
+.patient-shell.patient-home-focus .focus-next-action{position:relative;z-index:1;margin-top:-22px;width:100%;min-height:154px;display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:5px;padding:16px 17px 15px;border:1px solid #d4e4ed;border-radius:18px;background:#fff;color:#183b57;font:inherit;box-shadow:0 9px 25px rgba(20,63,98,.1)}
+.patient-shell.patient-home-focus .focus-next-action .focus-kicker{font-size:12px;font-weight:850;letter-spacing:.075em;color:#2c7d91}
+.patient-shell.patient-home-focus .focus-next-action strong{font-size:22px;line-height:1.16;color:#163b59}
+.patient-shell.patient-home-focus .focus-next-action small{font-size:15px;color:#607587}
+.patient-shell.patient-home-focus .focus-next-action .focus-action{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:auto;font-size:15px;font-weight:850;color:#146b89}
+.patient-shell.patient-home-focus .focus-next-action .focus-action b{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:#e7f3f7;font-size:20px}
+.patient-shell.patient-home-focus .focus-pair-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.patient-shell.patient-home-focus .focus-pair{min-height:110px;display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:left;border:0;border-radius:15px;padding:12px 13px;font:inherit;color:#205a47;background:#e1f4eb}
+.patient-shell.patient-home-focus .focus-pair.control{color:#5b4b88;background:#eeeafa}
+.patient-shell.patient-home-focus .focus-pair.doctor{color:#205a47;background:#e1f4eb}
+.patient-shell.patient-home-focus .focus-pair span{font-size:12px;letter-spacing:.035em;font-weight:850}
+.patient-shell.patient-home-focus .focus-pair strong{font-size:17px;line-height:1.15;overflow-wrap:anywhere}
+.patient-shell.patient-home-focus .focus-pair small{font-size:13px;line-height:1.2;margin-top:auto;font-weight:700}
+.patient-shell.patient-home-focus .daily-checkin-card{padding:13px 14px!important;border-left:1px solid #d7e6ef!important}
+.patient-shell.patient-home-focus .daily-checkin-head h2{font-size:23px!important}
+.patient-shell.patient-home-focus .daily-checkin-head p{font-size:15px!important}
+.patient-shell.patient-home-focus .daily-checkin-card .eyebrow{font-size:12px}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-btn{min-height:54px}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-btn strong{font-size:15px!important}
+.checkin-modal-moods{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0 16px}
+.checkin-modal-moods button{min-height:52px;border:1.5px solid #cddde2;border-radius:12px;background:#f8fbfc;color:#254859;padding:8px 5px;font:inherit;font-weight:800;font-size:14px}
+.checkin-modal-moods button.selected{border-color:#26775c;background:#e5f5eb;color:#174b36;box-shadow:0 0 0 2px #aad7ba}
+.checkin-modal-moods button[data-checkin-choice="red"].selected{border-color:#b73d49;background:#ffeaeb;color:#812832;box-shadow:0 0 0 2px #edb0b7}
+.checkin-modal-moods button:focus-visible{outline:3px solid #236bba;outline-offset:2px}
+@media(max-width:390px){.checkin-modal-moods button{font-size:12px;min-height:56px}}
+.patient-shell.patient-home-focus .home-command-grid strong{font-size:15px}
+.patient-shell.patient-home-focus .home-command-grid>button{min-height:78px}
+.patient-shell.patient-home-focus .v6-nav .nav-btn{font-size:14px}
+
+/* Screening: contenuti leggibili e accesso diretto nella navigazione. */
+.patient-shell.new-ui .v6-nav{grid-template-columns:repeat(6,minmax(0,1fr));padding-left:4px;padding-right:4px}
+.patient-shell.new-ui .v6-nav .nav-btn,.patient-shell.patient-home-focus .v6-nav .nav-btn{font-size:11px;min-width:0;gap:3px}
+.patient-shell.new-ui .v6-nav .nav-btn span:last-child{white-space:nowrap;letter-spacing:-.025em}
+.patient-shell.new-ui .v6-nav .nav-icon{font-size:20px;width:29px;height:28px}
+.screening-home-callout{display:flex;align-items:center;gap:14px;width:100%;padding:16px;border:1px solid #bedbd8;border-radius:16px;background:linear-gradient(125deg,#effaf6,#f5f9ff);color:#164650;text-align:left;font:inherit;box-shadow:0 5px 16px rgba(31,91,90,.06)}
+.screening-home-callout .screening-home-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#d7f2e8;color:#157765;font-size:27px;flex:none}
+.screening-home-callout span:nth-child(2){display:grid;gap:4px;flex:1}.screening-home-callout strong{font-size:17px;line-height:1.25}.screening-home-callout small{font-size:13px;line-height:1.35;color:#496b72}.screening-home-callout b{font-size:21px;color:#197e70}
+.screening-intake{padding:16px;margin:18px 0;border:1px solid #d1e7e6;border-radius:15px;background:#f4faf9}.screening-intake h2{margin:0 0 5px;color:#184a57;font-size:21px}.screening-intake p{margin:0;line-height:1.5}.intake-residence{display:grid;grid-template-columns:minmax(0,1fr) 90px;gap:10px;align-items:end}
+.screening-heading{background:linear-gradient(120deg,#e9f7f2,#f2f7ff);border-radius:18px;padding:21px}.screening-heading h1{margin:6px 0;font-size:30px;color:#153b4d}.screening-heading p{margin:0;line-height:1.55;color:#3c626d;font-size:16px}
+.screening-intro,.screening-local,.screening-profile,.screening-program{border:1px solid #dce9eb;border-radius:17px}.screening-intro p,.screening-local p,.screening-profile p,.screening-program p{font-size:15px;line-height:1.55}.screening-context{color:#1a7468;font-weight:700}.screening-cards{display:grid;gap:10px}.screening-program h2{margin:0;color:#123c50;font-size:21px}.screening-program p{margin:8px 0 0}.screening-program-top{display:flex;align-items:flex-start;gap:8px;justify-content:space-between;flex-wrap:wrap}.screening-program .pill{font-size:12px}.screening-relevant{border-color:#7dc7ae;background:#f4fbf8}.screening-links{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.screening-links .btn{font-size:14px}.screening-profile .field{display:block;margin:13px 0}.screening-profile .field span{display:block;margin-bottom:6px;font-weight:750}.screening-profile .input{width:100%}.screening-sources{line-height:1.55;padding:0 4px 18px}
+.home-asl-line{margin:0 0 7px!important;color:#177363!important;font-size:15px!important}.home-territory{display:grid;gap:12px;margin:24px 0;padding:20px;border:1px solid #cfe4e4;border-radius:20px;background:linear-gradient(140deg,#f1f9f9,#fff)}.home-territory h2{margin:0;color:#14374b;font-size:22px}.home-territory-card{padding:17px;border:1px solid #d7e6eb;border-radius:16px;background:#fff}.home-territory-card h3{margin:0 0 8px;color:#16374a;font-size:19px}.home-territory-card p,.vaccine-card p{font-size:15px;line-height:1.55;color:#435d69}.home-territory-card small{display:block;margin-top:10px;line-height:1.5;color:#647989}.territory-links{display:flex;gap:12px;flex-wrap:wrap;line-height:1.6}.territory-phone{margin-bottom:2px}.home-territory a,.vaccine-card a{color:#145fa9;font-weight:700}.vaccine-card{margin:12px 0;border:1px solid #d9e6ec;border-radius:17px}.vaccine-card details{margin:15px 0}.vaccine-card summary{cursor:pointer;color:#125c78;font-weight:750;font-size:16px}.vaccine-list{display:grid;gap:8px;margin:15px 0}.vaccine-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(145px,1fr);align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid #e5edf0;font-size:15px}.vaccine-select{max-width:100%;font-size:14px}@media(max-width:410px){.vaccine-row{grid-template-columns:1fr;gap:4px}.home-territory{padding:14px}}
+.territory-service-list{display:grid;gap:12px}.territory-service-list>div{padding:12px;border:1px solid #e4edf0;border-radius:12px;background:#f8fbfc}.territory-service-list strong{display:block;color:#193f52;font-size:16px}.territory-service-list p{margin:6px 0;font-size:14px}.helpline-list{display:grid;gap:0}.helpline-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #e2edef}.helpline-row strong{display:block;font-size:15px;color:#193f52}.helpline-row small{display:block;margin-top:4px;font-size:12px}.helpline-actions{display:flex;flex-direction:column;align-items:flex-end;gap:4px;white-space:nowrap}.helpline-actions .helpline-phone{font-size:17px}.helpline-actions .helpline-source{font-size:12px}.helpline-emergency{padding:12px;border-radius:10px;background:#fff4ef;font-size:14px!important;color:#754129!important}@media(max-width:410px){.helpline-row{align-items:flex-start;flex-direction:column}.helpline-actions{flex-direction:row;gap:14px;align-items:center}}
+@media(max-width:380px){.patient-shell.new-ui .v6-nav .nav-btn,.patient-shell.patient-home-focus .v6-nav .nav-btn{font-size:10px}.patient-shell.new-ui .v6-nav .nav-icon{font-size:18px;width:26px}.screening-home-callout strong{font-size:15px}.intake-residence{grid-template-columns:minmax(0,1fr) 75px}}
+@media(max-width:390px){.patient-shell.patient-home-focus .clinical-home-head h1{font-size:30px!important}.patient-shell.patient-home-focus .focus-pair strong{font-size:16px}.patient-shell.patient-home-focus .daily-checkin-card .mood-btn strong{font-size:13px!important}.patient-shell.patient-home-focus .home-command-grid strong{font-size:13px}}
+.home-today-plan{margin:16px 0;padding:20px 22px;border:1px solid #cddfe9;border-radius:22px;background:linear-gradient(135deg,#fff,#eff8f9);box-shadow:0 8px 24px rgba(16,56,77,.05)}
+.home-today-plan h2{font-size:clamp(1.45rem,4vw,1.85rem);line-height:1.2;margin:5px 0 9px;color:#193d50}
+.home-today-plan p{font-size:1rem;line-height:1.45;margin:8px 0}
+.today-plan-items{display:grid;gap:8px;margin-top:14px}
+.today-plan-item{background:#fff;border:1px solid #d5e3e9;padding:12px 14px;border-radius:12px;display:flex;justify-content:space-between;gap:12px;text-align:left;color:#234457;font-size:1rem}
+.today-plan-item strong{color:#14678a;white-space:nowrap}
+.condition-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:10px;margin:14px 0 18px}
+.condition-options label{display:flex;align-items:center;gap:10px;min-height:48px;border:1px solid #cddfe9;border-radius:12px;padding:8px 11px;background:#fff;font-size:1rem;cursor:pointer}
+.condition-options input{width:18px;height:18px;accent-color:#166a88;flex:none}
+.care-signal-list{margin:16px 0}
+@media(max-width:500px){.today-plan-item{flex-wrap:wrap}.condition-options{grid-template-columns:1fr}}
+
+/* Beta 34: patient home approved layout, large labels and restrained line icons. */
+.patient-shell.patient-home-focus .mobile-top{background:#116475;color:#fff;border-bottom:1px solid #0b5666}
+.patient-shell.patient-home-focus .mobile-top .brand-mini strong{color:#fff}
+.patient-shell.patient-home-focus .mobile-top .brand-mini .tiny{color:#d9eff1!important;font-size:15px}
+.patient-shell.patient-home-focus .clinical-home-head{background:#116475;padding:19px 19px 18px;border-radius:0 0 20px 20px}
+.patient-shell.patient-home-focus .clinical-home-head .home-asl-line{color:#e5f6f5!important;font-size:16px!important}
+.patient-shell.patient-home-focus .clinical-home-head .home-asl-line strong{color:#fff}
+.patient-shell.patient-home-focus .clinical-home-head .home-asl-line a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.patient-shell.patient-home-focus .home-prevention{padding:5px 0 0}
+.patient-shell.patient-home-focus .home-prevention .eyebrow{font-size:13px;letter-spacing:.08em}
+.patient-shell.patient-home-focus .home-prevention h2{font-size:24px;color:#15394f;margin:3px 0 11px}
+.patient-shell.patient-home-focus .home-prevention-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.patient-shell.patient-home-focus .prevention-tile{min-width:0;min-height:182px;text-align:left;border:1px solid #d8e7ef;border-radius:18px;background:#fff;color:#183550;padding:15px 13px;display:flex;flex-direction:column;align-items:flex-start;gap:5px;font:inherit}
+.patient-shell.patient-home-focus .prevention-tile strong{font-size:19px;line-height:1.2}
+.patient-shell.patient-home-focus .prevention-tile small{font-size:15px;line-height:1.32;color:#49647a}
+.patient-shell.patient-home-focus .prevention-tile b{margin-top:auto;color:#1468aa;font-size:15px}
+.patient-shell.patient-home-focus .prevention-icon{position:relative;display:block;width:42px;height:42px;margin-bottom:6px;border-radius:12px;background:#e0f1f8;color:#14728c;font-size:0}
+.patient-shell.patient-home-focus .vaccines .prevention-icon{background:#f0eafd;color:#7453ad}
+.patient-shell.patient-home-focus .prevention-icon::before,.patient-shell.patient-home-focus .prevention-icon::after{content:"";display:block;position:absolute;box-sizing:border-box}
+.patient-shell.patient-home-focus .screening .prevention-icon::before{width:18px;height:18px;left:10px;top:8px;border:3px solid currentColor;border-radius:50%}
+.patient-shell.patient-home-focus .screening .prevention-icon::after{width:12px;height:3px;left:24px;top:27px;background:currentColor;transform:rotate(45deg);border-radius:2px}
+.patient-shell.patient-home-focus .vaccines .prevention-icon::before{width:9px;height:23px;left:17px;top:10px;border:2.5px solid currentColor;border-radius:3px;transform:rotate(45deg)}
+.patient-shell.patient-home-focus .vaccines .prevention-icon::after{width:18px;height:3px;left:12px;top:19px;background:currentColor;transform:rotate(45deg);border-radius:2px}
+.patient-shell.patient-home-focus .daily-checkin-card{margin:0!important;padding:14px 15px!important}
+.patient-shell.patient-home-focus .daily-checkin-head h2{font-size:23px!important}
+.patient-shell.patient-home-focus .daily-checkin-head p{font-size:16px!important;line-height:1.4}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-btn{min-height:73px;padding:7px 2px!important}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-face{display:block;font-size:27px;line-height:1.15}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-btn strong{font-size:15px!important}
+.patient-shell.patient-home-focus .focus-next-action{margin-top:3px;min-height:143px;background:#1768b5;color:#fff;border-color:#1768b5}
+.patient-shell.patient-home-focus .focus-next-action .focus-kicker,.patient-shell.patient-home-focus .focus-next-action strong,.patient-shell.patient-home-focus .focus-next-action small,.patient-shell.patient-home-focus .focus-next-action .focus-action{color:#fff}
+.patient-shell.patient-home-focus .focus-next-action .focus-action b{background:rgba(255,255,255,.17)}
+.patient-shell.patient-home-focus .home-command-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.patient-shell.patient-home-focus .home-command-grid>button{min-height:80px;padding:12px;border-radius:14px}
+.patient-shell.patient-home-focus .home-command-grid .command-journal{background:#e9e7ff;color:#4b4197;border-color:#dcd7fb}
+.patient-shell.patient-home-focus .home-command-grid .command-messages{background:#dcf5ee;color:#136856;border-color:#c5eada}
+.patient-shell.patient-home-focus .home-command-grid .command-reports{background:#fff0dc;color:#875914;border-color:#f6debd}
+.patient-shell.patient-home-focus .home-command-grid .command-more{background:#e6f0fa;color:#255780;border-color:#d3e3f3}
+.patient-shell.patient-home-focus .home-command-grid .command-mark{background:rgba(255,255,255,.65);color:inherit;font-size:22px;margin-bottom:7px;width:36px;height:36px}
+.patient-shell.patient-home-focus .home-command-grid strong{font-size:17px}
+.patient-shell.patient-home-focus .home-command-grid small{font-size:14px;color:inherit;opacity:.9}
+.patient-shell.new-ui .v6-nav.patient-professional-nav{grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;padding:9px 7px max(12px,env(safe-area-inset-bottom))}
+.patient-shell.new-ui .v6-nav.patient-professional-nav .nav-btn{font-size:14px!important;min-width:0;min-height:58px;gap:3px;color:#496376;padding:5px 1px}
+.patient-shell.new-ui .v6-nav.patient-professional-nav .nav-btn.active{color:#116475!important;background:#e7f4f5;border-radius:10px}
+.patient-shell.new-ui .v6-nav.patient-professional-nav .nav-btn.active::before{display:none}
+.patient-shell.new-ui .v6-nav.patient-professional-nav .nav-line-icon{display:block;position:relative;width:30px;height:30px;margin:0 auto 2px;font-size:0;color:inherit}
+.patient-shell.new-ui .v6-nav.patient-professional-nav .nav-line-icon::before,.patient-shell.new-ui .v6-nav.patient-professional-nav .nav-line-icon::after{content:"";position:absolute;display:block;box-sizing:border-box}
+.patient-professional-nav .icon-home::before{width:16px;height:16px;left:7px;top:4px;border-left:2.5px solid currentColor;border-top:2.5px solid currentColor;transform:rotate(45deg);border-radius:2px 0 0 0}
+.patient-professional-nav .icon-home::after{width:19px;height:14px;left:5.5px;top:13px;border:2.5px solid currentColor;border-top:0;border-radius:0 0 3px 3px}
+.patient-professional-nav .icon-pill::before{width:15px;height:26px;left:7.5px;top:2px;border:2.5px solid currentColor;border-radius:9px;transform:rotate(42deg)}
+.patient-professional-nav .icon-pill::after{width:15px;height:2.5px;left:7.5px;top:14px;background:currentColor;transform:rotate(42deg)}
+.patient-professional-nav .icon-diary::before{width:20px;height:25px;left:5px;top:2px;border:2.5px solid currentColor;border-left-width:5px;border-radius:3px}
+.patient-professional-nav .icon-diary::after{width:9px;height:2.5px;left:13px;top:9px;background:currentColor;box-shadow:0 6px currentColor;border-radius:2px}
+.patient-professional-nav .icon-search::before{width:18px;height:18px;left:3px;top:2px;border:2.5px solid currentColor;border-radius:50%}
+.patient-professional-nav .icon-search::after{width:12px;height:2.5px;left:17px;top:21px;background:currentColor;transform:rotate(46deg);border-radius:2px}
+.patient-professional-nav .icon-messages::before{width:22px;height:18px;left:4px;top:4px;border:2.5px solid currentColor;border-radius:5px}
+.patient-professional-nav .icon-messages::after{width:9px;height:9px;left:9px;top:17px;border-left:2.5px solid currentColor;transform:skewY(-35deg)}
+.patient-professional-nav .icon-menu::before{width:22px;height:2.5px;left:4px;top:6px;background:currentColor;box-shadow:0 8px currentColor,0 16px currentColor;border-radius:2px}
+@media(max-width:360px){.patient-shell.new-ui .v6-nav.patient-professional-nav .nav-btn{font-size:12px!important}.patient-shell.patient-home-focus .prevention-tile{padding:12px 10px}}
+
+/* Beta36: le pagine del paziente seguono la Home Focus e le icone della barra. */
+.patient-shell.new-ui .ui-icon{display:inline-block;width:22px;height:22px;flex:none;vertical-align:middle}
+.patient-shell.new-ui .mobile-top{background:#116475;color:#fff;border-color:#0b5666}
+.patient-shell.new-ui .mobile-top .brand-mini strong{color:#fff}
+.patient-shell.new-ui .mobile-top .brand-mini .tiny{color:#d9eff1!important;font-size:15px}
+.patient-shell.new-ui .mobile-top .icon-btn{color:#fff;border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.1)}
+.patient-shell.new-ui:not(.patient-home-focus){background:#f5f8fb}
+.patient-shell.new-ui:not(.patient-home-focus) .mobile-content{padding:18px 16px 32px;gap:16px}
+.patient-shell.new-ui:not(.patient-home-focus) .page-title{margin:-18px -16px 2px;padding:20px 20px 23px;background:#116475;color:#fff;border-radius:0 0 20px 20px}
+.patient-shell.new-ui:not(.patient-home-focus) .page-title h1{color:#fff;font-size:clamp(28px,6vw,34px);line-height:1.12;margin:8px 0 8px}
+.patient-shell.new-ui:not(.patient-home-focus) .page-title p,.patient-shell.new-ui:not(.patient-home-focus) .page-title .muted{color:#e0f1f2;font-size:16px;line-height:1.48;margin:0}
+.patient-shell.new-ui:not(.patient-home-focus) .page-title .eyebrow{color:#c4e7e7;font-size:13px;letter-spacing:.08em}
+.patient-shell.new-ui:not(.patient-home-focus) .page-title .back-link{display:inline-flex;align-items:center;gap:4px;min-height:42px;color:#fff;font-size:16px;padding:0 0 3px}
+.patient-shell.new-ui:not(.patient-home-focus) .page-title .back-link .ui-icon{width:19px;height:19px}
+.patient-shell.new-ui:not(.patient-home-focus) .card{border:1px solid #d9e6ed;border-radius:18px;box-shadow:0 5px 18px rgba(20,66,92,.045)}
+.patient-shell.new-ui:not(.patient-home-focus) .card h2,.patient-shell.new-ui:not(.patient-home-focus) .section-title{font-size:22px;line-height:1.22;color:#183c53}
+.patient-shell.new-ui:not(.patient-home-focus) .card h3{font-size:19px;color:#183c53}
+.patient-shell.new-ui:not(.patient-home-focus) .card p,.patient-shell.new-ui:not(.patient-home-focus) .item,.patient-shell.new-ui:not(.patient-home-focus) .list-item{font-size:16px;line-height:1.47}
+.patient-shell.new-ui:not(.patient-home-focus) .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:49px;padding:11px 16px;border-radius:12px;font-size:16px;line-height:1.25;background:#1768b5;color:#fff;text-align:center}
+.patient-shell.new-ui:not(.patient-home-focus) .btn.secondary{background:#e9f3f8;color:#155979;border:1px solid #c8dfe9}
+.patient-shell.new-ui:not(.patient-home-focus) .btn.ghost{background:#fff;color:#155979;border:1px solid #c8dfe9}
+.patient-shell.new-ui:not(.patient-home-focus) .btn.danger{background:#a32c3e;color:#fff}
+.patient-shell.new-ui:not(.patient-home-focus) .btn.small{min-height:43px;font-size:15px;padding:8px 12px}
+.patient-shell.new-ui:not(.patient-home-focus) .btn:disabled{opacity:.55}
+.patient-shell.new-ui:not(.patient-home-focus) .field label{font-size:16px;color:#23495c}
+.patient-shell.new-ui:not(.patient-home-focus) .input,.patient-shell.new-ui:not(.patient-home-focus) .select,.patient-shell.new-ui:not(.patient-home-focus) .textarea{min-height:49px;font-size:17px;border-color:#ccdfe8}
+.patient-shell.new-ui:not(.patient-home-focus) .section-head{justify-content:space-between}
+.patient-shell.new-ui:not(.patient-home-focus) .section-head .badge{font-size:15px;padding:6px 12px}
+.patient-shell.new-ui:not(.patient-home-focus) .quick-card,.patient-shell.new-ui:not(.patient-home-focus) .doc-card{min-height:82px;padding:15px;border-color:#d7e5ed;border-radius:16px;background:#fff;box-shadow:0 3px 12px rgba(20,66,92,.035);text-decoration:none;color:#183950}
+.patient-shell.new-ui:not(.patient-home-focus) .quick-card>span,.patient-shell.new-ui:not(.patient-home-focus) .doc-card>span{background:#eaf4f8;color:#116475;width:45px;height:45px;border-radius:13px;display:grid;place-items:center}
+.patient-shell.new-ui:not(.patient-home-focus) .quick-card strong,.patient-shell.new-ui:not(.patient-home-focus) .doc-card strong{font-size:18px;line-height:1.22}
+.patient-shell.new-ui:not(.patient-home-focus) .quick-card small,.patient-shell.new-ui:not(.patient-home-focus) .doc-card small{font-size:15px;line-height:1.35;color:#557083;margin-top:4px}
+.patient-shell.new-ui:not(.patient-home-focus) .quick-chevron{display:grid;place-items:center;color:#608297}
+.patient-shell.new-ui:not(.patient-home-focus) .quick-chevron .ui-icon{width:18px;height:18px}
+.patient-shell.new-ui:not(.patient-home-focus) .quick-card[data-go="journal"]>span{background:#edeafd;color:#5549a2}
+.patient-shell.new-ui:not(.patient-home-focus) .quick-card[data-go="reports"]>span{background:#fff0dc;color:#8c601e}
+.patient-shell.new-ui:not(.patient-home-focus) .quick-card[data-go="vaccines"]>span{background:#f0eafd;color:#7352a3}
+.patient-shell.new-ui:not(.patient-home-focus) .quick-card[data-go="notifications"]>span{background:#e5f3ff;color:#1768b5}
+.patient-shell.new-ui:not(.patient-home-focus) .quick-card:focus-visible,.patient-shell.new-ui:not(.patient-home-focus) button:focus-visible,.patient-shell.new-ui:not(.patient-home-focus) a:focus-visible{outline:3px solid #1768b5;outline-offset:2px}
+
+.patient-shell.new-ui .journal-compose{padding:19px 16px 17px}
+.patient-shell.new-ui .journal-compose h2{margin:0 0 12px}
+.patient-shell.new-ui .journal-moods{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0 22px}
+.patient-shell.new-ui .journal-mood{min-height:78px;display:flex;align-items:center;gap:10px;padding:10px 12px;border:1.5px solid #d4e3eb;border-radius:13px;background:#fff;text-align:left;color:#254a61}
+.patient-shell.new-ui .journal-mood span{font-size:28px;line-height:1;flex:none}
+.patient-shell.new-ui .journal-mood strong{font-size:16px;line-height:1.2;margin:0}
+.patient-shell.new-ui .journal-mood:nth-child(1){background:#edf8f4;border-color:#bfe4d3}
+.patient-shell.new-ui .journal-mood:nth-child(2){background:#edf6fb;border-color:#c6e1f0}
+.patient-shell.new-ui .journal-mood:nth-child(3){background:#fff8eb;border-color:#ecdcae}
+.patient-shell.new-ui .journal-mood:nth-child(4){background:#fff0f1;border-color:#f0cbd0}
+.patient-shell.new-ui .journal-mood.selected{border-color:#116475;box-shadow:0 0 0 3px rgba(17,100,117,.16)}
+.patient-shell.new-ui .journal-media-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:17px 0 10px}
+.patient-shell.new-ui .journal-media-actions>.btn{min-width:0;min-height:71px!important;display:flex!important;flex-direction:column;align-items:center;gap:5px;padding:10px 8px!important;white-space:normal}
+.patient-shell.new-ui .journal-media-actions .ui-icon{width:23px;height:23px}
+.patient-shell.new-ui #journalAudioBtn{color:#155e70;background:#e4f4f4;border-color:#b7dede}
+.patient-shell.new-ui #journalVideoBtn{color:#5c4b91;background:#efebfa;border-color:#d9d0f1}
+.patient-shell.new-ui #journalRemoveMedia{grid-column:1/-1;min-height:42px;justify-self:start;padding:4px 2px;font-size:16px}
+.patient-shell.new-ui .journal-media-info{font-size:15px;line-height:1.4;color:#526f82;padding:12px;border-color:#bed7e4;background:#f7fafc;margin:0 0 15px;overflow-wrap:anywhere}
+.patient-shell.new-ui #journalSave{min-height:54px;font-size:18px}
+.patient-shell.new-ui #journalMsg:not(:empty){margin-top:12px;font-size:16px;overflow-wrap:anywhere}
+.patient-shell.new-ui .journal-compose>.small{font-size:14px;line-height:1.4;margin:12px 0 0}
+.patient-shell.new-ui .journal-list{gap:10px}
+.patient-shell.new-ui .journal-entry{padding:15px;border-color:#d6e5ed;box-shadow:0 4px 14px rgba(20,66,92,.04)}
+.patient-shell.new-ui .journal-entry-head{gap:8px;min-width:0}
+.patient-shell.new-ui .journal-entry-head>div{min-width:0;flex:1}
+.patient-shell.new-ui .journal-entry-head strong{font-size:17px;color:#193d53}
+.patient-shell.new-ui .journal-entry-head small{font-size:14px;line-height:1.3;margin-top:3px}
+.patient-shell.new-ui .journal-entry-mood{font-size:28px}
+.patient-shell.new-ui .journal-entry p{font-size:16px;color:#304d62;line-height:1.5}
+.patient-shell.new-ui .journal-entry .icon-btn{flex:none;width:42px;height:42px;border-radius:11px;background:#f5f9fb;border-color:#d6e5ed;color:#245d73}
+.patient-shell.new-ui .journal-entry .journal-delete{color:#974c57}
+.patient-shell.new-ui .journal-entry .icon-btn .ui-icon{width:19px;height:19px}
+.patient-shell.new-ui .journal-open-media{margin-top:10px}
+.patient-shell.new-ui .journal-empty-icon{display:grid;place-items:center;width:48px;height:48px;margin:0 auto 10px;border-radius:14px;background:#eaf4f8;color:#116475}
+.patient-shell.new-ui .journal-empty-icon .ui-icon{width:28px;height:28px}
+.patient-shell.new-ui .choice-card .ui-icon,.patient-shell.new-ui .upload-icon .ui-icon{width:28px;height:28px}
+.patient-shell.new-ui .home-command-grid .command-mark .ui-icon,.patient-shell.new-ui .next-symbol .ui-icon{width:21px;height:21px}
+.patient-shell.new-ui .doc-card{gap:13px}
+.patient-shell.new-ui .report-source-grid{gap:8px}
+.patient-shell.new-ui .report-source-btn{min-width:0;min-height:106px;padding:11px 6px;border-color:#d6e5ed;background:#fff;color:#174760}
+.patient-shell.new-ui .report-source-btn span{width:40px;height:40px;padding:0;background:#e8f4f7;color:#116475}
+.patient-shell.new-ui .report-source-btn span .ui-icon{width:23px;height:23px}
+.patient-shell.new-ui .report-source-btn strong{font-size:15px;line-height:1.15;text-align:center}
+.patient-shell.new-ui .report-source-btn small{font-size:12px;line-height:1.2;text-align:center;color:#526f82}
+.patient-shell.new-ui .report-source-btn.camera{background:#edf7f8;border-color:#b7dce1}
+.patient-shell.new-ui .import-choice{gap:8px}
+.patient-shell.new-ui .choice-card{min-width:0;min-height:96px;padding:12px 5px;gap:9px;color:#1b566e;border-color:#d7e5ed}
+.patient-shell.new-ui .choice-card strong{font-size:15px;line-height:1.18;text-align:center}
+.patient-shell.new-ui .choice-card.active{border-color:#116475;background:#eaf6f7;box-shadow:0 0 0 2px rgba(17,100,117,.13)}
+.patient-shell.new-ui .tabs button{min-height:46px;font-size:15px;line-height:1.2;font-weight:750}
+.patient-shell.new-ui .tabs button.on{background:#116475}
+.patient-shell.new-ui .report-card,.patient-shell.new-ui .captured-page{border-color:#d8e5ed}
+.patient-shell.new-ui .report-body strong{font-size:17px}
+.patient-shell.new-ui .report-body small{font-size:14px;line-height:1.35}
+.patient-shell.new-ui .doc-card>span .ui-icon{width:24px;height:24px}
+@media(max-width:360px){.patient-shell.new-ui .journal-mood{padding:9px 8px;gap:7px}.patient-shell.new-ui .journal-mood strong{font-size:15px}.patient-shell.new-ui .journal-entry .icon-btn{width:39px;height:39px}}
+
+/* Anteprima autenticata quando si apre una notifica di chat. */
+.chat-notification-overlay{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:20px;background:rgba(16,47,82,.56)}
+.chat-notification-card{width:min(100%,440px);padding:25px;border-radius:20px;background:#fff;box-shadow:0 24px 70px rgba(10,35,62,.3)}
+.chat-notification-card h2{margin:8px 0 15px;color:#102f52;font-size:23px;line-height:1.25}
+.chat-notification-body{max-height:min(40vh,260px);overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;color:#173550;font-size:15px}
+.chat-notification-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}
+.chat-notification-actions button{min-height:44px}
+
+/* Login B: accogliente, con la stessa palette della home paziente. */
+.auth-option-b{background:linear-gradient(180deg,#e8f5f2 0%,#f8fcfb 60%)!important}
+.auth-option-b .auth-stage{width:min(980px,100%);grid-template-columns:minmax(0,1fr) minmax(350px,.9fr);gap:0 26px}
+.auth-option-b .login-brandbar{background:transparent;border:0;padding:12px 6px 20px}
+.auth-option-b .login-clinical-mark{background:#116475!important;border-radius:16px!important}
+.auth-option-b .login-hero-card{min-height:480px;background:linear-gradient(150deg,#dcefed,#eaf8f4)!important;border:0;border-radius:26px;box-shadow:none;padding:38px;grid-template-columns:1fr}
+.auth-option-b .login-kicker{color:#116475!important}
+.auth-option-b .login-hero-card h1,.auth-option-b .login-hero-card h1 span{color:#173d43!important;font-size:clamp(30px,4vw,44px)}
+.auth-option-b .login-hero-card p{color:#547477!important;font-size:17px}
+.auth-option-b .login-feature-row{display:none}
+.auth-option-b .login-medi-wrap{justify-items:start;gap:14px;align-self:end}
+.auth-option-b .login-b-heart{width:110px;height:110px;border-radius:50%;display:grid;place-items:center;background:#cbe8e9;box-shadow:0 0 0 16px rgba(255,255,255,.4)}
+.auth-option-b .login-b-heart svg{width:78px;height:78px}
+.auth-option-b .final-login-card{border:1px solid #dceae7;border-radius:26px;background:#fff;box-shadow:0 20px 55px rgba(28,89,88,.1);padding:30px;align-self:start}
+.auth-option-b .login-card-heading h2{color:#173d43}
+.auth-option-b .login-mini-shield{background:#e8f6f1;color:#116475}
+.auth-option-b .login-primary{background:#116475;box-shadow:0 9px 20px rgba(17,100,117,.2)}
+.auth-option-b .login-outline{color:#116475;border-color:#b6d9d4}
+.auth-option-b .auth-input-wrap .input:focus{border-color:#116475}
+.auth-option-b .guest-medi-pill{border-color:#afd6d2;color:#116475}
+.auth-option-b .guest-medi-pill strong{color:#116475}
+@media(max-width:820px){.auth-option-b .auth-stage{grid-template-columns:1fr;max-width:560px;gap:0}.auth-option-b .login-brandbar{padding:10px 10px 16px}.auth-option-b .login-hero-card{min-height:260px;border-radius:24px 24px 0 0;padding:25px 25px 45px;grid-template-columns:1fr 104px;align-items:center}.auth-option-b .login-hero-card h1,.auth-option-b .login-hero-card h1 span{font-size:clamp(26px,6vw,36px)}.auth-option-b .login-hero-card p{font-size:14px;margin:12px 0}.auth-option-b .login-medi-wrap{align-self:center;justify-items:center}.auth-option-b .login-b-heart{width:78px;height:78px}.auth-option-b .login-b-heart svg{width:62px;height:62px}.auth-option-b .guest-medi-pill{grid-column:1;min-height:42px;font-size:10px}.auth-option-b .final-login-card{margin-top:-20px;z-index:2;border-radius:24px;padding:24px 20px}.auth-option-b .login-card-heading h2{font-size:23px}}
+@media(max-width:390px){.auth-option-b .login-hero-card{grid-template-columns:1fr 80px;padding:20px 16px 40px}.auth-option-b .login-b-heart{width:62px;height:62px}.auth-option-b .login-b-heart svg{width:50px;height:50px}.auth-option-b .login-hero-card h1,.auth-option-b .login-hero-card h1 span{font-size:25px}}
+@media(max-width:820px){.auth-option-b .guest-medi-pill{width:104px;max-width:104px;padding:7px}.auth-option-b .guest-medi-pill span{display:none}}
+
+/* Azione centrale: accesso diretto alla conversazione del medico collegato. */
+.patient-shell.new-ui .bottom-nav.patient-professional-nav{grid-template-columns:repeat(5,minmax(0,1fr));align-items:end;padding-top:8px}
+.patient-shell.new-ui .v6-nav.patient-professional-nav .doctor-chat-nav{position:relative;min-height:74px;padding:0 2px 5px!important;color:#116475!important;font-size:10px!important;line-height:1.12;text-align:center;overflow:visible}
+.patient-shell.new-ui .v6-nav.patient-professional-nav .doctor-chat-nav .nav-icon{width:52px;height:52px;margin-top:-23px;border-radius:50%;background:#116475;color:#fff;box-shadow:0 8px 19px rgba(17,100,117,.27);display:grid;place-items:center;font-size:25px}
+.patient-shell.new-ui .v6-nav.patient-professional-nav .doctor-chat-nav .nav-icon .ui-icon{width:30px;height:30px;display:block}
+.patient-shell.new-ui .v6-nav.patient-professional-nav .doctor-chat-nav span:last-child{white-space:normal;font-weight:800;max-width:86px}
+.patient-shell.new-ui .v6-nav.patient-professional-nav .doctor-chat-nav.active{background:transparent}
+.patient-shell.new-ui .v6-nav.patient-professional-nav .doctor-chat-nav.active .nav-icon{background:#0b5969;box-shadow:0 0 0 4px #d4edeb,0 8px 19px rgba(17,100,117,.25)}
+.patient-shell.new-ui .v6-nav.patient-professional-nav .nav-btn:focus-visible{outline:2px solid #116475;outline-offset:2px}
+.journal-player-overlay{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:20px;background:rgba(10,36,47,.7)}
+.journal-player-card{position:relative;width:min(100%,520px);padding:54px 16px 20px;background:#fff;border-radius:20px}
+.journal-player-card video,.journal-player-card audio{width:100%;max-height:75vh}
+.journal-player-close{position:absolute;right:12px;top:10px;width:38px;height:38px;border:0;border-radius:50%;font-size:25px;background:#e9f3f3;color:#116475}
+
+/* Navigazione paziente ancorata al viewport, con spazio di lettura fino al fondo. */
+.patient-shell.new-ui{padding-bottom:calc(112px + env(safe-area-inset-bottom))}
+.patient-shell.new-ui .mobile-content,
+.patient-shell.new-ui:not(.patient-home-focus) .mobile-content{padding-bottom:calc(30px + env(safe-area-inset-bottom))}
+.patient-shell.new-ui .bottom-nav.patient-professional-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);z-index:100;width:min(520px,100%);visibility:visible}
+.patient-shell.new-ui .home-command-grid .command-invite{grid-column:1/-1;display:flex;align-items:center;gap:12px;min-height:64px;background:#e5f4f1;color:#105c57;border-color:#b6ded6}
+.patient-shell.new-ui .home-command-grid .command-invite .command-mark{margin:0;flex:0 0 36px;width:36px;height:36px;background:#fff;color:inherit}
+.patient-shell.new-ui .home-command-grid .command-invite small{display:block;margin-left:auto;color:inherit}
+.patient-professional-nav .icon-report::before{width:19px;height:24px;left:6px;top:3px;border:2.5px solid currentColor;border-radius:3px}
+.patient-professional-nav .icon-report::after{width:10px;height:2.5px;left:10px;top:11px;background:currentColor;box-shadow:0 6px currentColor;border-radius:2px}
+@media(max-width:390px){.patient-shell.new-ui .home-command-grid .command-invite small{display:none}}
+
+/* I motivi del check-in sono leggibili nella dashboard e nella scheda paziente. */
+.care-checkin-dashboard{display:grid;gap:8px}
+.care-checkin-entry{display:grid;gap:6px;padding:13px 0;border-top:1px solid #e1e9ef;min-width:0;overflow-wrap:anywhere}
+.care-checkin-entry:first-of-type{border-top:0}
+.care-checkin-entry .text-link{text-align:left;justify-self:start;font-size:15px}
+.care-checkin-entry small{color:#70818b}
+.care-checkin-reasons{color:#46687c;font-weight:700;font-size:13px}
+.care-checkin-note{margin:0;white-space:pre-wrap;color:#173d53;line-height:1.5}
+.clinician-remove-med,.clinician-remove-followup{margin-top:10px;border-color:#edced0;color:#9c3842;background:#fffafa}
+
+/* Beta 46: sage, mist blue and compact patient Home. */
+.patient-shell.new-ui,.patient-shell.patient-home-focus{background:#f4f8f6}
+.patient-shell.new-ui .mobile-top,.patient-shell.patient-home-focus .mobile-top{background:#527b78;border-color:#416c69}
+.patient-shell.new-ui:not(.patient-home-focus) .page-title,.patient-shell.patient-home-focus .clinical-home-head{background:#527b78}
+.patient-shell.patient-home-focus .clinical-home-head{padding:14px 18px;border-radius:0 0 18px 18px}
+.patient-shell.patient-home-focus .clinical-home-head h1{font-size:clamp(26px,6vw,32px);line-height:1.12;margin:5px 0 8px}
+.patient-shell.patient-home-focus .clinical-home-head p{margin:5px 0;font-size:15px;line-height:1.35}
+.patient-shell.patient-home-focus .daily-checkin-card{padding:10px 13px!important;background:#fff;border:1px solid #d6e5e0;border-radius:16px}
+.patient-shell.patient-home-focus .daily-checkin-head h2{font-size:20px!important;margin:2px 0}
+.patient-shell.patient-home-focus .daily-checkin-head p{font-size:14px!important;margin:2px 0 8px;line-height:1.3}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-btn{min-height:48px;padding:6px 3px!important;display:flex;align-items:center;justify-content:center;gap:5px;background:#f7faf8}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-face{font-size:21px;display:inline;line-height:1}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-btn strong{font-size:14px!important}
+.patient-shell.patient-home-focus .home-prevention{padding-top:3px}
+.patient-shell.patient-home-focus .home-prevention .eyebrow,.patient-shell.patient-home-focus .home-path-heading .eyebrow{color:#326c62;font-size:16px;font-weight:850;letter-spacing:.07em}
+.patient-shell.patient-home-focus .home-prevention h2,.patient-shell.patient-home-focus .home-path-heading h2{margin:3px 0 9px;color:#284f50;font-size:25px}
+.patient-shell.patient-home-focus .prevention-tile{background:#fdfefd;border-color:#d1e4db;min-height:135px;padding:12px}
+.patient-shell.patient-home-focus .prevention-tile small{font-size:14px}
+.patient-shell.patient-home-focus .prevention-tile b{color:#3e7469}
+.patient-shell.patient-home-focus .focus-next-action{background:#527b78;border-color:#527b78;min-height:124px}
+.patient-shell.patient-home-focus .focus-pair{background:#f0f7f3;border-color:#d3e3dc}
+.patient-shell.patient-home-focus .home-path-heading{margin:8px 0 0}
+.patient-shell.patient-home-focus .home-command-grid .command-messages{background:#e3f2ea;color:#356d61}
+.patient-shell.patient-home-focus .home-command-grid .command-reports{background:#f5eee4;color:#785b3e}
+.patient-shell.patient-home-focus .home-command-grid .command-journal{background:#eeeef5;color:#625d82}
+.patient-shell.patient-home-focus .home-command-grid .command-more{background:#eaf1f4;color:#47697c}
+.patient-shell.patient-home-focus .who-tips,.patient-shell.patient-home-focus .home-measures,.patient-shell.patient-home-focus .local-health-news{padding:15px 16px;margin:12px 0;border:1px solid #d6e5e0;border-radius:17px;background:#fff;color:#2b4e50}
+.patient-shell.patient-home-focus .who-tips{background:#eef6f0}
+.patient-shell.patient-home-focus .who-tips h2,.patient-shell.patient-home-focus .home-measures h2,.patient-shell.patient-home-focus .local-health-news h2{font-size:21px;margin:4px 0 10px;color:#2d5955}
+.patient-shell.patient-home-focus #whoTip strong{font-size:17px}
+.patient-shell.patient-home-focus #whoTip p{margin:6px 0;line-height:1.4;font-size:15px}
+.patient-shell.patient-home-focus .who-tips a,.patient-shell.patient-home-focus .local-health-news a{color:#2b665f;font-weight:700}
+.patient-shell.patient-home-focus .tip-dots{display:flex;gap:7px;margin-top:12px}
+.patient-shell.patient-home-focus .tip-dot{width:8px;height:8px;border:0;padding:0;border-radius:50%;background:#b8d0c4}
+.patient-shell.patient-home-focus .tip-dot.active{width:22px;border-radius:8px;background:#4b8171}
+.patient-shell.patient-home-focus .measure-inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.patient-shell.patient-home-focus .measure-inputs label{font-size:14px;font-weight:700}
+.patient-shell.patient-home-focus .measure-inputs .input{width:100%;margin-top:4px;background:#f9fcfa}
+.patient-shell.patient-home-focus .measure-details{margin-top:11px;border-top:1px solid #e2ece7;padding-top:9px}
+.patient-shell.patient-home-focus .measure-details summary{cursor:pointer;color:#336d65;font-weight:750}
+.patient-shell.patient-home-focus .measure-results{display:flex;gap:12px;margin-top:12px}
+.patient-shell.patient-home-focus .measure-results>div{flex:1;padding:9px;background:#eff6f2;border-radius:10px}
+.patient-shell.patient-home-focus .measure-results strong,.patient-shell.patient-home-focus .measure-results small{display:block}
+.patient-shell.patient-home-focus .health-news-story{display:grid;gap:6px;text-decoration:none}
+.patient-shell.patient-home-focus .health-news-story strong{font-size:17px;line-height:1.3}
+.patient-shell.patient-home-focus .local-health-news small{display:block;color:#607b79;margin-top:8px}
+.doctor-header-select select{max-width:155px;color:#e7f4ef;background:transparent;border:0;border-bottom:1px solid #d7e9e1;border-radius:0;font-size:13px;padding:2px 15px 2px 0;text-overflow:ellipsis}
+.doctor-header-select option{color:#234a46;background:#fff}
+.condition-other{display:block;margin-bottom:16px}
+.condition-other.hidden{display:none}
+.doctor-onboarding .card{border-color:#d6e5e0}
+.doctor-onboarding .btn{background:#527b78}
+
+/* Medi resta nella testata; onde discrete indicano che è pronto all'ascolto. */
+.patient-shell.new-ui .home-medi-avatar{position:relative;isolation:isolate;overflow:visible;border:2px solid #c7e7d3;background:#eef7f0;box-shadow:0 2px 8px #214d3526;animation:medi-heartbeat 3.1s ease-in-out infinite}
+.patient-shell.new-ui .home-medi-avatar img{border-radius:50%;animation:none}
+.patient-shell.new-ui .home-medi-avatar::before,.patient-shell.new-ui .home-medi-avatar::after{content:"";position:absolute;inset:-5px;border:1.5px solid #91cda7;border-radius:50%;z-index:-1;pointer-events:none;animation:medi-audio-ring 2.7s ease-out infinite}
+.patient-shell.new-ui .home-medi-avatar::after{animation-delay:1.35s}
+@keyframes medi-heartbeat{0%,18%,35%,100%{transform:scale(1)}24%{transform:scale(1.075)}29%{transform:scale(1.02)}}
+@keyframes medi-audio-ring{0%{transform:scale(.87);opacity:.75}100%{transform:scale(1.48);opacity:0}}
+.patient-shell.new-ui .home-medi-avatar:focus-visible{outline:3px solid #153f31;outline-offset:8px}
+
+/* Conversazione vocale in primo piano sopra la home. */
+#mediModal{place-items:center;padding:10px;background:#173d318f}
+#mediModal .medi-voice-card{width:min(100%,520px);max-height:calc(100dvh - 28px);height:min(680px,calc(100dvh - 28px));display:flex!important;flex-direction:column;overflow:hidden;border-radius:24px;background:#fdfefd;animation:medi-open .3s cubic-bezier(.2,.8,.2,1) both}
+#mediModal.hidden .medi-voice-card{display:none!important}
+@keyframes medi-open{from{opacity:0;transform:translateY(18px) scale(.91)}to{opacity:1;transform:translateY(0) scale(1)}}
+#mediModal .medi-voice-card .medi-assistant-head{position:static;padding:15px;background:linear-gradient(125deg,#e4f2e8,#f7fbf8);border-color:#dcebe0}
+#mediModal .medi-voice-card .medi-assistant-identity img{width:54px!important;height:54px!important;border:2px solid #cce6d5;border-radius:50%;object-position:center 24%}
+#mediModal .medi-voice-card .medi-assistant-identity h2{font-size:22px}
+#mediModal .medi-voice-card .medi-assistant-main{flex:1;overflow:auto;padding:16px;min-height:0}
+#mediModal .medi-intro-bubble{padding:13px 14px;background:#eaf5ed;border-radius:5px 17px 17px 17px;color:#2b523d;font-size:13px;line-height:1.5}
+#mediModal .medi-intro-bubble strong{color:#286d4b}
+#mediModal .medi-intro-bubble p{margin:5px 0 0;color:inherit}
+#mediModal .medi-capabilities{display:grid;gap:5px;margin:15px 0 0;color:#305541}
+#mediModal .medi-capabilities .eyebrow{font-size:10px;letter-spacing:.1em;margin-bottom:3px;color:#4b8060}
+#mediModal .medi-capabilities>div{border:1px solid #e3eee6;background:#f7faf7;border-radius:9px;padding:8px 10px;font-size:12px;line-height:1.25}
+#mediModal .medi-voice-card .medi-answer{margin-top:10px}
+#mediModal .medi-voice-card .medi-dialogue{max-height:none}
+#mediModal .medi-voice-card .medi-turn.assistant{background:#eff7f1;border-color:#d7eadb;color:#284c3c}
+#mediModal .medi-voice-card .medi-turn.user{background:#37765a}
+#mediModal .medi-video{display:block;width:100%;aspect-ratio:16/9;margin-top:10px;border:0;border-radius:10px;background:#e5eee7}
+#mediModal .medi-voice-card .medi-safety-note{margin:10px 0 0;font-size:10px}
+#mediModal .medi-voicebar{flex:none;display:flex;align-items:center;gap:10px;padding:13px 15px max(15px,env(safe-area-inset-bottom));border-top:1px solid #e2ece3;background:#fff}
+#mediModal .medi-voicebar .medi-mic{width:49px;height:49px;flex:none;border:0;border-radius:50%;background:#30805a;color:#fff;display:grid;place-items:center;box-shadow:0 0 0 5px #e8f4eb}
+#mediModal .medi-voicebar .medi-mic .ui-icon{width:25px;height:25px}
+#mediModal .medi-voicebar>div{flex:1;min-width:0}
+#mediModal .medi-voicebar strong,#mediModal .medi-voicebar small{display:block}
+#mediModal .medi-voicebar strong{font-size:12px;color:#315541}
+#mediModal .medi-voicebar small{font-size:10px;color:#788a7c}
+#mediModal .medi-voicebar .medi-speak{width:32px;height:32px;font-size:13px;flex:none}
+#mediModal.medi-listening .medi-mic{background:#bb6857;animation:medi-mic-pulse 1.2s ease-in-out infinite}
+@keyframes medi-mic-pulse{50%{box-shadow:0 0 0 10px #eacdc580}}
+@media(max-width:560px){#mediModal{place-items:center;padding:9px}#mediModal .medi-voice-card{width:100%;height:min(690px,calc(100dvh - 18px));max-height:calc(100dvh - 18px);border-radius:22px}#mediModal .medi-voice-card .medi-assistant-main{padding:14px}#mediModal .medi-voice-card .medi-assistant-head{padding:13px}}
+@media(prefers-reduced-motion:reduce){.patient-shell.new-ui .home-medi-avatar,.patient-shell.new-ui .home-medi-avatar::before,.patient-shell.new-ui .home-medi-avatar::after,#mediModal .medi-voice-card,#mediModal.medi-listening .medi-mic{animation:none!important}}
+@media(max-width:390px){.patient-shell.patient-home-focus .daily-checkin-card .mood-btn strong{font-size:12px!important}.doctor-header-select select{max-width:120px}}
+.condition-choice-row{display:flex;gap:10px;margin:12px 0}
+.condition-choice-row label{display:flex;align-items:center;gap:7px;border:1px solid #d3e4da;border-radius:10px;background:#fff;padding:9px 17px;font-weight:700;color:#2e5e58}
+.condition-choice-row input{accent-color:#527b78}
+
+/* Beta 46 refinement: calmer blue palette and shorter fixed brand header. */
+.patient-shell.new-ui,.patient-shell.patient-home-focus{background:#f6f8fb}
+.patient-shell.new-ui .mobile-top,.patient-shell.patient-home-focus .mobile-top{background:#506c86!important;border-color:#445f79!important;padding:7px 11px!important;padding-top:max(7px,env(safe-area-inset-top))!important;gap:6px;box-shadow:none}
+.patient-shell.new-ui .mobile-top .brand-mini{min-width:0;gap:6px}
+.patient-shell.new-ui .mobile-top .brand-mini>div:last-child{min-width:0}
+.patient-shell.new-ui .mobile-top .brand-mark.mini{width:31px;height:31px;flex:0 0 31px;border-radius:9px}
+.patient-shell.new-ui .mobile-top .brand-mini strong{font-size:17px;line-height:1.05}
+.patient-shell.new-ui .mobile-top .brand-mini .tiny{font-size:12px!important;line-height:1.1;color:#e5edf5!important;max-width:145px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.patient-shell.new-ui .mobile-top .icon-btn{width:33px;height:33px;flex:0 0 33px;border-radius:10px}
+.patient-shell.new-ui .home-medi-avatar{width:34px;height:34px;flex:0 0 34px;border-radius:50%}
+.patient-shell.new-ui .mobile-top .doctor-header-select select{max-width:140px;border-color:#cfdeed;color:#f0f5fa;font-size:12px;line-height:1.1;padding:1px 12px 1px 0}
+.patient-shell.new-ui:not(.patient-home-focus) .page-title,.patient-shell.patient-home-focus .clinical-home-head{background:#506c86}
+.patient-shell.patient-home-focus .clinical-home-head .home-asl-line{color:#edf3f8!important}
+.patient-shell.patient-home-focus .home-prevention .eyebrow,.patient-shell.patient-home-focus .home-path-heading .eyebrow{color:#526f8e}
+.patient-shell.patient-home-focus .home-prevention h2,.patient-shell.patient-home-focus .home-path-heading h2{color:#344f6a}
+.patient-shell.patient-home-focus .daily-checkin-card,.patient-shell.patient-home-focus .who-tips,.patient-shell.patient-home-focus .home-measures,.patient-shell.patient-home-focus .local-health-news{border-color:#dce5ef}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-btn{background:#f7f9fc}
+.patient-shell.patient-home-focus .prevention-tile{background:#fff;border-color:#dce5ef}
+.patient-shell.patient-home-focus .prevention-tile b,.patient-shell.patient-home-focus .who-tips a,.patient-shell.patient-home-focus .local-health-news a{color:#47698a}
+.patient-shell.patient-home-focus .focus-next-action{background:#5a7590;border-color:#5a7590}
+.patient-shell.patient-home-focus .focus-pair{background:#f0f4f9;border-color:#dae4ee}
+.patient-shell.patient-home-focus .who-tips{background:#eef3f9}
+.patient-shell.patient-home-focus .who-tips h2,.patient-shell.patient-home-focus .home-measures h2,.patient-shell.patient-home-focus .local-health-news h2{color:#385771}
+.patient-shell.patient-home-focus .tip-dot{background:#b8cadb}
+.patient-shell.patient-home-focus .tip-dot.active{background:#5d7e9c}
+.patient-shell.patient-home-focus .measure-details summary{color:#47698a}
+.patient-shell.patient-home-focus .measure-results>div{background:#eef3f9}
+.doctor-onboarding{background:#f6f8fb}
+.doctor-onboarding .btn{background:#557895}
+.doctor-onboarding .card{border-color:#dce5ef}
+.condition-choice-row label{border-color:#dae4ee;color:#405d78}
+.condition-choice-row input{accent-color:#5a7590}
+.rome-municipio-field.hidden{display:none}
+@media(max-width:390px){.patient-shell.new-ui .mobile-top .doctor-header-select select{max-width:102px}.patient-shell.new-ui .mobile-top .brand-mini .tiny{max-width:105px}.patient-shell.new-ui .mobile-top .icon-btn{width:30px;height:30px;flex-basis:30px}}
+
+/* Il tuo percorso: compact card with an accessible, high contrast disclosure. */
+.patient-shell.patient-home-focus .home-path-card{margin:9px 0 0;padding:16px;border:1px solid #cedce9;border-radius:18px;background:#fff;box-shadow:0 3px 14px rgba(34,63,93,.06)}
+.patient-shell.patient-home-focus .home-path-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:0}
+.patient-shell.patient-home-focus .home-path-heading>div{min-width:0}
+.patient-shell.patient-home-focus .home-path-heading .eyebrow{color:#345a7c;font-size:15px;line-height:1.3}
+.patient-shell.patient-home-focus .home-path-heading h2{margin:3px 0 0;color:#243f5a;font-size:23px;line-height:1.22}
+.patient-shell.patient-home-focus .home-path-toggle{flex:0 0 48px;width:48px;height:48px;display:grid;place-items:center;border:2px solid #b33a50;border-radius:13px;background:#fff0f2;color:#a52842;cursor:pointer}
+.patient-shell.patient-home-focus .home-path-toggle svg{width:29px;height:29px;stroke-width:3;transition:transform .18s ease}
+.patient-shell.patient-home-focus .home-path-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+.patient-shell.patient-home-focus .home-path-toggle:focus-visible{outline:3px solid #243f5a;outline-offset:3px}
+.patient-shell.patient-home-focus .home-path-content{padding-top:11px}
+.patient-shell.patient-home-focus .home-path-content[hidden]{display:none!important}
+.patient-shell.patient-home-focus .home-path-card .focus-next-action{margin-top:0;min-height:124px;background:#506f8c;border-color:#506f8c}
+.patient-shell.patient-home-focus .home-path-card .focus-next-action .focus-kicker{font-size:14px;letter-spacing:.03em}
+.patient-shell.patient-home-focus .home-path-card .focus-next-action strong{font-size:22px;line-height:1.22}
+.patient-shell.patient-home-focus .home-path-card .focus-next-action small{font-size:16px;line-height:1.3;color:#fff}
+.patient-shell.patient-home-focus .home-path-card .focus-next-action .focus-action{font-size:16px}
+.patient-shell.patient-home-focus .home-path-card .focus-pair-grid{margin-top:9px}
+.patient-shell.patient-home-focus .home-path-card .focus-pair{min-height:116px;background:#edf3f9;color:#2b4a68;border:1px solid #d4e1ed}
+.patient-shell.patient-home-focus .home-path-card .focus-pair span{font-size:13px;color:#365875}
+.patient-shell.patient-home-focus .home-path-card .focus-pair strong{font-size:18px;line-height:1.23;color:#233f5a}
+.patient-shell.patient-home-focus .home-path-card .focus-pair small{font-size:15px;line-height:1.3;color:#355b7d}
+
+/* Return to the sage palette while preserving the stronger text contrast. */
+.patient-shell.new-ui,.patient-shell.patient-home-focus{background:#f4f8f6}
+.patient-shell.new-ui .mobile-top,.patient-shell.patient-home-focus .mobile-top{background:#527b78!important;border-color:#416c69!important}
+.patient-shell.new-ui:not(.patient-home-focus) .page-title,.patient-shell.patient-home-focus .clinical-home-head{background:#527b78}
+.patient-shell.patient-home-focus .home-prevention .eyebrow,.patient-shell.patient-home-focus .home-path-heading .eyebrow{color:#326c62}
+.patient-shell.patient-home-focus .home-prevention h2,.patient-shell.patient-home-focus .home-path-heading h2{color:#284f50}
+.patient-shell.patient-home-focus .daily-checkin-card,.patient-shell.patient-home-focus .who-tips,.patient-shell.patient-home-focus .home-measures,.patient-shell.patient-home-focus .local-health-news{border-color:#d6e5e0}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-btn{background:#f7faf8}
+.patient-shell.patient-home-focus .prevention-tile{background:#fff;border-color:#d1e4db}
+.patient-shell.patient-home-focus .prevention-tile b,.patient-shell.patient-home-focus .who-tips a,.patient-shell.patient-home-focus .local-health-news a{color:#2b665f}
+.patient-shell.patient-home-focus .focus-next-action,.patient-shell.patient-home-focus .home-path-card .focus-next-action{background:#527b78;border-color:#527b78}
+.patient-shell.patient-home-focus .home-path-card{border-color:#d1e4db}
+.patient-shell.patient-home-focus .home-path-card .focus-pair{background:#f0f7f3;border-color:#d3e3dc;color:#284f50}
+.patient-shell.patient-home-focus .home-path-card .focus-pair span,.patient-shell.patient-home-focus .home-path-card .focus-pair small{color:#315f56}
+.patient-shell.patient-home-focus .home-path-card .focus-pair strong{color:#244b48}
+.patient-shell.patient-home-focus .who-tips{background:#eef6f0}
+.patient-shell.patient-home-focus .who-tips h2,.patient-shell.patient-home-focus .home-measures h2,.patient-shell.patient-home-focus .local-health-news h2{color:#2d5955}
+.patient-shell.patient-home-focus .tip-dot{background:#b8d0c4}
+.patient-shell.patient-home-focus .tip-dot.active{background:#4b8171}
+.patient-shell.patient-home-focus .measure-details summary{color:#336d65}
+.patient-shell.patient-home-focus .measure-results>div{background:#eff6f2}
+.patient-shell.patient-home-focus .measure-guidance{margin-top:12px;padding:12px 13px;border:1px solid #cfe4d7;border-radius:12px;background:#eef6f0;color:#254943;line-height:1.45}
+.patient-shell.patient-home-focus .measure-guidance:empty{display:none}
+.patient-shell.patient-home-focus .measure-guidance strong{display:block;font-size:16px}
+.patient-shell.patient-home-focus .measure-guidance p{margin:5px 0 8px;font-size:15px}
+.patient-shell.patient-home-focus .measure-guidance a{color:#235b4e;font-size:15px;font-weight:750;text-decoration:underline}
+.patient-shell.patient-home-focus .measure-caveat{line-height:1.4;margin:9px 0 0}
+.doctor-onboarding{background:#f4f8f6}
+.doctor-onboarding .btn{background:#527b78}
+
+/* Check-in vocale e selezione dei motivi. */
+.checkin-voice-status:empty{display:none}
+.checkin-voice-status{margin:7px 0 1px;padding:8px 10px;border:1px solid #cce5d6;border-radius:9px;background:#f0f8f2;color:#2d6547;font-size:13px;line-height:1.3}
+#checkinModal{place-items:center;padding:12px;background:#163b308c}
+#checkinModal .checkin-modal-card{width:min(100%,530px);max-height:calc(100dvh - 24px);border-radius:22px!important;border:1px solid #d4e5d9;box-shadow:0 20px 60px #173f3250}
+#checkinModal .checkin-modal-header{background:#eaf5ed;border-color:#d8e9dd;padding:15px 19px}
+#checkinModal .checkin-modal-header .eyebrow{color:#397557;font-size:12px;letter-spacing:.1em}
+#checkinModal .checkin-modal-scroll{padding:18px 20px 22px}
+#checkinModal .checkin-modal-scroll h2{font-size:25px;line-height:1.16;color:#234b38}
+#checkinModal .checkin-modal-scroll>p{font-size:13px;line-height:1.5;color:#62786a}
+#checkinModal .checkin-modal-moods button{border-color:#d4e4d9;background:#f8fbf8;color:#355b45;border-radius:12px}
+#checkinModal .checkin-modal-moods button.selected{background:#e6f3e9;border-color:#368461;box-shadow:0 0 0 2px #b8dbc4}
+#checkinModal .checkin-reasons{border:1px solid #d3e4d8;border-radius:14px;background:#f9fcf9;overflow:hidden;margin:14px 0 18px}
+#checkinModal .checkin-reasons[hidden]{display:none!important}
+#checkinModal .checkin-reasons summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 15px;cursor:pointer;color:#2d5840}
+#checkinModal .checkin-reasons summary::-webkit-details-marker{display:none}
+#checkinModal .checkin-reasons summary strong,#checkinModal .checkin-reasons summary small{display:block}
+#checkinModal .checkin-reasons summary strong{font-size:16px}
+#checkinModal .checkin-reasons summary small{margin-top:3px;font-size:12px;color:#6b8171}
+#checkinModal .checkin-reasons-arrow{color:#b34253;font-size:27px;font-weight:800;line-height:1;transition:transform .18s}
+#checkinModal .checkin-reasons[open] .checkin-reasons-arrow{transform:rotate(180deg)}
+#checkinModal .reason-grid{padding:0 13px 14px;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0}
+#checkinModal .reason-chip span{min-height:46px;padding:8px 10px;border-color:#d9e8dd;background:#fff;color:#315441;border-radius:10px;font-size:12px;font-weight:700;line-height:1.25}
+#checkinModal .reason-chip input:checked+span{border-color:#397e59!important;background:#e0f0e5!important;color:#1b5c39!important;box-shadow:inset 0 0 0 1px #397e59}
+#checkinModal .checkin-modal-actions{padding:12px 19px max(14px,env(safe-area-inset-bottom));border-color:#dce9df}
+#checkinModal .checkin-modal-actions .btn{min-height:49px;background:#367a58;color:#fff;border-radius:11px;font-size:15px}
+#checkinModal .checkin-voice-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+#checkinModal .checkin-voice-row .btn{background:#eef6ef;color:#2d6a4c;border:1px solid #cfe5d3}
+@media(max-width:560px){#checkinModal{padding:8px}#checkinModal .checkin-modal-card{border-radius:20px!important;max-height:calc(100dvh - 16px)}#checkinModal .reason-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:360px){#checkinModal .reason-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){#checkinModal .checkin-reasons-arrow{transition:none}}

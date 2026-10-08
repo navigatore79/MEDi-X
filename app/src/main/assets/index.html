@@ -8,6 +8,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <title>Meditaly</title>
   <link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="patient-upgrade.css">
+<link rel="stylesheet" href="home-simple.css">
 </head>
 <body>
   <main id="app">
@@ -18,6 +20,7 @@
   <script>
     (function(){
       const app=document.getElementById('app');
+      if(location.protocol==='file:'&&window.AndroidBridge?.isLegacyMigrationPending?.()){app.innerHTML='<p>Conservo i dati locali durante l’aggiornamento Meditaly…</p>';const migration=document.createElement('script');migration.src='origin-migration.js';document.body.append(migration);return;}
       const fail=(message)=>{
         app.innerHTML='<div style="min-height:100vh;display:grid;place-items:center;background:#f7fbff;font-family:system-ui,-apple-system,Segoe UI,sans-serif;padding:24px"><div style="max-width:420px;background:white;border:1px solid #dceaf7;border-radius:20px;padding:22px;color:#173f69;box-shadow:0 12px 34px rgba(20,70,120,.10)"><h2 style="margin-top:0">Meditaly non si è avviata</h2><p>'+String(message||'Errore di avvio')+'</p><button onclick="location.reload()" style="border:0;border-radius:12px;padding:11px 16px;background:#1677e8;color:white;font-weight:700">Riprova</button></div></div>';
       };
@@ -26,11 +29,21 @@
       const load=(src)=>new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=()=>reject(new Error('Impossibile caricare '+src));document.body.appendChild(s);});
       (async()=>{
         try{
-          try{ await load('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2'); }
-          catch(_){ await load('https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js'); }
+          try{ await load('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0'); }
+          catch(_){ await load('https://unpkg.com/@supabase/supabase-js@2.116.0/dist/umd/supabase.js'); }
           if(!window.supabase) throw new Error('Libreria Supabase non disponibile. Controlla la connessione Internet.');
           await load('supabase-config.js');
           if(!window.MEDITALY_SUPABASE) throw new Error('Configurazione Meditaly non disponibile.');
+          await load('journal-local.js');
+          await load('asl-directory.js');
+          await load('home-extras.js');
+          await load('patient-upgrade.js');
+          await load('patient-welcome.js');
+          await load('home-simple.js');
+          await load('care-questionnaires.js');
+          await load('devices.js');
+          await load('chat-audio.js');
+          await load('voice-calls.js');
           await load('live.js');
         }catch(e){ fail(e.message||e); }
       })();

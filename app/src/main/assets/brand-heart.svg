@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Meditaly, cuore anatomico stilizzato">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dcefe9"/><stop offset="1" stop-color="#b6d6d4"/></linearGradient>
+    <linearGradient id="heart" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#df928d"/><stop offset=".56" stop-color="#c7656e"/><stop offset="1" stop-color="#9f4f63"/></linearGradient>
+  </defs>
+  <rect x="3" y="3" width="122" height="122" rx="31" fill="url(#bg)"/>
+  <path d="M56 38c-1-9-1-19 5-25 5-5 10-4 13-2-6 7-5 14-3 24m8 4c2-11 7-17 15-20 5 4 7 9 7 14-10 2-14 10-15 17M49 42c-10-8-13-16-11-24-6-2-12 1-15 6 1 13 9 22 18 29" fill="none" stroke="#9f4f63" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M54 34c10-3 17 4 20 12 8-6 22-3 27 9 7 17-6 29-17 41-6 6-10 15-18 19-5-9-13-12-22-20-13-11-24-24-21-39 2-12 17-20 31-22Z" fill="url(#heart)" stroke="#944f60" stroke-width="2"/>
+  <path d="M73 44c-1 17-15 20-16 40m-10-35c5 8 5 15 1 26m42-14c-11 2-17 10-19 19m-18 17c8-4 13-11 15-19" fill="none" stroke="#f5c9b7" stroke-opacity=".7" stroke-width="4" stroke-linecap="round"/>
+</svg>

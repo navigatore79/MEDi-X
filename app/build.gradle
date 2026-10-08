@@ -2,20 +2,41 @@ plugins {
     id 'com.android.application'
 }
 
+// Firebase viene attivato appena app/google-services.json è presente.
+// Senza il file il progetto continua a compilare, ma le push FCM restano disattivate.
 if (file('google-services.json').exists()) {
+    def firebaseConfig = new groovy.json.JsonSlurper().parse(file('google-services.json'))
+    if (!firebaseConfig.client?.any { client -> client.client_info?.android_client_info?.package_name == 'com.ciromaiello.meditaly' }) {
+        throw new GradleException('La configurazione Firebase non contiene com.ciromaiello.meditaly: usa il google-services.json della app Play.')
+    }
     apply plugin: 'com.google.gms.google-services'
+}
+
+// Una release senza configurazione Firebase non può ricevere push ad app chiusa.
+tasks.configureEach { task ->
+    if (task.name in ['assembleRelease', 'bundleRelease', 'packageRelease']) {
+        task.doFirst {
+            if (!file('src/main/assets/medi-model-it/uuid').exists()) {
+                throw new GradleException('Anteprima Gemini: modello italiano mancante. Esegui tools/install_medi_model.py prima della release; valida poi Hei Medi su dispositivi reali.')
+            }
+            if (!file('google-services.json').exists()) {
+                throw new GradleException('Release bloccata: aggiungi app/google-services.json della stessa app Firebase prima di compilare.')
+            }
+        }
+    }
 }
 
 android {
     namespace 'it.meditaly.app'
     compileSdk 36
+    buildToolsVersion "36.0.0"
 
     defaultConfig {
-        applicationId 'it.meditaly.app'
-        minSdk 29
+        applicationId 'com.ciromaiello.meditaly'
+        minSdk 28
         targetSdk 36
-        versionCode 21
-        versionName '0.5.1-beta2'
+        versionCode 79
+        versionName '0.7.37-beta55.5'
     }
 
     buildTypes {
@@ -34,12 +55,16 @@ android {
     }
 }
 
+
 dependencies {
-    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    implementation 'androidx.health.connect:connect-client:1.1.0'
     implementation 'androidx.core:core:1.16.0'
-    implementation 'androidx.appcompat:appcompat:1.7.1'
-    implementation 'androidx.activity:activity:1.10.1'
     implementation platform('com.google.firebase:firebase-bom:34.19.0')
     implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-ai'
+    implementation 'com.google.firebase:firebase-appcheck-playintegrity'
+    implementation 'com.alphacephei:vosk-android:0.3.75@aar'
+    implementation 'net.java.dev.jna:jna:5.13.0@aar'
+    implementation 'com.google.guava:guava:33.4.8-android'
     implementation 'com.google.mlkit:text-recognition:16.0.1'
 }

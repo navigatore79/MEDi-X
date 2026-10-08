@@ -1,53 +1,50 @@
-name: Build Meditaly Android Beta
-
+name: Build Meditaly Android Beta 55.5
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
-    paths:
-      - 'app/**'
-      - 'build.gradle'
-      - 'settings.gradle'
-      - 'gradle.properties'
-      - '.github/workflows/android-build.yml'
-
+    branches: [main]
+    paths: ['app/**', 'gradle/**', 'vendor-maven/**', 'tools/**', '*.gradle', 'gradle.properties', 'MEDI_MODEL_MANIFEST.json', '.github/workflows/android-build.yml']
+permissions:
+  contents: read
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Java 17
-        uses: actions/setup-java@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
-
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
       - name: Prepare Android SDK 36
         run: |
           export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
           yes | sdkmanager --licenses >/dev/null || true
           sdkmanager "platforms;android-36" "build-tools;36.0.0"
-
-      - name: Set up Gradle 8.11.1
-        uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.11.1'
-
+      - name: Prepare Italian voice model
+        run: python tools/setup_medi_model.py
+      - name: Configure Firebase when available
+        env:
+          MEDITALY_GOOGLE_SERVICES_JSON: ${{ secrets.MEDITALY_GOOGLE_SERVICES_JSON }}
+        shell: bash
+        run: |
+          if [ -n "$MEDITALY_GOOGLE_SERVICES_JSON" ]; then
+            printf '%s' "$MEDITALY_GOOGLE_SERVICES_JSON" > app/google-services.json
+          else
+            echo 'Firebase secret missing: debug build without remote push.'
+          fi
       - name: Build debug APK
         run: gradle --no-daemon :app:assembleDebug
-
-      - name: Rename APK
-        run: |
-          mkdir -p dist
-          cp app/build/outputs/apk/debug/app-debug.apk dist/Meditaly-0.5.1-beta2-debug.apk
-
-      - name: Upload APK
+      - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: Meditaly-0.5.1-beta2-debug
-          path: dist/Meditaly-0.5.1-beta2-debug.apk
+          name: Meditaly-0.7.37-beta55.5-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30

@@ -1,0 +1,1 @@
+{"private":true,"description":"Test locali simulati BETA52; nessun accesso a dati paziente","scripts":{"test":"node --test *.test.cjs"},"devDependencies":{"jsdom":"30.1.1"}}

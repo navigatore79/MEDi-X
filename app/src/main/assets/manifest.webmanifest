@@ -1,0 +1,9 @@
+{
+  "name":"Meditaly",
+  "short_name":"Meditaly",
+  "start_url":"./index.html",
+  "display":"standalone",
+  "background_color":"#f6faff",
+  "theme_color":"#1677e8",
+  "description":"Meditaly - piattaforma beta di supporto al follow-up sanitario tra paziente e professionista autorizzato."
+}

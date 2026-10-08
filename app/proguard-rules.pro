@@ -1,2 +1,1 @@
-
-# Meditaly beta2 build trigger
+# Meditaly beta - no custom ProGuard rules yet.

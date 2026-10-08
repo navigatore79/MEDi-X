@@ -2,8 +2,8 @@
 <resources>
     <style name="Theme.Meditaly" parent="android:style/Theme.Material.Light.NoActionBar">
         <item name="android:fontFamily">sans</item>
-        <item name="android:colorAccent">#176FBD</item>
-        <item name="android:statusBarColor">#F6F9FC</item>
+        <item name="android:colorAccent">#2C968C</item>
+        <item name="android:statusBarColor">#F5F8F8</item>
         <item name="android:navigationBarColor">#FFFFFF</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>

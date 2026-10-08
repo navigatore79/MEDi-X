@@ -1,0 +1,37 @@
+✔ well patient skips symptom detail, reported symptoms require detail (472.646257ms)
+✔ negated and composite commands are never executed by local parser (70.360065ms)
+✔ provider cannot execute arbitrary actions (61.818816ms)
+✔ guided flow does not send before confirmation, retains nonce across retry (562.99312ms)
+✔ closing and reopening pending check-in preserves confirmed recipient and payload (201.36809ms)
+✔ late voice result cannot fill a different question (101.802895ms)
+✔ session switch prevents sending the previous patient responses (206.548146ms)
+(node:15) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ unauthenticated request never reaches Gemini (28.879362ms)
+✔ wrong role cannot use patient endpoint (7.515416ms)
+✔ local quota rejects before provider transmission (56.321509ms)
+✔ provider quota is not retried (21.463515ms)
+✔ off-topic request returns only scope refusal (15.049706ms)
+✔ output scope filter suppresses unsafe response (16.269016ms)
+✔ check-in returns a closed-list prompt identifier, no diagnosis (9.873361ms)
+✔ 401 refreshes once and retries with renewed access token (16.382827ms)
+✔ account change during refresh cannot resend previous request (15.067055ms)
+✔ persistent authorization error is visible and not retried forever (5.987946ms)
+✔ spoken yes opens questionnaire; all questions read and auto-filled without sending (875.42547ms)
+✔ tap on mood still requires questionnaire invitation (78.857594ms)
+✔ automatic entry does not add or change home layout (654.94346ms)
+✔ mood answer asks invitation, no questionnaire before yes (76.285412ms)
+✔ no returns home with no health data transmission or questionnaire (77.908241ms)
+✔ yes automatically uses Medi and opens questionnaire, with no opt-in control (80.191912ms)
+✔ unrecognized mood is not clinically inferred and cannot start questionnaire (49.514381ms)
+✔ late model answer cannot reopen questionnaire after pause (83.55618ms)
+✔ stale microphone result cannot answer the next voice turn (46.373908ms)
+✔ microphone starts only when speech is complete (38.065243ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5766.074955

@@ -1,0 +1,7 @@
+{
+  "archive": "vosk-model-small-it-0.22.zip",
+  "sha256": "9ec65e75861d1c6c2e457cccd932705340dcdf233f5b239f00733b4de0bf3267",
+  "license": "Apache-2.0",
+  "source": "https://alphacephei.com/vosk/models",
+  "checksum_independently_verified": false
+}

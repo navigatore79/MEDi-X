@@ -1,14 +1,12 @@
-# Android
+# Build and local configuration
 .gradle/
 **/build/
 local.properties
-*.iml
 .idea/
-
-# Firebase private config
+*.iml
 app/google-services.json
-google-services.json
-
-# OS
-.DS_Store
-Thumbs.db
+*.jks
+*.keystore
+.env*
+# Official speech model installed by tools/setup_medi_model.py
+app/src/main/assets/medi-model-it/

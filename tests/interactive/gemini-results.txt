@@ -1,0 +1,17 @@
+(node:13) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ unauthenticated request never reaches Gemini (31.507688ms)
+✔ wrong role cannot use patient endpoint (11.363874ms)
+✔ local quota rejects before provider transmission (44.958288ms)
+✔ provider quota is not retried (14.916654ms)
+✔ off-topic request returns only scope refusal (14.427812ms)
+✔ output scope filter suppresses unsafe response (17.621419ms)
+✔ check-in returns a closed-list prompt identifier, no diagnosis (17.920569ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1356.604028

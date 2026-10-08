@@ -1,0 +1,4 @@
+<resources>
+    <!-- Verify availability in the selected Firebase project before testing. -->
+    <string name="medi_gemini_model" translatable="false">gemini-3.8-flash</string>
+</resources>

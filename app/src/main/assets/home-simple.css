@@ -1,0 +1,160 @@
+:root{--simple-petrol:#1d6266;--simple-cream:#fbf8ed;--simple-mint:#cce4d8}
+.patient-shell.new-ui{background:var(--simple-cream);color:#173c40;min-height:100dvh}
+.patient-shell .mobile-top{background:var(--simple-petrol);color:#fff;border:0;box-shadow:none}
+.patient-shell .mobile-top strong,.patient-shell .mobile-top .muted,.patient-shell .mobile-top .icon-btn{color:#fff}
+.patient-shell .doctor-header-select select{background:#fff1;color:#fff;border-color:#fff4}
+.patient-home-focus .mobile-content{padding:0 14px 110px!important}
+.patient-home-focus .clinical-home-head{background:var(--simple-petrol);color:#fff;margin:0 -14px 14px;padding:18px 24px 22px;border-radius:0 0 32px 32px}
+.patient-home-focus .clinical-home-head h1{font-size:30px;line-height:1.15;color:#fff;margin:0}
+.patient-home-focus .clinical-home-head .eyebrow,.patient-home-focus .clinical-home-head>div>p:last-child{display:none}
+.patient-home-focus .clinical-home-head .simple-greeting{font-size:17px;margin:5px 0 10px;color:#fff}
+.patient-home-focus .home-asl-line,.patient-home-focus .home-asl-line a{color:#e6f2ed!important;font-size:12px}
+.patient-home-focus .daily-checkin-card{background:#fffef9;border-radius:20px;padding:12px;margin-bottom:12px;border:1px solid #eee9db;box-shadow:0 3px 12px #32493a08}
+.patient-home-focus .daily-checkin-head{display:none}
+.patient-home-focus .mood-row{gap:8px}
+.patient-home-focus .mood-btn{background:transparent!important;border:0;box-shadow:none;padding:8px;min-height:78px;color:#152c2f}
+.patient-home-focus .mood-btn.selected{outline:2px solid var(--simple-petrol);border-radius:16px}
+.patient-home-focus .mood-face{font-size:38px}
+.simple-stack{display:grid;gap:10px}
+.simple-section{border:1px solid #eee9db;border-radius:17px;background:#fffef9;box-shadow:0 3px 10px #334a3807;overflow:hidden}
+.simple-section>summary{display:flex;align-items:center;gap:12px;padding:12px;font-size:17px;font-weight:750;list-style:none;cursor:pointer;min-height:65px}
+.simple-section>summary::-webkit-details-marker{display:none}
+.simple-section>summary>b{margin-left:auto;font-size:24px;font-weight:400;transition:transform .15s}
+.simple-section[open]>summary>b{transform:rotate(180deg)}
+.simple-icon{display:grid;place-items:center;background:#eaf3ed;color:var(--simple-petrol);border-radius:13px;width:42px;height:42px;flex-shrink:0}
+.simple-icon svg{width:25px;height:25px}
+.simple-doctor{background:var(--simple-petrol);color:white}.simple-doctor .simple-icon{background:white}
+.simple-therapy{background:var(--simple-mint)}
+.simple-body{padding:0 13px 14px;display:grid;gap:10px}.simple-body>p{margin:0}
+.simple-body .home-prevention,.simple-body .home-path-card,.simple-body .home-today-plan,.simple-body .who-tips,.simple-body .home-measures,.simple-body .local-health-news,.simple-body .home-territory{margin:0!important;padding:12px!important;border:0;box-shadow:none;background:#fffef9;color:#173c40;border-radius:12px}
+.simple-body .btn{background:var(--simple-petrol);color:white;border-radius:12px;min-height:44px}
+.simple-body .home-prevention-grid{grid-template-columns:1fr!important}
+.simple-medi{position:fixed!important;right:16px!important;bottom:calc(82px + env(safe-area-inset-bottom))!important;top:auto!important;left:auto!important;width:58px!important;height:65px!important;border-radius:28px!important;background:var(--simple-petrol)!important;border:3px solid var(--simple-cream)!important;z-index:40;display:flex!important;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 15px #173c4025}
+.simple-medi img{width:36px!important;height:36px!important;object-fit:cover;border-radius:50%}.simple-medi span{font-size:10px;color:#fff}
+.patient-shell .bottom-nav{background:#fffef9!important;border-top:1px solid #e5e9df;grid-template-columns:repeat(4,1fr)!important;padding-bottom:env(safe-area-inset-bottom);min-height:68px}
+.patient-shell .bottom-nav .nav-btn{color:#173c40}.patient-shell .bottom-nav .nav-btn.active{color:var(--simple-petrol)}
+.patient-shell.chat-mode{height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+.patient-shell.chat-mode .mobile-top{flex-shrink:0}.patient-shell.chat-mode .mobile-content{flex:1;min-height:0;padding:0!important;overflow:hidden}
+.patient-shell.chat-mode .bottom-nav{display:none!important}
+.patient-shell.chat-mode .chat-screen{height:100%!important;min-height:0!important;display:flex;flex-direction:column;margin:0!important;padding:0!important;overflow:hidden;border-radius:0}
+.chat-screen .chat-header,.chat-screen .chat-notice,.chat-screen .chat-compose{flex-shrink:0}
+.chat-screen .chat-thread{flex:1;min-height:0;overflow-y:auto}
+.chat-screen .chat-compose{position:relative!important;bottom:auto!important;left:auto!important;right:auto!important;padding-bottom:max(10px,env(safe-area-inset-bottom));background:white;z-index:1}
+.news-frame{width:100%;height:400px;border:1px solid #e2e8e4;border-radius:12px;background:#fff}
+.simple-body [hidden]{display:none!important}
+@media(prefers-reduced-motion:reduce){.simple-section>summary>b{transition:none}}
+/* Match the approved petrol and cream header and illustrated check-in. */
+.patient-home-focus .reference-top{position:relative;min-height:60px;padding:14px 22px 6px;background:#1d6266!important}
+.patient-home-focus .reference-top .brand-mini{position:absolute;left:50%;transform:translateX(-50%);margin:0;gap:0}
+.patient-home-focus .reference-top .brand-mini strong{font-size:18px;font-weight:750}
+.patient-home-focus .reference-top .spacer{flex:1}
+.patient-home-focus .reference-top #openNotifications{margin-left:auto;width:32px;height:32px;background:transparent;border:0;font-size:0}
+.reference-top #openNotifications svg{width:26px;height:26px}
+.patient-home-focus .clinical-home-head{position:relative;background:#1d6266!important;margin-bottom:8px;padding:10px 16px 22px;min-height:96px;border-radius:0 0 48% 9% / 0 0 14% 12%;display:flex;align-items:center;box-shadow:none;border:0}
+.patient-home-focus .clinical-home-head h1{font-size:30px;letter-spacing:-.8px;font-weight:800;margin:0!important;padding:0!important}
+.patient-home-focus .clinical-home-head .simple-greeting{display:block!important;font-size:16px;margin:0!important;line-height:1.4;color:#fff}
+.patient-home-focus .clinical-home-head>div{padding-right:70px}
+.reference-heart{position:absolute;right:18px;top:14px;width:58px;height:58px;color:#fbf1d5}
+.patient-home-focus .daily-checkin-card{padding:6px 12px;margin:0 0 8px;background:#fffef9!important;border-radius:18px}
+.patient-home-focus .mood-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.patient-home-focus .mood-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:3px;min-height:72px}
+.patient-home-focus .mood-face{display:block;width:48px;height:48px;line-height:0;font-size:0}
+.patient-home-focus .mood-face svg{width:100%;height:100%}
+.patient-home-focus .mood-btn strong{font-size:12px;line-height:1.4;color:#202927}
+.patient-home-focus .checkin-voice-status:empty{display:none}
+.simple-body .reference-doctor-select{display:block;width:100%;margin:4px 0}
+.simple-body .reference-doctor-select select{width:100%;min-height:44px;color:#173c40;background:#fff;border:1px solid #d6e5df;border-radius:10px}
+.simple-body .reference-logout{color:#173c40;background:transparent;border:1px solid #d6e5df;border-radius:10px;font-size:14px;width:auto;height:40px}
+.simple-body .home-asl-line,.simple-body .home-asl-line a{color:#1d6266!important;font-size:12px}
+.patient-shell.patient-home-focus .who-tips.who-ticker{display:flex;align-items:center;gap:8px;padding:8px 10px!important;margin:0 0 10px!important;border-radius:11px;border:1px solid #d4e4d7;background:#e8f0e6;color:#234f4f;min-height:38px}
+.who-ticker-label{font-size:11px;letter-spacing:.4px;flex-shrink:0;color:#1d6266}
+.who-ticker-window{flex:1;min-width:0;overflow:hidden}
+.who-ticker-track{display:flex;gap:32px;width:max-content;animation:who-scroll 90s linear infinite}
+.patient-shell.patient-home-focus .who-ticker-track a{font-size:12px!important;font-weight:400;white-space:nowrap;color:#234f4f!important;line-height:20px;text-decoration:none}
+.who-ticker-track a span{text-decoration:underline}.who-ticker-track a strong{font-weight:700}
+.who-ticker-pause{flex-shrink:0;border:0;background:transparent;color:#1d6266;width:28px;height:28px;padding:0;font-size:13px;border-radius:5px}
+.who-ticker.paused .who-ticker-track,.who-ticker:hover .who-ticker-track,.who-ticker:focus-within .who-ticker-track{animation-play-state:paused}
+.who-ticker.paused .who-ticker-window,.who-ticker:focus-within .who-ticker-window{overflow-x:auto}
+@keyframes who-scroll{0%,4%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+@media(prefers-reduced-motion:reduce){.who-ticker-track{animation:none}.who-ticker-window{overflow-x:auto}}
+.patient-shell.patient-home-focus .mobile-top.reference-top{background:#1d6266!important;padding:14px 22px 6px!important;padding-top:max(14px,env(safe-area-inset-top))!important;border:0!important;min-height:60px}
+.patient-shell.patient-home-focus .clinical-home-head{padding:10px 16px 22px!important;margin:0 -14px 8px!important;background:#1d6266!important}
+.patient-shell.patient-home-focus .clinical-home-head .simple-greeting{color:#fff!important}
+.patient-shell.patient-home-focus .daily-checkin-card{padding:6px 12px!important;margin:0 0 8px!important;border:1px solid #eee9db!important;border-radius:18px!important;box-shadow:0 3px 12px #32493a08!important;background:#fffef9!important}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-row{grid-template-columns:repeat(3,minmax(0,1fr))!important;margin-top:0!important;gap:6px!important}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-btn{flex-direction:column!important;justify-content:center!important;gap:2px!important;padding:3px!important;min-height:72px!important;background:transparent!important;border:0!important;border-radius:14px!important}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-face{display:block!important;width:48px;height:48px;line-height:0;font-size:0!important}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-btn strong{font-size:12px!important}
+.patient-shell.patient-home-focus #whoTip.who-ticker-track strong{font-size:12px}
+.patient-shell.patient-home-focus .reference-top .brand-mini strong{font-size:18px!important}
+.simple-body .reference-doctor-select select{max-width:100%!important;color:#173c40!important;background:#fff!important}
+.patient-shell.patient-home-focus .clinical-home-head{border-radius:0 0 48% 9% / 0 0 14% 12%!important;min-height:96px;display:flex;align-items:center}
+.patient-shell.patient-home-focus .clinical-home-head h1{font-size:30px!important;color:#fff;line-height:1.15}
+/* Constrain every grid track to the viewport: ticker text must not size the home. */
+.patient-shell.patient-home-focus{width:100%;max-width:520px;background:var(--simple-cream);padding-bottom:0}
+.patient-shell.patient-home-focus .mobile-content{width:100%;max-width:100%;min-width:0;margin:0;display:grid;grid-template-columns:minmax(0,1fr);gap:10px;padding:0 14px calc(100px + env(safe-area-inset-bottom))!important}
+.patient-shell.patient-home-focus .mobile-content>*,.simple-stack>*{min-width:0}
+.patient-shell.patient-home-focus .who-ticker{width:100%;max-width:100%;min-width:0;margin:0!important}
+.patient-shell.patient-home-focus .who-ticker-window{width:0;flex:1 1 0%;min-width:0}
+.patient-shell.patient-home-focus .simple-stack{width:100%;grid-template-columns:minmax(0,1fr);gap:9px}
+.patient-shell.patient-home-focus .simple-section{width:100%;min-width:0}
+.simple-section>summary>span:not(.simple-icon){min-width:0;flex:1;overflow-wrap:anywhere;line-height:1.3}
+.simple-section>summary>b{flex:0 0 16px;text-align:center}
+.simple-body{min-width:0;grid-template-columns:minmax(0,1fr);overflow-wrap:anywhere}
+.simple-body>*{min-width:0;max-width:100%}
+.simple-body .home-territory-card{padding:12px;border-radius:12px}
+.simple-body .helpline-row{flex-wrap:wrap;gap:8px}
+.simple-body .home-territory-card h3{font-size:16px}
+.simple-body .home-territory-card p,.simple-body .home-territory-card small{font-size:13px;line-height:1.5}
+.simple-body .local-health-news h2,.simple-body .home-territory h2{font-size:18px;margin:0 0 8px}
+.simple-body .btn{width:100%;font-size:14px;white-space:normal}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-btn{width:100%;min-width:0}
+.patient-shell.patient-home-focus .clinical-home-head{width:calc(100% + 28px);max-width:none;margin:0 -14px!important;min-height:90px;padding:10px 22px 20px!important}
+.patient-shell.patient-home-focus .clinical-home-head>div{min-width:0;padding-right:64px}
+.patient-shell.patient-home-focus .clinical-home-head h1{font-size:clamp(25px,7.2vw,30px)!important;overflow-wrap:anywhere}
+.patient-shell.patient-home-focus .clinical-home-head .simple-greeting{font-size:15px!important}
+.patient-shell.patient-home-focus .reference-top{min-height:52px!important;padding:10px 20px 4px!important;padding-top:max(10px,env(safe-area-inset-top))!important}
+.patient-shell.patient-home-focus .reference-heart{width:54px;height:54px;right:20px;top:12px}
+.patient-shell.patient-home-focus .simple-medi{right:max(14px,calc((100% - 520px)/2 + 14px))!important;bottom:calc(78px + env(safe-area-inset-bottom))!important;width:56px!important;height:60px!important;animation:none!important}
+.patient-shell.patient-home-focus .simple-medi::before,.patient-shell.patient-home-focus .simple-medi::after{display:none!important}
+.patient-shell.patient-home-focus .bottom-nav{height:calc(68px + env(safe-area-inset-bottom));min-height:68px;padding:4px 8px calc(4px + env(safe-area-inset-bottom))!important;box-shadow:0 -3px 12px #173c4008;gap:4px;border-radius:16px 16px 0 0}
+.patient-shell.patient-home-focus .bottom-nav .nav-btn{min-height:0;height:56px;font-size:11px;padding:4px 0;gap:2px;border-radius:12px}
+.patient-shell.patient-home-focus .bottom-nav .nav-icon{width:24px;height:24px}
+.patient-shell.patient-home-focus .mobile-content .daily-checkin-card{margin:0!important}
+.patient-shell.patient-home-focus .mobile-content .who-ticker{margin:0!important;padding:6px 9px!important;min-height:36px}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-btn:is(.green,.yellow,.red){background:transparent!important}
+.patient-shell.patient-home-focus .daily-checkin-card .mood-btn.selected{outline:2px solid #1d6266!important;outline-offset:-2px}
+
+/* ASL stays in the upper frame; the lower edge describes a deeper smile. */
+.patient-shell.patient-home-focus .clinical-home-head{border-radius:0 0 50% 50% / 0 0 30px 30px!important;min-height:128px;padding:10px 22px 35px!important;align-items:flex-start}
+.patient-shell.patient-home-focus .clinical-home-head>div{width:100%;padding-right:0}
+.patient-shell.patient-home-focus .clinical-home-head h1,.patient-shell.patient-home-focus .clinical-home-head .simple-greeting{padding-right:64px!important}
+.patient-shell.patient-home-focus .clinical-home-head .home-asl-line{display:block!important;margin:9px 0 0!important;font-size:11px!important;line-height:1.4!important;color:#ecf3e5!important}
+.patient-shell.patient-home-focus .clinical-home-head .home-asl-line a,.patient-shell.patient-home-focus .clinical-home-head .home-asl-line a strong,.patient-shell.patient-home-focus .clinical-home-head .home-asl-line .text-link{color:#ecf3e5!important;font-size:11px!important}
+.patient-shell.patient-home-focus #homeLocationMsg:empty{display:none}
+.device-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.device-layout .card{padding:16px;border-radius:18px;margin:0;min-width:0}
+.device-layout h2{font-size:19px;margin:0 0 8px;color:#1d6266}
+.device-layout p,.device-layout li{font-size:14px;line-height:1.5}
+.device-layout ol{padding-left:20px;margin:8px 0 14px}
+.device-layout .btn{width:100%;margin:4px 0;font-size:14px}
+.health-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+.health-metric{padding:12px;border:1px solid #dce6dc;background:#fbf8ed;border-radius:12px;min-width:0}
+.health-metric strong,.health-metric b,.health-metric small{display:block}
+.health-metric strong{font-size:12px;color:#42615f}.health-metric b{font-size:20px;margin:5px 0;color:#173c40;overflow-wrap:anywhere}.health-metric small{font-size:11px;line-height:1.4;color:#5e7370;overflow-wrap:anywhere}
+.ble-device-row{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px;border:1px solid #d8e5db;background:white;border-radius:12px;margin:7px 0;text-align:left}
+.ble-device-row strong,.ble-device-row small{display:block}.ble-device-row small{font-size:11px;margin-top:3px;color:#647874}.ble-device-row>span:last-child{font-size:12px;color:#1d6266}
+.device-note{padding:10px 12px;background:#edf5ee;border-radius:11px;font-size:13px!important;color:#315955}
+.device-layout [hidden]{display:none!important}
+.patient-shell .device-layout .btn{background:#1d6266!important;border-color:#1d6266!important;color:#fff!important;box-shadow:none}
+.patient-shell .device-layout .btn.secondary{background:#edf5ee!important;border-color:#d4e3d7!important;color:#1d6266!important}
+
+.patient-professional-nav .nav-line-icon.icon-home::before,.patient-professional-nav .nav-line-icon.icon-home::after{display:none}
+/* A single entry point for phone health and compatible meters. */
+.health-connect-card{text-align:center;max-width:760px;margin:auto;width:100%;box-sizing:border-box}
+.health-connect-symbol{font-size:46px;line-height:1.2;color:#076c70;margin:4px 0 14px}
+.health-connect-card>h2{font-size:23px}.health-connect-card>.btn{width:100%;min-height:52px;margin:12px 0;border-radius:16px}
+.health-connect-card .health-metrics{text-align:left;grid-template-columns:repeat(2,minmax(0,1fr))}.health-connect-card .health-metric{min-width:0;overflow-wrap:anywhere}
+.health-connect-card .health-metric b{font-size:22px;line-height:1.25}.health-connect-card .health-metric small{line-height:1.4}
+.health-connect-card .device-help{text-align:left;border-top:1px solid #dce7e7;padding-top:16px;margin-top:20px}.device-help summary{cursor:pointer;font-weight:600;color:#076c70}.device-help p{font-size:14px;line-height:1.5}.device-help .btn{width:100%;margin-top:8px}
+.health-connect-card [hidden]{display:none!important}.health-connect-card #bleDiscovery{text-align:left;margin-top:20px}.health-connect-card #bleStatus:empty{display:none}

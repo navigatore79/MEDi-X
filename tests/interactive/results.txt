@@ -1,0 +1,15 @@
+✔ well patient skips symptom detail, reported symptoms require detail (512.883268ms)
+✔ negated and composite commands are never executed by local parser (44.032458ms)
+✔ provider cannot execute arbitrary actions (55.830372ms)
+✔ guided flow does not send before confirmation, retains nonce across retry (563.342364ms)
+✔ closing and reopening pending check-in preserves confirmed recipient and payload (407.256723ms)
+✔ late Gemini clarification cannot modify submitted check-in (219.634293ms)
+✔ session switch prevents sending the previous patient responses (196.18579ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6476.565283
