@@ -35,8 +35,8 @@ android {
         applicationId 'com.ciromaiello.meditaly'
         minSdk 28
         targetSdk 36
-        versionCode 79
-        versionName '0.7.37-beta55.5'
+        versionCode 80
+        versionName '0.7.38-beta55.6'
     }
 
     buildTypes {

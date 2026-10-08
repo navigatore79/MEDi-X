@@ -1,6 +1,6 @@
-# Meditaly Android — Beta 55.5
+# Meditaly Android — Beta 55.6
 
-Sorgenti Android aggiornati al pacchetto verificato **0.7.37-beta55.5**, versionCode **79**.
+Sorgenti Android aggiornati al pacchetto verificato **0.7.38-beta55.6**, versionCode **80**.
 
 - Application ID Google Play: `com.ciromaiello.meditaly`.
 - Namespace Java: `it.meditaly.app` (non è l'identificativo Play).
