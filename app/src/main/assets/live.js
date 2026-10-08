@@ -243,9 +243,11 @@ let meditalyLastPushToken=null;
 window.onMeditalyPushToken=async(token)=>{
   try{
     if(!state.session || !token) return;
+    const owner=state.session.user.id;
     const {error}=await sb.rpc('register_my_push_token',{p_token:token,p_platform:'android',p_device_label:'Meditaly Android'});
+    if(state.session?.user.id!==owner)return;
     if(error){state.pushStatus='Registrazione notifiche non riuscita: '+error.message;console.warn('Push token registration failed',error.message);}
-    else {state.pushStatus='Dispositivo registrato per le notifiche';meditalyLastPushToken=token;if(state.tab==='home')patientHome();}
+    else {state.pushStatus='Dispositivo registrato per le notifiche';meditalyLastPushToken=token;if(state.tab==='home')await patientHome();}
   }catch(e){console.warn('Push token registration failed',e);}
 };
 window.onMeditalyPushUnavailable=(reason)=>{state.pushStatus='Notifiche non disponibili: '+reason;console.info('Meditaly push unavailable:',reason);};
@@ -840,6 +842,9 @@ async function patientView(){
   if(state.tab==='more'){await patientMore();addCareMenuEntries();}
 }
 async function patientHome(){
+ const homeRoot=content,homeUser=state.session?.user.id;
+ const currentHome=()=>homeRoot?.isConnected&&content===homeRoot&&document.querySelector('.patient-shell')?.contains(homeRoot)&&state.session?.user.id===homeUser&&state.tab==='home'&&!state.adminArea&&['Patient','Administrator'].includes(state.profile?.role);
+ if(!currentHome())return;
  const today=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Rome'});
  const [{data:m},{data:f},{data:n},{data:p},{data:r},{data:ch},{data:checkin},{data:monitor},{data:todayIntakes},{data:careSignals},{data:residence}]=await Promise.all([
   sb.from('medications').select('*,medication_schedules(*)').eq('active',true).order('created_at',{ascending:false}),
@@ -854,7 +859,9 @@ async function patientHome(){
   sb.from('care_signals').select('kind,status,created_at,reviewed_at').eq('patient_id',state.session.user.id).order('created_at',{ascending:false}).limit(3),
   sb.from('patient_screening_profiles').select('residence_city,residence_province,residence_municipio').eq('patient_id',state.session.user.id).maybeSingle()
  ]);
+ if(!currentHome())return;
  const clinician=await getAssignedClinician();
+ if(!currentHome())return;
  const selectedDoctor=chosenCareDoctor();
  const visibleM=(m||[]).filter(x=>!selectedDoctor||x.prescribed_by===selectedDoctor.clinician_id||!x.prescribed_by);
  const visibleF=(f||[]).filter(x=>!selectedDoctor||x.created_by===selectedDoctor.clinician_id||!x.created_by||x.created_by===state.session.user.id);
@@ -877,6 +884,7 @@ async function patientHome(){
  const motivational=checkin?`Grazie per l'aggiornamento di oggi: <strong>${checkinEmoji} ${esc(checkinLabel)}</strong>.${next?` Il prossimo controllo è il <strong>${fmt(next.due_date)}</strong>.`:''}`:next?`Hai un controllo il <strong>${fmt(next.due_date)}</strong>. Prima però dimmi come ti senti oggi.`:`Prendersi cura di te oggi significa anche raccontare come stai. Facciamo il check-in quotidiano.`;
  const mediSpeech=checkin?`Ciao ${firstNameRaw}. Come stai oggi? Hai già indicato ${checkinLabel}; se vuoi, puoi aggiornare la risposta.`:`Ciao ${firstNameRaw}. Come stai oggi? Puoi scegliere bene, così così oppure non sto bene.`;
 
+ if(!currentHome())return;
  // Sincronizza sul dispositivo i promemoria locali configurati dal medico.
  if(window.AndroidBridge){
    try{
