@@ -1,6 +1,6 @@
-# Meditaly Android — Beta 55.7
+# Meditaly Android — Beta 55.8
 
-Sorgenti Android aggiornati al pacchetto verificato **0.7.39-beta55.7**, versionCode **81**.
+Sorgenti Android aggiornati al pacchetto verificato **0.7.40-beta55.8**, versionCode **82**.
 
 - Application ID Google Play: `com.ciromaiello.meditaly`.
 - Namespace Java: `it.meditaly.app` (non è l'identificativo Play).
@@ -28,6 +28,8 @@ Le release per Play devono essere firmate con la chiave esistente, non con una n
 
 ## Comunicazioni
 
-Inclusi messaggi vocali in chat, questionari assegnati dal medico con interazione vocale e predisposizione alle chiamate vocali. Le chiamate richiedono la configurazione TURN lato backend; la presenza del codice non significa che siano già attive su tutte le reti.
+Inclusi messaggi vocali in chat, questionari assegnati dal medico con interazione vocale e chiamate vocali e videochiamate con risposta del paziente, anteprima video e controllo di microfono/videocamera. Le chiamate richiedono la configurazione TURN lato backend; la presenza del codice non significa che siano già attive su tutte le reti.
 
 L'app comunica con il backend Supabase Meditaly. Diario e relativi audio/video restano locali fino alla condivisione esplicita; inclusa la migrazione della memoria locale durante l'aggiornamento dell'origine WebView.
+
+Configurazione e collaudo: [README_VIDEOCHIAMATE.md](README_VIDEOCHIAMATE.md). Le modifiche includono la sospensione di Medi durante l’ascolto dei vocali. Aggiornare l’app per ottenere i permessi video.
