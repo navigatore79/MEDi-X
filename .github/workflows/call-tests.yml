@@ -1,0 +1,18 @@
+name: Call signaling and TURN regression tests
+on:
+  pull_request:
+    paths: ['app/src/main/assets/voice-calls.js', 'supabase/functions/voice-call/**', 'tests/communications/**', 'tests/interactive/package*.json', '.github/workflows/call-tests.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci --prefix tests/interactive --ignore-scripts --no-audit --no-fund
+      - run: node --test tests/communications/*.test.cjs
