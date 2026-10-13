@@ -35,6 +35,7 @@ async function firebaseAccessToken(account: ServiceAccount) {
     method: "POST", headers: { "content-type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({ grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
       assertion: `${unsigned}.${b64url(new Uint8Array(signature))}` }),
+    signal: AbortSignal.timeout(8000),
   });
   const body = await response.json();
   if (!response.ok || !body.access_token) throw new Error("FIREBASE_OAUTH_FAILED");
@@ -108,9 +109,12 @@ Deno.serve(async request => {
  const {data:call,error}=await client.from("voice_calls").select("id,clinician_id,patient_id,status,expires_at,media_mode").eq("id",input.call_id).maybeSingle();
  if(error||!call||call.clinician_id!==auth.user.id||profile.role!=="Clinician")return reply({error:"NOT_AUTHORIZED"},403);
  if(call.status!=="ringing"||Date.parse(call.expires_at)<=Date.now())return reply({error:"CALL_EXPIRED"},409);
- const {data:claimed,error:claimError}=await admin.from("voice_calls").update({push_claimed_at:new Date().toISOString()}).eq("id",call.id).eq("status","ringing").is("push_claimed_at",null).select("id");
+ const claimedAt=new Date().toISOString();
+ const {data:claimed,error:claimError}=await admin.from("voice_calls").update({push_claimed_at:claimedAt}).eq("id",call.id).eq("status","ringing").gt("expires_at",claimedAt).is("push_claimed_at",null).select("id");
  if(claimError)return reply({error:"CLAIM_FAILED"},500);
- if(!claimed?.length)return reply({ok:true,already_requested:true});
+ // A claim is not evidence that FCM accepted a notification.
+ if(!claimed?.length)return reply({ok:false,already_requested:true,reason:"CALL_PUSH_ALREADY_REQUESTED"});
+ let sent=0;
  try{
   const raw=Deno.env.get("FIREBASE_SERVICE_ACCOUNT_JSON");
   if(!raw)throw new Error("FCM_NOT_CONFIGURED");
@@ -118,13 +122,22 @@ Deno.serve(async request => {
   const {data:tokens,error:tokenError}=await admin.from("device_push_tokens").select("id,token").eq("user_id",call.patient_id).eq("platform","android").eq("active",true);
   if(tokenError)throw new Error("TOKEN_LOOKUP_FAILED");
   if(!tokens?.length)return reply({ok:false,reason:"NO_ACTIVE_DEVICE_TOKENS"});
-  const access=await firebaseAccessToken(account);let sent=0;
+  const access=await firebaseAccessToken(account);
   for(const device of tokens){
    const ttl=Math.max(1,Math.min(70,Math.floor((Date.parse(call.expires_at)-Date.now())/1000)));
    if(Date.parse(call.expires_at)<=Date.now())break;
-   const response=await fetch(`https://fcm.googleapis.com/v1/projects/${account.project_id}/messages:send`,{method:"POST",headers:{authorization:`Bearer ${access}`,"content-type":"application/json"},body:JSON.stringify({message:{token:device.token,data:{type:"voice_call",call_id:call.id,expires_at:call.expires_at,media_mode:call.media_mode},android:{priority:"high",ttl:`${ttl}s`,collapse_key:call.id}}})});
-   if(response.ok)sent++;else{const failure=await response.text();if(response.status===404||failure.includes("UNREGISTERED"))await admin.from("device_push_tokens").update({active:false}).eq("id",device.id);}
+   const response=await fetch(`https://fcm.googleapis.com/v1/projects/${account.project_id}/messages:send`,{method:"POST",signal:AbortSignal.timeout(8000),headers:{authorization:`Bearer ${access}`,"content-type":"application/json"},body:JSON.stringify({message:{token:device.token,data:{type:"voice_call",call_id:call.id,expires_at:call.expires_at,media_mode:call.media_mode},android:{priority:"high",ttl:`${ttl}s`,collapse_key:call.id}}})});
+   if(response.ok)sent++;else{
+    const failure=await response.json().catch(()=>null);
+    const unregistered=Array.isArray(failure?.error?.details)&&failure.error.details.some((detail: {"@type"?: string; errorCode?: string})=>detail["@type"]==="type.googleapis.com/google.firebase.fcm.v1.FcmError"&&detail.errorCode==="UNREGISTERED");
+    if(unregistered)await admin.from("device_push_tokens").update({active:false}).eq("id",device.id);
+   }
   }
   return reply({ok:sent>0,devices_notified:sent});
- }catch(_){return reply({ok:false,reason:"CALL_PUSH_UNAVAILABLE"},503);}
+ }catch(_){return reply({ok:sent>0,devices_notified:sent,reason:"CALL_PUSH_UNAVAILABLE"},503);}
+ finally{
+  // Retry only when no delivery was confirmed. Compare the claim timestamp so
+  // this attempt can never clear a different request's claim.
+  if(sent===0)await admin.from("voice_calls").update({push_claimed_at:null}).eq("id",call.id).eq("push_claimed_at",claimedAt).eq("status","ringing");
+ }
 });

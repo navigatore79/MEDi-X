@@ -8,5 +8,6 @@ app/google-services.json
 *.jks
 *.keystore
 .env*
+node_modules/
 # Official speech model installed by tools/setup_medi_model.py
 app/src/main/assets/medi-model-it/

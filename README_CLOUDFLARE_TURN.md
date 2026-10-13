@@ -1,5 +1,7 @@
 # Attivazione nuovo servizio chiamate Meditaly
 
+> Stato verificato il 13 ottobre 2026: il GET live ora indica `calls_configured: true`, `provider: cloudflare`. La configurazione è presente; emissione reale delle credenziali, relay audio/video e push Android non sono ancora collaudati da questo audit. Per risultati, difetti, correzioni proposte e limiti vedi [il rapporto](tests/communications/README.md). Le note di mancata configurazione qui sotto descrivono lo stato all'8 ottobre. MFA risulta temporaneamente sospeso nel client e nel predicato database; non va considerato garantito dal nome della funzione.
+
 Il backend è predisposto per Cloudflare Realtime TURN con credenziali temporanee della durata di un'ora. La configurazione non è ancora attiva: occorre creare l'account e una chiave TURN. Il servizio gestito evita di installare/manutenere un server coturn. Nessuna modifica Android aggiuntiva: usare la versione 82 già preparata per chiamate/videochiamate.
 
 ## 1. Account

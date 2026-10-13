@@ -60,12 +60,20 @@
   try{const beat=Date.now()-c.lastBeat>15000;const call=await rpc('update_voice_call',{p_call:c.call.id,p_action:beat?'heartbeat':'read'});if(!owns(c))return;if(beat)c.lastBeat=Date.now();c.call=call;if(terminal.has(call.status)){complete(c,call.status);return;}
    if(!c.pc||(patient&&call.status!=='accepted'))return;const {data,error}=await sb.from('voice_call_signals').select('id,sender_id,kind,payload').eq('call_id',call.id).gt('id',c.cursor).order('id').limit(300);if(error)throw error;
    for(const signal of data||[]){if(!owns(c))return;if(signal.sender_id===uid){c.cursor=signal.id;continue;}
-    if(signal.kind==='offer'&&patient&&!c.pc.remoteDescription){await c.pc.setRemoteDescription(signal.payload);const answer=await c.pc.createAnswer();await c.pc.setLocalDescription(answer);await rpc('send_voice_call_signal',{p_call:call.id,p_kind:'answer',p_payload:{type:answer.type,sdp:answer.sdp}});}
+    if(signal.kind==='offer'&&patient){
+     if(!c.pc.remoteDescription)await c.pc.setRemoteDescription(signal.payload);
+     if(!c.answerSent){
+      if(!c.pendingAnswer){const answer=await c.pc.createAnswer();await c.pc.setLocalDescription(answer);c.pendingAnswer=answer;}
+      const answer=c.pendingAnswer;
+      try{await rpc('send_voice_call_signal',{p_call:call.id,p_kind:'answer',p_payload:{type:answer.type,sdp:answer.sdp}});}catch(error){if(error.message!=='Signal already sent')throw error;}
+      c.answerSent=true;
+     }
+    }
     else if(signal.kind==='answer'&&!patient&&!c.pc.remoteDescription)await c.pc.setRemoteDescription(signal.payload);
     else if(signal.kind==='ice')c.candidates.push(signal.payload);
     c.cursor=signal.id;
    }
-   if(c.pc.remoteDescription){for(const candidate of c.candidates.splice(0))await c.pc.addIceCandidate(candidate);}
+   if(c.pc.remoteDescription){while(c.candidates.length){await c.pc.addIceCandidate(c.candidates[0]);c.candidates.shift();}}
   }catch(_){if(owns(c))c.status.textContent='Verifica della connessione…';}finally{c.polling=false;}
  }
  async function incoming(id,action){

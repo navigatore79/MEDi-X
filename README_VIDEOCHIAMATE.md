@@ -1,5 +1,7 @@
 # Meditaly 0.7.40-beta55.8 · versionCode 82
 
+> Aggiornamento del 13 ottobre 2026: il backend live segnala configurazione Cloudflare presente. Questo non certifica chiamate su reti differenti o notifiche ad app chiusa. Il [rapporto di verifica](tests/communications/README.md) riporta i test eseguiti e quelli ancora bloccati; le indicazioni di servizio non configurato sotto sono storiche.
+
 ## Modifiche
 
 - Dashboard: consentita la riproduzione dei vocali privati e delle anteprime registrate. Microfono e videocamera permessi solo dal sito stesso.
