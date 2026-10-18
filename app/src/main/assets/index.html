@@ -29,11 +29,11 @@
       const load=(src)=>new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=()=>reject(new Error('Impossibile caricare '+src));document.body.appendChild(s);});
       (async()=>{
         try{
-          try{ await load('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0'); }
-          catch(_){ await load('https://unpkg.com/@supabase/supabase-js@2.116.0/dist/umd/supabase.js'); }
-          if(!window.supabase) throw new Error('Libreria Supabase non disponibile. Controlla la connessione Internet.');
+          await load('supabase-local.js');
           await load('supabase-config.js');
           if(!window.MEDITALY_SUPABASE) throw new Error('Configurazione Meditaly non disponibile.');
+          await load('offline-store.js');
+          await load('report-archive.js');
           await load('journal-local.js');
           await load('asl-directory.js');
           await load('home-extras.js');

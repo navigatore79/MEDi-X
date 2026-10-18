@@ -74,6 +74,7 @@ public class MainActivity extends Activity {
     private WebView webView;
     private OnBackInvokedCallback systemBackCallback;
     private ValueCallback<Uri[]> filePathCallback;
+    private WebChromeClient.FileChooserParams pendingCameraChooser;
     private Uri cameraPhotoUri;
     private File cameraOutputFile;
     private TextToSpeech tts;
@@ -260,6 +261,11 @@ public class MainActivity extends Activity {
                         startActivityForResult(audioIntent, FILE_CHOOSER_REQUEST);
                         return true;
                     }
+                    if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        pendingCameraChooser = fileChooserParams;
+                        requestPermissions(new String[]{Manifest.permission.CAMERA}, 815);
+                        return true;
+                    }
                     boolean videoCapture = accept.startsWith("video/");
                     Intent cameraIntent = new Intent(videoCapture ? MediaStore.ACTION_VIDEO_CAPTURE : MediaStore.ACTION_IMAGE_CAPTURE);
                     if (cameraIntent.resolveActivity(getPackageManager()) == null) {
@@ -291,8 +297,10 @@ public class MainActivity extends Activity {
                     } catch (Exception e) {
                         cameraPhotoUri = null;
                         cameraOutputFile = null;
+                        if (MainActivity.this.filePathCallback != null) MainActivity.this.filePathCallback.onReceiveValue(null);
                         MainActivity.this.filePathCallback = null;
-                        return false;
+                        Toast.makeText(MainActivity.this, "Impossibile aprire la fotocamera. Verifica il permesso Fotocamera nelle impostazioni.", Toast.LENGTH_LONG).show();
+                        return true;
                     }
                 }
 
@@ -368,6 +376,21 @@ public class MainActivity extends Activity {
         try{return new JSONObject().put("id",id).put("action",action).toString();}catch(Exception ignored){return null;}
     }
     public class AndroidBridge {
+        @JavascriptInterface public void openOfflinePdf(String encoded){
+            if(encoded==null || encoded.length()>22*1024*1024)return;
+            try {
+                byte[] bytes=android.util.Base64.decode(encoded,android.util.Base64.DEFAULT);
+                if(bytes.length<5 || bytes.length>15*1024*1024 || bytes[0]!='%' || bytes[1]!='P' || bytes[2]!='D' || bytes[3]!='F')throw new IOException("PDF non valido");
+                File dir=new File(getCacheDir(),"offline-pdf");
+                if(!dir.exists()&&!dir.mkdirs())throw new IOException("Spazio non disponibile");
+                File[] old=dir.listFiles();if(old!=null)for(File f:old)if(f.lastModified()<System.currentTimeMillis()-86400000L)f.delete();
+                File file=File.createTempFile("meditaly_", ".pdf",dir);
+                try(java.io.FileOutputStream out=new java.io.FileOutputStream(file)){out.write(bytes);}
+                Uri uri=FileProvider.getUriForFile(MainActivity.this,getPackageName()+".fileprovider",file);
+                runOnUiThread(()->{try{Intent view=new Intent(Intent.ACTION_VIEW);view.setDataAndType(uri,"application/pdf");view.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);view.setClipData(ClipData.newRawUri("Referto",uri));startActivity(view);}catch(Exception e){Toast.makeText(MainActivity.this,"Installa un lettore PDF per aprire il documento sul telefono.",Toast.LENGTH_LONG).show();}});
+            } catch(Exception e){runOnUiThread(()->Toast.makeText(MainActivity.this,"Impossibile aprire il PDF salvato sul telefono.",Toast.LENGTH_LONG).show());}
+        }
+
         @JavascriptInterface public boolean isLegacyMigrationPending(){return journalMigrationAllowed;}
         @JavascriptInterface public boolean shouldCopyLegacyStorage(){return !getSharedPreferences("meditaly_origin",MODE_PRIVATE).getBoolean("migrated",false);}
         @JavascriptInterface public synchronized boolean beginJournalOriginMigration(){
@@ -980,6 +1003,21 @@ public class MainActivity extends Activity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode==815){
+            WebChromeClient.FileChooserParams params=pendingCameraChooser;
+            pendingCameraChooser=null;
+            ValueCallback<Uri[]> callback=filePathCallback;
+            filePathCallback=null;
+            if(callback!=null){
+                if(params!=null && checkSelfPermission(Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED)
+                    webView.getWebChromeClient().onShowFileChooser(webView,callback,params);
+                else {
+                    callback.onReceiveValue(null);
+                    Toast.makeText(this,"Autorizza la fotocamera nelle impostazioni per fotografare un referto.",Toast.LENGTH_LONG).show();
+                }
+            }
+            return;
+        }
         if(requestCode==814){
             PermissionRequest request=pendingAudioPermission;pendingAudioPermission=null;
             if(request!=null){

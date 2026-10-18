@@ -1,0 +1,35 @@
+begin;
+create temporary table offline_fixture as select gen_random_uuid() patient,gen_random_uuid() other_patient,gen_random_uuid() doctor,gen_random_uuid() assignment,gen_random_uuid() medication,gen_random_uuid() schedule;
+grant select on offline_fixture to authenticated;
+insert into auth.users(id,raw_user_meta_data) select x.id,'{"full_name":"MEDITALY TRANSIENT TEST"}'::jsonb from offline_fixture f cross join lateral(values(f.patient),(f.other_patient),(f.doctor))x(id);
+update public.profiles set role='Clinician' where id in(select doctor from offline_fixture);
+insert into public.patient_clinicians(patient_id,clinician_id) select patient,doctor from offline_fixture;
+insert into public.care_questionnaire_assignments(id,patient_id,clinician_id,title,version_label,questions,created_at) select assignment,patient,doctor,'TEST TEMPORANEO','1','[{"id":"test","label":"Risposta fittizia","type":"choice","required":true,"options":["A","B"]}]'::jsonb,now()-interval '2 days' from offline_fixture;
+insert into public.medications(id,patient_id,name) select medication,patient,'TEST MEDICINALE FITTIZIO' from offline_fixture;
+insert into public.medication_schedules(id,medication_id,time_of_day)select schedule,medication,'09:00' from offline_fixture;
+set local role authenticated;
+do $$
+declare f record; a uuid;b uuid; rejected boolean; today date:=(now() at time zone 'Europe/Rome')::date;
+begin
+ select * into f from offline_fixture;
+ perform set_config('request.jwt.claims',jsonb_build_object('sub',f.patient,'role','authenticated')::text,true);
+ insert into public.medication_intakes(patient_id,medication_schedule_id,intake_date,status,confirmed_at) values(f.patient,f.schedule,today-1,'taken',now()-interval '1 day');
+ assert exists(select 1 from public.medication_intakes where medication_schedule_id=f.schedule and intake_date=today-1),'offline intake missing';
+ a:=public.submit_care_questionnaire_offline(f.assignment,'{"test":"A"}',today-1);
+ b:=public.submit_care_questionnaire_offline(f.assignment,'{"test":"A"}',today-1);
+ assert a=b,'retry created duplicate response';
+ assert (select count(*)=1 from public.chat_messages where sender_id=f.patient and recipient_id=f.doctor),'message missing or duplicate';
+ assert (select response_date=today-1 from public.care_questionnaire_responses where id=a),'offline date changed';
+ rejected:=false;begin perform public.submit_care_questionnaire_offline(f.assignment,'{"test":"B"}',today-1);exception when others then rejected:=true;end;assert rejected,'conflicting response accepted';
+ rejected:=false;begin perform public.submit_care_questionnaire_offline(f.assignment,'{"test":"wrong"}',today);exception when others then rejected:=true;end;assert rejected,'invalid answer accepted';
+ rejected:=false;begin perform public.submit_care_questionnaire_offline(f.assignment,'{"test":"A"}',today+1);exception when others then rejected:=true;end;assert rejected,'future accepted';
+ perform set_config('request.jwt.claims',jsonb_build_object('sub',f.other_patient,'role','authenticated')::text,true);
+ rejected:=false;begin perform public.submit_care_questionnaire_offline(f.assignment,'{"test":"A"}',today);exception when others then rejected:=true;end;assert rejected,'other patient can submit';
+ rejected:=false;begin insert into public.medication_intakes(patient_id,medication_schedule_id,intake_date,status,confirmed_at) values(f.other_patient,f.schedule,today-1,'taken',now()-interval '1 day');exception when others then rejected:=true;end;assert rejected,'other patient can use medication schedule';
+ assert not exists(select 1 from public.care_questionnaire_responses where id=a),'other patient reads response';
+ perform set_config('request.jwt.claims',jsonb_build_object('sub',f.doctor,'role','authenticated','aal','aal2')::text,true);
+ assert exists(select 1 from public.care_questionnaire_responses where id=a),'doctor cannot read response';
+ assert exists(select 1 from public.chat_messages where sender_id=f.patient and recipient_id=f.doctor),'doctor cannot read message';
+end $$;
+rollback;
+select 'PASS: delivery, retry, date, validation, isolation and physician visibility; all fixtures rolled back' result;

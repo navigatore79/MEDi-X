@@ -1,4 +1,18 @@
 /* Patient questionnaires exist only after a clinician assignment. */
+window.MeditalyOffline?.register('questionnaire',async(payload,uid)=>{
+ if(state.session?.user.id!==uid)throw new Error('Account cambiato');
+ const result=await sb.rpc('submit_care_questionnaire_offline',{p_assignment:payload.assignment,p_answers:payload.answers,p_response_date:payload.date});
+ if(result.error)throw result.error;return result.data;
+});
+window.MeditalyOffline?.register('intake',async(payload,uid)=>{
+ if(state.session?.user.id!==uid||payload.patient_id!==uid)throw new Error('Account cambiato');
+ const result=await sb.from('medication_intakes').upsert(payload,{onConflict:'medication_schedule_id,intake_date'});if(result.error)throw result.error;return payload;
+});
+async function savePatientIntake(row){
+ const offline=window.MeditalyOffline;
+ if(!offline)return sb.from('medication_intakes').upsert(row,{onConflict:'medication_schedule_id,intake_date'});
+ try{const id='intake:'+row.medication_schedule_id+':'+row.intake_date;await offline.enqueue('intake',id,row);await offline.pump();const pending=await offline.get('job:'+id);return {error:null,pending:!!pending,detail:pending?.error};}catch(error){return {error};}
+}
 function addCareMenuEntries(){
  const grid=document.querySelector('.more-grid');if(!grid)return;
  for(const [label,tab] of [['Dispositivi Bluetooth','devices'],['Terapie','therapy']]){
@@ -15,7 +29,7 @@ async function saveNotificationIntake(a){
  state.tab='therapy';await patientView();
  if(a.date!==today){alert('Promemoria scaduto: verifica le assunzioni della giornata nella terapia.');return;}
  if(!['taken','skipped'].includes(a.status))return;
- const {error}=await sb.from('medication_intakes').upsert({patient_id:uid,medication_schedule_id:a.schedule,intake_date:a.date,status:a.status,skip_reason:a.status==='skipped'?'Dichiarato dalla notifica':null,confirmed_at:new Date().toISOString()},{onConflict:'medication_schedule_id,intake_date'});
+ const {error}=await savePatientIntake({patient_id:uid,medication_schedule_id:a.schedule,intake_date:a.date,status:a.status,skip_reason:a.status==='skipped'?'Dichiarato dalla notifica':null,confirmed_at:new Date().toISOString()});
  if(error){alert('Risposta non salvata. Conferma l’assunzione dalla pagina Terapie.');return;}
  await patientTherapy();mediVoiceNotice(a.status==='taken'?'Assunzione dichiarata salvata.':'Mancata assunzione dichiarata salvata.');
 }
@@ -25,7 +39,7 @@ async function patientAssignedQuestionnaires(){
  const current=()=>state.tab==='assignedQuestionnaires'&&state.session?.user.id===uid&&state.selectedCareDoctor===doctor;
  const {data,error}=await sb.from('care_questionnaire_assignments').select('*').eq('patient_id',uid).eq('active',true).order('created_at',{ascending:false});
  if(!current())return;
- content.innerHTML='<section class="page-title"><button class="back-link" id="careBack">‹ Home</button><h1>Questionari del medico</h1><p>Il questionario non sostituisce i canali di emergenza.</p></section><div id="assignedForms"></div>';
+ content.innerHTML='<section class="page-title"><button class="back-link" id="careBack">‹ Home</button><h1>Questionari del medico</h1><p>Compila le risposte e premi <strong>Invia al medico</strong>. La compilazione da sola non invia nulla. Senza rete, l’invio confermato resta sul telefono e riparte alla connessione.</p><p>Il questionario non sostituisce i canali di emergenza.</p></section><div id="assignedForms"></div>';
  document.getElementById('careBack').onclick=()=>{stopAssignedQuestionnaireVoice();state.tab='home';patientView();};
  const host=document.getElementById('assignedForms');
  if(error){host.innerHTML=msg('Questionari non disponibili: '+error.message,'error');return;}
@@ -36,30 +50,49 @@ async function patientAssignedQuestionnaires(){
   const card=document.createElement('section');card.className='card card-pad';
   const done=await sb.from('care_questionnaire_responses').select('id').eq('assignment_id',a.id).eq('response_date',today).maybeSingle();
   if(!current())return;
-  if(done.error){card.textContent='Impossibile verificare la compilazione. Riprova.';host.append(card);continue;}
+  const offline=window.MeditalyOffline,jobId='questionnaire:'+a.id+':'+today,draftKey='draft:'+jobId;
+  const queued=await offline?.get('job:'+jobId),receipt=await offline?.get('receipt:'+jobId),draft=await offline?.get(draftKey);
+  if(done.error&&navigator.onLine!==false&&!queued&&!draft&&!receipt){card.textContent='Impossibile verificare la compilazione. Riprova.';host.append(card);continue;}
   const name=state.careDoctors.find(d=>d.clinician_id===a.clinician_id)?.profiles?.full_name||'Medico assegnante';
   const date=a.created_at?new Date(a.created_at).toLocaleDateString('it-IT'):'';
   card.innerHTML=`<h2>${esc(a.title)}</h2><p class="small muted">Assegnato da ${esc(name)}${date?' · '+esc(date):''} · Versione ${esc(a.version_label)}</p>`;
-  if(done.data){card.insertAdjacentHTML('beforeend','<p>Questionario di oggi già inviato.</p>');host.append(card);continue;}
+  if(done.data||receipt){card.insertAdjacentHTML('beforeend','<p class="notice ok" role="status">✓ Questionario di oggi inviato al medico. Disponibile nella sua scheda e in chat.</p>');host.append(card);continue;}
   const form=document.createElement('form');
   for(const q of a.questions){
    const label=document.createElement('label');label.className='field';const title=document.createElement('span');title.textContent=q.label;label.append(title);
    const field=document.createElement(q.type==='choice'?'select':'textarea');field.className='input';field.name=q.id;field.required=!!q.required;
    if(q.type==='choice'){field.add(new Option('Seleziona una risposta',''));q.options.forEach(o=>field.add(new Option(o,o)));}
    else field.maxLength=1000;
+   field.value=queued?.payload.answers[q.id]??draft?.answers[q.id]??'';
    field.addEventListener('change',()=>{const urgent=a.questions.some(x=>(x.alert_values||[]).includes(form.elements.namedItem(x.id)?.value));alarm.hidden=!urgent;});
    label.append(field);form.append(label);
   }
   const alarm=document.createElement('p');alarm.hidden=true;alarm.className='notice error';alarm.textContent='Se hai dolore al petto in corso, grave affanno, svenimento o sanguinamento importante, chiama subito il 112. Non aspettare la risposta in chat.';form.append(alarm);
   const send=document.createElement('button');send.type='submit';send.className='btn full';send.textContent='Invia al medico';form.append(send);
-  const status=document.createElement('p');status.setAttribute('role','status');form.append(status);
+  const status=document.createElement('p');status.setAttribute('role','status');status.setAttribute('aria-live','polite');status.textContent=queued?'In attesa di connessione: il medico non ha ancora ricevuto queste risposte.':draft?'Bozza salvata sul telefono · da inviare.':'Da compilare · nessun invio effettuato.';form.append(status);
+  let draftSave=Promise.resolve();
+  const saveDraft=()=>{const answers=Object.fromEntries(new FormData(form));draftSave=draftSave.catch(()=>{}).then(()=>offline?.put(draftKey,{answers,date:today}));draftSave.catch(()=>{status.textContent='Salvataggio sul telefono non riuscito. Mantieni aperto il questionario e riprova.';});return draftSave;};
+  form.addEventListener('input',()=>{void saveDraft();});form.addEventListener('change',()=>{void saveDraft();});
+  if(queued){form.querySelectorAll('input,select,textarea,button').forEach(f=>f.disabled=true);send.disabled=true;}
+  const sent=event=>{if(event.detail.id===jobId&&current()){status.textContent='✓ Inviato al medico. Risposte disponibili nella sua scheda e in chat.';send.textContent='Inviato al medico';}};
+  window.addEventListener('meditaly-offline-sent',sent);const cleanup=new MutationObserver(()=>{if(!form.isConnected){window.removeEventListener('meditaly-offline-sent',sent);cleanup.disconnect();}});cleanup.observe(document.body,{childList:true,subtree:true});
+
   form.onsubmit=async e=>{e.preventDefault();if(!current()||send.disabled||!form.reportValidity())return;stopAssignedQuestionnaireVoice();send.disabled=true;const answers=Object.fromEntries(new FormData(form));
-   const {error}=await sb.rpc('submit_care_questionnaire',{p_assignment:a.id,p_answers:answers});
-   if(!current())return;
-   if(error){send.disabled=false;status.textContent='Invio non riuscito: '+error.message;return;}
-   status.textContent='Risposte salvate e inviate al medico.';form.querySelectorAll('input,select,textarea,button').forEach(f=>f.disabled=true);
+   status.textContent='Invio in corso…';send.textContent='Invio in corso…';
+   try{
+    await saveDraft();
+    if(offline){await offline.enqueue('questionnaire',jobId,{assignment:a.id,answers,date:today});await offline.remove(draftKey);await offline.pump();
+     const receipt=await offline.get('receipt:'+jobId),pending=await offline.get('job:'+jobId);
+     if(!current())return;
+     status.textContent=receipt?'✓ Inviato al medico. Risposte disponibili nella sua scheda e in chat.':pending?.error?'Invio da completare: '+pending.error+'. Le risposte sono conservate sul telefono. Premi Sincronizza per riprovare.':'In attesa di connessione. Risposte salvate sul telefono, ancora non ricevute dal medico.';
+     send.textContent=receipt?'Inviato al medico':'Invio in attesa';
+    }else{const {error}=await sb.rpc('submit_care_questionnaire',{p_assignment:a.id,p_answers:answers});if(error)throw error;status.textContent='✓ Risposte salvate e inviate al medico.';}
+    form.querySelectorAll('input,select,textarea,button').forEach(f=>f.disabled=true);
+   }catch(error){if(!current())return;send.disabled=false;send.textContent='Riprova invio al medico';status.textContent='Invio non riuscito: '+error.message;}
+
   };
   attachAssignedQuestionnaireVoice(a,form,status,current,send,alarm);
+  if(queued)form.querySelectorAll('input,select,textarea,button').forEach(f=>f.disabled=true);
   card.append(form);host.append(card);
  }
 }

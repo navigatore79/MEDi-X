@@ -2,4 +2,5 @@
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <external-files-path name="report_images" path="Pictures/reports/" />
     <external-files-path name="journal_videos" path="Movies/journal/" />
+    <cache-path name="offline_pdf" path="offline-pdf/" />
 </paths>
