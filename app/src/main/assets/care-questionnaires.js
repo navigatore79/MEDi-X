@@ -47,7 +47,7 @@ async function patientAssignedQuestionnaires(){
  const current=()=>state.tab==='assignedQuestionnaires'&&state.session?.user.id===uid&&state.selectedCareDoctor===doctor;
  const {data,error}=await sb.from('care_questionnaire_assignments').select('*').eq('patient_id',uid).eq('active',true).order('created_at',{ascending:false});
  if(!current())return;
- content.innerHTML='<section class="page-title"><button class="back-link" id="careBack">‹ Home</button><h1>Questionari del medico</h1><p>Compila le risposte e premi <strong>Invia al medico</strong>. La compilazione da sola non invia nulla. Senza rete, l’invio confermato resta sul telefono e riparte alla connessione.</p><p>Il questionario non sostituisce i canali di emergenza.</p></section><div id="assignedForms"></div>';
+ content.innerHTML='<section class="page-title cq-page-title"><button class="back-link" id="careBack">‹ Home</button><span class="cq-eyebrow">IL TUO PERCORSO DI CURA</span><h1>Il questionario del medico</h1><p>Compila le risposte e premi <strong>Invia al medico</strong>. La compilazione da sola non invia nulla. Senza rete, l’invio confermato resta sul telefono e riparte alla connessione.</p><p>Il questionario non sostituisce i canali di emergenza.</p></section><div id="assignedForms" class="cq-assigned-list"></div>';
  document.getElementById('careBack').onclick=()=>{stopAssignedQuestionnaireVoice();state.tab='home';patientView();};
  const host=document.getElementById('assignedForms');
  if(error){host.innerHTML=msg('Questionari non disponibili: '+error.message,'error');return;}
@@ -55,7 +55,7 @@ async function patientAssignedQuestionnaires(){
  if(!selected.length){host.innerHTML='<p>Nessun questionario assegnato dal medico selezionato. Sarà disponibile qui quando il medico lo assegnerà dalla dashboard.</p>';return;}
  const today=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Rome'});
  for(const a of selected){
-  const card=document.createElement('section');card.className='card card-pad';
+  const card=document.createElement('section');card.className='card card-pad cq-assigned-card';
   const done=await sb.from('care_questionnaire_responses').select('id').eq('assignment_id',a.id).eq('response_date',today).maybeSingle();
   if(!current())return;
   const offline=window.MeditalyOffline,jobId='questionnaire:'+a.id+':'+today,draftKey='draft:'+jobId;
@@ -63,21 +63,21 @@ async function patientAssignedQuestionnaires(){
   if(done.error&&navigator.onLine!==false&&!queued&&!draft&&!receipt){card.textContent='Impossibile verificare la compilazione. Riprova.';host.append(card);continue;}
   const name=state.careDoctors.find(d=>d.clinician_id===a.clinician_id)?.profiles?.full_name||'Medico assegnante';
   const date=a.created_at?new Date(a.created_at).toLocaleDateString('it-IT'):'';
-  card.innerHTML=`<h2>${esc(a.title)}</h2><p class="small muted">Assegnato da ${esc(name)}${date?' · '+esc(date):''} · Versione ${esc(a.version_label)}</p>`;
+  card.innerHTML=`<header class="cq-card-header"><span class="cq-eyebrow">QUESTIONARIO ASSEGNATO</span><h2>${esc(a.title)}</h2><p class="cq-doctor">${esc(name)}</p><p class="small muted">${date?'Assegnato il '+esc(date)+' · ':''}${a.questions.length} domande</p></header>`;
   if(done.data||receipt){card.insertAdjacentHTML('beforeend','<p class="notice ok" role="status">✓ Questionario di oggi inviato al medico. Disponibile nella sua scheda e in chat.</p>');host.append(card);continue;}
-  const form=document.createElement('form');
+  const form=document.createElement('form');form.className='cq-assigned-form';
   for(const q of a.questions){
-   const label=document.createElement('label');label.className='field';const title=document.createElement('span');title.textContent=q.label;label.append(title);
+   const label=document.createElement('label');label.className='field cq-question';const title=document.createElement('span');title.className='cq-question-title';title.textContent=(a.questions.indexOf(q)+1)+'. '+q.label;label.append(title);const hint=document.createElement('small');hint.className='cq-required';hint.textContent=q.required?'Risposta obbligatoria':'Facoltativa';label.append(hint);
    const field=document.createElement(q.type==='choice'?'select':'textarea');field.className='input';field.name=q.id;field.required=!!q.required;
    if(q.type==='choice'){field.add(new Option('Seleziona una risposta',''));q.options.forEach(o=>field.add(new Option(o,o)));}
-   else field.maxLength=1000;
+   else {field.maxLength=1000;field.rows=3;field.placeholder='Scrivi qui la tua risposta…';}
    field.value=queued?.payload.answers[q.id]??draft?.answers[q.id]??'';
    field.addEventListener('change',()=>{const urgent=a.questions.some(x=>(x.alert_values||[]).includes(form.elements.namedItem(x.id)?.value));alarm.hidden=!urgent;});
    label.append(field);form.append(label);
   }
   const alarm=document.createElement('p');alarm.hidden=true;alarm.className='notice error';alarm.textContent='Se hai dolore al petto in corso, grave affanno, svenimento o sanguinamento importante, chiama subito il 112. Non aspettare la risposta in chat.';form.append(alarm);
-  const send=document.createElement('button');send.type='submit';send.className='btn full';send.textContent='Invia al medico';form.append(send);
-  const status=document.createElement('p');status.setAttribute('role','status');status.setAttribute('aria-live','polite');status.textContent=queued?'In attesa di connessione: il medico non ha ancora ricevuto queste risposte.':draft?'Bozza salvata sul telefono · da inviare.':'Da compilare · nessun invio effettuato.';form.append(status);
+  const send=document.createElement('button');send.type='submit';send.className='btn full cq-send';send.textContent='Invia al medico';form.append(send);
+  const status=document.createElement('p');status.className='cq-send-status';status.setAttribute('role','status');status.setAttribute('aria-live','polite');status.textContent=queued?'In attesa di connessione: il medico non ha ancora ricevuto queste risposte.':draft?'Bozza salvata sul telefono · da inviare.':'Da compilare · nessun invio effettuato.';form.append(status);
   let draftSave=Promise.resolve();
   const saveDraft=()=>{const answers=Object.fromEntries(new FormData(form));draftSave=draftSave.catch(()=>{}).then(()=>offline?.put(draftKey,{answers,date:today}));draftSave.catch(()=>{status.textContent='Salvataggio sul telefono non riuscito. Mantieni aperto il questionario e riprova.';});return draftSave;};
   form.addEventListener('input',()=>{void saveDraft();});form.addEventListener('change',()=>{void saveDraft();});
@@ -122,7 +122,7 @@ function assignedQuestionnaireVoiceAnswer(question,spoken){
  return index>=0&&index<options.length?options[index]:null;
 }
 function attachAssignedQuestionnaireVoice(assignment,form,status,current,send,alarm){
- const controls=document.createElement('section');controls.className='card';
+ const controls=document.createElement('section');controls.className='cq-voice-panel';
  controls.innerHTML='<button type="button" class="btn full cqVoiceStart">Compila con la voce</button><p class="small">Medi legge una domanda alla volta. Puoi rispondere a voce o usare i campi e correggere prima dell’invio.</p><div class="cqVoiceNavigation" hidden><p class="cqVoiceProgress" aria-live="polite"></p><button type="button" class="btn secondary cqVoicePrevious">Indietro</button> <button type="button" class="btn secondary cqVoiceNext">Continua</button> <button type="button" class="btn secondary cqVoiceSkip">Salta facoltativa</button> <button type="button" class="btn secondary cqVoiceStop">Ferma la voce</button></div>';
  form.prepend(controls);
  const button=controls.querySelector('.cqVoiceStart'),navigation=controls.querySelector('.cqVoiceNavigation'),progress=controls.querySelector('.cqVoiceProgress'),skip=controls.querySelector('.cqVoiceSkip');
