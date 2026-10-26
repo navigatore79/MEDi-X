@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "150853515966",
+    "project_id": "meditaly-e3c9b",
+    "storage_bucket": "meditaly-e3c9b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150853515966:android:18a65b30463e56aa62bcef",
+        "android_client_info": {
+          "package_name": "com.ciromaiello.meditaly"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2AA_GCDoywHq2b2Qp2vYhFBdsbLi_lKU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150853515966:android:2a114e0aa8fc025062bcef",
+        "android_client_info": {
+          "package_name": "it.meditaly.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2AA_GCDoywHq2b2Qp2vYhFBdsbLi_lKU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

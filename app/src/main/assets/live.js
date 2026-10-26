@@ -853,11 +853,11 @@ async function patientHome(){
  if(!currentHome())return;
  const today=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Rome'});
  const [{data:m},{data:f},{data:n},{data:p},{data:r},{data:ch},{data:checkin},{data:monitor},{data:todayIntakes},{data:careSignals},{data:residence}]=await Promise.all([
-  sb.from('medications').select('*,medication_schedules(*)').eq('active',true).order('created_at',{ascending:false}),
-  sb.from('followup_milestones').select('*').eq('completed',false).order('due_date'),
+  sb.from('medications').select('*,medication_schedules(*)').eq('patient_id',state.session.user.id).eq('active',true).order('created_at',{ascending:false}),
+  sb.from('followup_milestones').select('*').eq('patient_id',state.session.user.id).eq('completed',false).order('due_date'),
   sb.from('notifications').select('*').eq('is_read',false),
   sb.from('profiles').select('assigned_center_id').eq('id',state.session.user.id).single(),
-  sb.from('medical_reports').select('id').order('uploaded_at',{ascending:false}),
+  sb.from('medical_reports').select('id').eq('patient_id',state.session.user.id).order('uploaded_at',{ascending:false}),
   sb.from('chat_messages').select('id').eq('recipient_id',state.session.user.id).eq('is_read',false),
   sb.from('patient_daily_checkins').select('*').eq('patient_id',state.session.user.id).eq('checkin_date',today).maybeSingle(),
   sb.from('patient_monitoring_settings').select('*').eq('patient_id',state.session.user.id).maybeSingle(),
@@ -1287,7 +1287,7 @@ async function patientConditions(){
  document.getElementById('saveConditions').onclick=async()=>{const button=document.getElementById('saveConditions');button.disabled=true;const values=[...document.querySelectorAll('#editConditions input:checked')].map(x=>x.value);const other=values.includes('other')?document.getElementById('editConditionsOther').value.trim():'';const {error:e}=await sb.from('patient_chronic_conditions').upsert({patient_id:state.session.user.id,condition_codes:values,other_details:other||null,updated_at:new Date().toISOString()},{onConflict:'patient_id'});button.disabled=false;if(e)document.getElementById('conditionsMsg').innerHTML=msg('Non salvato: '+e.message,'error');else patientConditions();};
 }
 async function patientTherapy(){
- const {data,error}=await sb.from('medications').select('*,medication_schedules(*)').eq('active',true).order('created_at',{ascending:false}); if(error)return content.innerHTML=msg(error.message,'error');
+ const {data,error}=await sb.from('medications').select('*,medication_schedules(*)').eq('patient_id',state.session.user.id).eq('active',true).order('created_at',{ascending:false}); if(error)return content.innerHTML=msg(error.message,'error');
  const today=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Rome'}),weekday=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(new Intl.DateTimeFormat('en-US',{weekday:'short',timeZone:'Europe/Rome'}).format(new Date()));
  const due=(data||[]).filter(x=>x.active&&(!x.starts_on||x.starts_on<=today)&&(!x.ends_on||x.ends_on>=today)).flatMap(x=>(x.medication_schedules||[]).filter(s=>s.time_of_day&&(!s.weekdays?.length||s.weekdays.includes(weekday))).map(s=>({med:x,schedule:s})));
  if(pendingTherapySpeechSlot){
@@ -1313,7 +1313,7 @@ async function patientTherapy(){
  document.getElementById('addTherapy').onclick=()=>{state.tab='imports';state.importKind='therapy';patientView();};document.getElementById('messageDoctorTherapy').onclick=()=>{state.tab='chat';patientView();};
 }
 async function patientFollowups(){
- const {data,error}=await sb.from('followup_milestones').select('*').order('due_date'); if(error)return content.innerHTML=msg(error.message,'error');
+ const {data,error}=await sb.from('followup_milestones').select('*').eq('patient_id',state.session.user.id).order('due_date'); if(error)return content.innerHTML=msg(error.message,'error');
  const selectedDoctor=chosenCareDoctor();const visible=(data||[]).filter(x=>!selectedDoctor||x.created_by===selectedDoctor.clinician_id||!x.created_by||x.created_by===state.session.user.id);
  let appointmentsQuery=sb.from('appointments').select('id,reason,proposed_start,status,location_label,booked_slot').eq('patient_id',state.session.user.id);if(selectedDoctor)appointmentsQuery=appointmentsQuery.eq('clinician_id',selectedDoctor.clinician_id);const {data:appointments,error:appointmentsError}=await appointmentsQuery.order('created_at',{ascending:false}).limit(30);
  content.innerHTML=`<section class="page-title"><div class="eyebrow dark">CONTROLLI CONDIVISI</div><h1>Controlli</h1><p class="muted">Programmazione aggiornata dal medico e visibile in tempo reale.</p></section><div class="care-page-actions"><button class="btn" id="messageDoctorControl">Scrivi al medico</button><button class="btn secondary" id="addControl">Proponi o importa</button></div><div class="card" id="patientVisitSlots"></div><div class="card"><h2>Appuntamenti</h2>${appointmentsError?msg(appointmentsError.message,'error'):(appointments||[]).map(x=>`<div class="item"><strong>${esc(x.reason||'Controllo')}</strong><div>${fmt(x.proposed_start)} · ${esc(x.status)}</div><div class="muted">${esc(x.location_label||'')}</div>${x.booked_slot&&x.status==='Confirmed'?`<button class="btn secondary cancel-slot-booking" data-id="${x.id}">Annulla prenotazione</button>`:''}${/proposed|pending/i.test(x.status)?`<button class="btn secondary respond-appointment" data-id="${x.id}" data-accept="true">Conferma</button> <button class="btn secondary respond-appointment" data-id="${x.id}" data-accept="false">Rifiuta</button>`:''}</div>`).join('')||'Nessun appuntamento.'}</div><div class="card section"><h2>Follow-up</h2><div class="list">${visible.map(x=>`<div class="item care-shared-item"><div class="shared-source">${x.created_by?'PROGRAMMATO DAL MEDICO':'PROPOSTA PAZIENTE'}</div><strong>${esc(x.milestone_label)} · ${esc(x.milestone_type.replaceAll('_',' '))}</strong><div>Data: ${fmt(x.due_date)} · ${x.completed?'Completato':'Da effettuare'}</div>${x.notes?`<div class="muted">${esc(x.notes)}</div>`:''}</div>`).join('')||'<p>Nessun controllo.</p>'}</div></div>`;

@@ -41,6 +41,17 @@ jobs:
           fi
       - name: Build debug APK
         run: gradle --no-daemon :app:assembleDebug
+      - name: Build release bundle and APK with original Firebase
+        run: gradle --no-daemon :app:bundleRelease :app:assembleRelease
+      - name: Upload release bundle for original signing
+        uses: actions/upload-artifact@v4
+        with:
+          name: Meditaly-0.7.42-beta56.0-UNSIGNED-release
+          path: |
+            app/build/outputs/bundle/release/app-release.aab
+            app/build/outputs/apk/release/app-release-unsigned.apk
+          if-no-files-found: error
+          retention-days: 30
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
