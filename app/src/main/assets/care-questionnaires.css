@@ -1,0 +1,29 @@
+/* Assigned patient questionnaires: scoped to preserve other app screens. */
+.cq-page-title,.cq-assigned-list{width:100%;max-width:720px;margin-inline:auto;box-sizing:border-box}
+.cq-page-title{padding:12px 4px 20px}
+.cq-page-title .back-link{margin-bottom:22px}
+.cq-eyebrow{display:block;font-size:11px;font-weight:800;letter-spacing:.12em;color:#436956;margin-bottom:10px}
+.cq-page-title h1{font-size:clamp(26px,7vw,34px);line-height:1.12;letter-spacing:-.7px;margin:0 0 14px;color:#173f2e}
+.cq-page-title p{font-size:14px;line-height:1.65;color:#52665b;margin:8px 0}
+.cq-page-title p:last-child{font-size:12px;color:#68796e}
+.cq-assigned-list{display:grid;gap:22px;padding-bottom:28px}
+.cq-assigned-card.card{padding:0;overflow:hidden;border:1px solid #d4e2d8;border-radius:22px;background:#fff;box-shadow:0 8px 26px #244d3510}
+.cq-card-header{padding:24px;background:linear-gradient(135deg,#edf5ed,#f8fbf6);border-bottom:1px solid #deeadf}
+.cq-card-header h2{margin:0 0 12px;font-size:23px;line-height:1.3;overflow-wrap:anywhere;color:#173f2e}
+.cq-card-header p{margin:5px 0;line-height:1.5}.cq-doctor{font-weight:700;color:#3a624b}
+.cq-assigned-form{padding:20px 24px 24px;display:flex;flex-direction:column;gap:0}
+.cq-voice-panel{padding:16px;background:#f2f6f1;border:1px solid #dce7dc;border-radius:15px;margin:0 0 24px}
+.cq-voice-panel .cqVoiceStart{background:white;color:#24563b;border:1px solid #a9c2af;box-shadow:none;min-height:48px}
+.cq-voice-panel p{margin:10px 0 0;line-height:1.55;color:#52665b;font-size:13px}
+.cqVoiceNavigation{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.cqVoiceNavigation[hidden]{display:none}.cqVoiceNavigation .cqVoiceProgress{flex-basis:100%;font-weight:700;margin:0 0 4px}.cqVoiceNavigation .btn{min-height:44px;flex:1 1 110px;font-size:13px}
+.cq-question.field{display:flex;flex-direction:column;gap:7px;margin:0;padding:0 0 22px;min-width:0}
+.cq-question-title{font-size:16px;line-height:1.5;font-weight:700;color:#223f2e;overflow-wrap:anywhere}
+.cq-required{font-size:12px;color:#697c6e;margin-bottom:3px}
+.cq-question .input{width:100%;box-sizing:border-box;min-height:52px;font-size:16px;border:1px solid #b8cabc;border-radius:12px;padding:14px;background:#fbfcfa;color:#203d2b;line-height:1.5}
+.cq-question textarea.input{resize:vertical;min-height:112px}.cq-question .input:focus-visible{outline:3px solid #86ac8f;outline-offset:2px;border-color:#396c49}
+.cq-assigned-form .cq-send{margin-top:6px;min-height:54px;border-radius:13px;background:#285c3f;color:#fff;font-weight:750;font-size:16px;box-shadow:none}
+.cq-assigned-form .cq-send:disabled{opacity:.7;cursor:default}
+.cq-send-status{margin:14px 0 0;padding:13px 15px;border-radius:12px;background:#f1f5ef;color:#3e5d47;font-size:13px;line-height:1.6;overflow-wrap:anywhere}
+.cq-assigned-card>.notice{margin:20px 24px}
+@media(max-width:380px){.cq-card-header{padding:20px 16px}.cq-assigned-form{padding:18px 16px}.cq-voice-panel{padding:12px}.cq-card-header h2{font-size:21px}}
+@media(prefers-reduced-motion:reduce){.cq-assigned-form *{scroll-behavior:auto!important}}
