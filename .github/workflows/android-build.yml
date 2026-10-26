@@ -1,4 +1,4 @@
-name: Build Meditaly Android Beta 55.9
+name: Build Meditaly Android Beta 56.0
 on:
   workflow_dispatch:
   push:
@@ -44,7 +44,7 @@ jobs:
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: Meditaly-0.7.41-beta55.9-debug
+          name: Meditaly-0.7.42-beta56.0-debug
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30

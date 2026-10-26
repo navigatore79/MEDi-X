@@ -17,7 +17,7 @@ function meditalyHomeExtras({province,city}){
  anchor.insertAdjacentHTML('beforebegin',`
   <section class="who-tips who-ticker" aria-label="Consigli OMS"><strong class="who-ticker-label">OMS</strong><div class="who-ticker-window"><div id="whoTip" class="who-ticker-track"></div></div><button type="button" class="who-ticker-pause" aria-label="Ferma lo scorrimento dei consigli OMS" aria-pressed="false">Ⅱ</button></section>
   <section class="home-measures"><div class="row between"><div><span class="eyebrow dark">LE TUE MISURE</span><h2>Peso e altezza</h2></div><span id="measuresSummary"></span></div><div class="measure-inputs"><label>Peso · kg<input class="input" id="measureWeight" type="number" min="10" max="500" step="0.1" inputmode="decimal" placeholder="es. 70"></label><label>Altezza · cm<input class="input" id="measureHeight" type="number" min="50" max="250" step="0.1" inputmode="decimal" placeholder="es. 170"></label></div><details class="measure-details"><summary>Vedi i calcoli BMI e BSA</summary><div id="measureResults" class="measure-results">Inserisci peso e altezza per vedere i calcoli.</div></details><div id="measureGuidance" class="measure-guidance" aria-live="polite"></div><p class="small muted measure-caveat">Il BMI è un indicatore orientativo: non descrive da solo la salute individuale e va interpretato con il medico, soprattutto in gravidanza o in presenza di altre condizioni.</p></section>
-  <section class="local-health-news"><span class="eyebrow dark">NOTIZIE DEL TERRITORIO</span><h2>Sanità vicino a te</h2><div id="healthNews" aria-live="polite"><p class="muted">Cerco una notizia da una fonte sanitaria ufficiale…</p></div></section>`);
+  <section class="local-health-news"><span class="eyebrow dark">NOTIZIE DI SALUTE</span><h2>Salute: la notizia</h2><div id="healthNews" aria-live="polite"><p class="muted">Cerco una notizia da una fonte sanitaria ufficiale…</p></div></section>`);
  const tips=[
   {title:'Muoviti con regolarità',body:'Per gli adulti, l’OMS raccomanda 150–300 minuti a settimana di attività aerobica moderata, secondo le proprie possibilità.',url:'https://www.who.int/europe/news-room/fact-sheets/item/physical-activity'},
   {title:'Più frutta e verdura',body:'Per le persone sopra i 10 anni, l’OMS indica almeno 400 g al giorno di frutta e verdura.',url:'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'},
@@ -43,10 +43,10 @@ function meditalyHomeExtras({province,city}){
 async function meditalyLocalNews(province,city){
  const box=document.getElementById('healthNews');if(!box)return;
  const region=String(province||'').toUpperCase()==='NA'?'Campania':'';
- const cacheKey=`meditaly-health-news-${String(province||'').toUpperCase()}`;
+ const cacheKey=`meditaly-health-news-v2-${String(province||'').toUpperCase()}`;
  const render=item=>{if(!box.isConnected)return;
   let url;try{url=new URL(item.url);if(url.protocol!=='https:')throw new Error();}catch{return;}
-  box.innerHTML=`<strong>${esc(item.title)}</strong><p class="muted">${esc(item.source)}</p><button type="button" class="btn secondary" id="newsReadInside">Leggi qui</button> <a href="${esc(url.href)}" target="_blank" rel="noopener noreferrer">Apri sul sito ↗</a><div id="newsInside"></div>`;
+  box.innerHTML=`<strong>${esc(item.title)}</strong><p class="muted">${esc(item.source)} · ${esc(item.publishedAt?new Date(item.publishedAt).toLocaleDateString('it-IT'):'')} · ${esc(item.scope||'')}</p><p>${esc(item.summary||'')}</p><button type="button" class="btn secondary" id="newsReadInside">Leggi qui</button> <a href="${esc(url.href)}" target="_blank" rel="noopener noreferrer">Apri sul sito ↗</a><div id="newsInside"></div>`;
   box.querySelector('#newsReadInside').onclick=()=>{
    const target=box.querySelector('#newsInside');if(target.firstChild){target.replaceChildren();return;}
    const frame=document.createElement('iframe');frame.className='news-frame';frame.title=item.title;frame.referrerPolicy='no-referrer';frame.setAttribute('sandbox','allow-scripts allow-same-origin allow-popups');frame.src=url.href;
@@ -56,13 +56,9 @@ async function meditalyLocalNews(province,city){
  let cached=null;try{cached=JSON.parse(localStorage.getItem(cacheKey)||'null')}catch{}
  if(cached?.item)render(cached.item);
  if(cached?.checkedAt&&Date.now()-cached.checkedAt<6*60*60*1000)return;
- if(!province){box.innerHTML='<p class="muted">Indica la provincia di residenza per vedere le notizie locali.</p>';return}
  try{
-  const question=region?`Trova UNA notizia sanitaria recente e verificabile per ${city||'provincia di Napoli'} in Campania, pubblicata esclusivamente su regione.campania.it o aslnapoli3sud.it. Riporta il titolo reale senza inventare date.`:`Trova UNA notizia sanitaria recente e verificabile per la provincia ${province} pubblicata sul sito ufficiale della Regione o della ASL locale. Riporta il titolo reale.`;
-  const data=await mediAsk(question,'guidelines');
-  const source=(data.sources||[]).find(x=>{try{const u=new URL(x.url),host=u.hostname.toLowerCase();return u.protocol==='https:'&&(region?(host==='regione.campania.it'||host==='aslnapoli3sud.it'||host.endsWith('.regione.campania.it')||host.endsWith('.aslnapoli3sud.it')):(host.includes('regione.')||/^www\.asl|^asl/.test(host))&&host.endsWith('.it'))}catch{return false}});
-  if(!source)throw new Error('Nessuna fonte ufficiale verificata');
-  const item={title:String(source.title||'Notizia sanitaria del territorio').slice(0,170),url:source.url,source:new URL(source.url).hostname};
-  localStorage.setItem(cacheKey,JSON.stringify({item,checkedAt:Date.now()}));render(item);
- }catch(e){if(!cached?.item)box.innerHTML=region?'<a href="https://www.regione.campania.it/regione-informa/notizie" target="_blank" rel="noopener noreferrer">Consulta le notizie ufficiali della Regione Campania ↗</a>':'<p class="muted">Notizie locali non disponibili al momento. Riprova più tardi.</p>'}
+  const {data,error}=await sb.functions.invoke('health-news',{body:{province:String(province||'').toUpperCase()}});
+  if(error||!data?.item?.title||!data.item.publishedAt)throw error||new Error('Nessuna notizia verificata');
+  const item=data.item;localStorage.setItem(cacheKey,JSON.stringify({item,checkedAt:Date.now()}));render(item);
+ }catch(e){if(!cached?.item)box.innerHTML='<p class="muted">Non riesco a caricare una notizia verificata. Riprova quando torna la connessione.</p>';else box.insertAdjacentHTML('beforeend','<p class="small muted">Ultima notizia salvata: aggiornamento temporaneamente non disponibile.</p>');}
 }

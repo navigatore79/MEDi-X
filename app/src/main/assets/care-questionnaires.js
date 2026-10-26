@@ -1,3 +1,11 @@
+window.MeditalyOffline?.register('vaccine',async(payload,uid)=>{
+ if(state.session?.user.id!==uid||payload.patient_id!==uid)throw new Error('Account cambiato');
+ const result=await sb.from('patient_vaccine_declarations').upsert(payload,{onConflict:'patient_id,vaccine_code'});if(result.error)throw result.error;return payload;
+});
+async function saveVaccineDeclaration(row){
+ const offline=window.MeditalyOffline;if(!offline)return sb.from('patient_vaccine_declarations').upsert(row,{onConflict:'patient_id,vaccine_code'});
+ try{const id='vaccine:'+row.vaccine_code;await offline.enqueue('vaccine',id,row);await offline.pump();return {error:null,pending:!!await offline.get('job:'+id)};}catch(error){return {error};}
+}
 /* Patient questionnaires exist only after a clinician assignment. */
 window.MeditalyOffline?.register('questionnaire',async(payload,uid)=>{
  if(state.session?.user.id!==uid)throw new Error('Account cambiato');
@@ -6,7 +14,7 @@ window.MeditalyOffline?.register('questionnaire',async(payload,uid)=>{
 });
 window.MeditalyOffline?.register('intake',async(payload,uid)=>{
  if(state.session?.user.id!==uid||payload.patient_id!==uid)throw new Error('Account cambiato');
- const result=await sb.from('medication_intakes').upsert(payload,{onConflict:'medication_schedule_id,intake_date'});if(result.error)throw result.error;return payload;
+ const result=await sb.from('medication_intakes').upsert(payload,{onConflict:'medication_schedule_id,intake_date'});if(result.error){if(result.error.code==='42501')throw new Error('Assunzione non accettata dal server: il piano o la data potrebbero non essere più validi. La dichiarazione originale resta sul telefono; contatta il medico.');throw result.error;}return payload;
 });
 async function savePatientIntake(row){
  const offline=window.MeditalyOffline;

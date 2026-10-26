@@ -23,6 +23,7 @@ function organizeSimpleHome() {
  const old=journey.querySelector('#homePathContent');if(old)old.hidden=false;
  journey.querySelector('.home-path-toggle')?.remove();
  action(journey,'Questionari del medico','assignedQuestionnaires');action(journey,'Le mie condizioni','conditions');
+ const vaccines=make('Diario vaccinazioni','report');action(vaccines,'Apri il diario vaccinazioni','vaccines');
  const journal=make('Diario','diary');action(journal,'Testo, voce e video','journal');
  const measures=make('Le tue misure e dispositivi','heart');move(measures,'.home-measures');action(measures,'Dati del telefono e dispositivi','devices');
  const who=host.querySelector('.who-tips');if(who)host.querySelector('.daily-checkin-card')?.after(who);
