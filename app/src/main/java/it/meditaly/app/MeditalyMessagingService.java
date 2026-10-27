@@ -23,7 +23,7 @@ public class MeditalyMessagingService extends FirebaseMessagingService {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,
-                    "Messaggi Meditaly",
+                    "Messaggi MEDIapp",
                     NotificationManager.IMPORTANCE_HIGH
             );
             channel.setDescription("Avvisi per nuovi messaggi protetti su Meditaly");
@@ -78,10 +78,10 @@ public class MeditalyMessagingService extends FirebaseMessagingService {
                 ? "Come stai oggi? Inizia il check-in."
                 : appointment
                 ? "Il tuo medico ha proposto un appuntamento. Tocca per vederlo."
-                : "Hai un messaggio su Meditaly";
+                : "Hai un messaggio su MEDIapp";
         String publicText = dailyCheckin ? "Inizia il check-in oppure rimandalo di 30 minuti o 1 ora."
                 : appointment ? "Hai una nuova proposta di appuntamento. Tocca per aprire Meditaly."
-                : "Hai un messaggio su Meditaly";
+                : "Hai un messaggio su MEDIapp";
         String channelId = CHANNEL_ID;
         if (therapyReminder) {
             channelId = LocalReminderReceiver.THERAPY_SOUND_CHANNEL_ID;
@@ -112,14 +112,14 @@ public class MeditalyMessagingService extends FirebaseMessagingService {
         // mostra solo la domanda quotidiana o il tipo di appuntamento, senza dettagli.
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(android.R.drawable.ic_dialog_email)
-                .setContentTitle("Meditaly")
+                .setContentTitle("MEDIapp")
                 .setContentText(privateText)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setVisibility(dailyCheckin || appointment
                         ? NotificationCompat.VISIBILITY_PUBLIC : NotificationCompat.VISIBILITY_PRIVATE)
                 .setPublicVersion(new NotificationCompat.Builder(this, channelId)
                         .setSmallIcon(android.R.drawable.ic_dialog_email)
-                        .setContentTitle("Meditaly")
+                        .setContentTitle("MEDIapp")
                         .setContentText(publicText)
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .build())

@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f7fbff" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <title>Meditaly</title>
+  <title>MEDIapp</title>
   <link rel="stylesheet" href="styles.css" />
 <link rel="stylesheet" href="patient-upgrade.css">
 <link rel="stylesheet" href="home-simple.css">
@@ -15,7 +15,7 @@
 <body>
   <main id="app">
     <div id="startup" style="min-height:100vh;display:grid;place-items:center;background:#f7fbff;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#123f7c;padding:24px;text-align:center">
-      <div><div style="font-size:44px">♡+</div><strong style="font-size:24px">Meditaly</strong><div style="margin-top:8px;color:#6b829a">Avvio in corso…</div></div>
+      <div><div style="font-size:44px">♡+</div><strong style="font-size:24px">MEDIapp</strong><div style="margin-top:8px;color:#6b829a">Avvio in corso…</div></div>
     </div>
   </main>
   <script>
@@ -23,7 +23,7 @@
       const app=document.getElementById('app');
       if(location.protocol==='file:'&&window.AndroidBridge?.isLegacyMigrationPending?.()){app.innerHTML='<p>Conservo i dati locali durante l’aggiornamento Meditaly…</p>';const migration=document.createElement('script');migration.src='origin-migration.js';document.body.append(migration);return;}
       const fail=(message)=>{
-        app.innerHTML='<div style="min-height:100vh;display:grid;place-items:center;background:#f7fbff;font-family:system-ui,-apple-system,Segoe UI,sans-serif;padding:24px"><div style="max-width:420px;background:white;border:1px solid #dceaf7;border-radius:20px;padding:22px;color:#173f69;box-shadow:0 12px 34px rgba(20,70,120,.10)"><h2 style="margin-top:0">Meditaly non si è avviata</h2><p>'+String(message||'Errore di avvio')+'</p><button onclick="location.reload()" style="border:0;border-radius:12px;padding:11px 16px;background:#1677e8;color:white;font-weight:700">Riprova</button></div></div>';
+        app.innerHTML='<div style="min-height:100vh;display:grid;place-items:center;background:#f7fbff;font-family:system-ui,-apple-system,Segoe UI,sans-serif;padding:24px"><div style="max-width:420px;background:white;border:1px solid #dceaf7;border-radius:20px;padding:22px;color:#173f69;box-shadow:0 12px 34px rgba(20,70,120,.10)"><h2 style="margin-top:0">MEDIapp non si è avviata</h2><p>'+String(message||'Errore di avvio')+'</p><button onclick="location.reload()" style="border:0;border-radius:12px;padding:11px 16px;background:#1677e8;color:white;font-weight:700">Riprova</button></div></div>';
       };
       window.addEventListener('error',e=>{ if(e && e.message) fail(e.message); });
       window.addEventListener('unhandledrejection',e=>{ const m=e?.reason?.message||e?.reason||'Errore imprevisto'; fail(m); });
