@@ -526,6 +526,10 @@ public class MainActivity extends Activity {
                         notifyPushUnavailable("Autorizzazione notifiche Android non concessa");
                         return;
                     }
+                    if (!androidx.core.app.NotificationManagerCompat.from(MainActivity.this).areNotificationsEnabled()) {
+                        notifyPushUnavailable("Notifiche disattivate nelle impostazioni Android");
+                        return;
+                    }
                     FirebaseApp.initializeApp(MainActivity.this);
                     if (FirebaseApp.getApps(MainActivity.this).isEmpty()) {
                         notifyPushUnavailable("Firebase non configurato");

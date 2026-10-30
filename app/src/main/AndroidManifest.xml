@@ -57,9 +57,9 @@
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:usesCleartextTraffic="false"
-        android:label="Meditaly"
-        android:icon="@drawable/meditaly_app_icon"
-        android:roundIcon="@drawable/meditaly_app_icon"
+        android:label="MEDIapp"
+        android:icon="@drawable/mediapp_app_icon"
+        android:roundIcon="@drawable/mediapp_app_icon"
         android:theme="@style/Theme.Meditaly">
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -1,81 +1,37 @@
-/* BETA55: reorganize the actual BETA54 DOM without replacing its actions. */
-function organizeSimpleHome() {
+/* MEDIapp: three primary actions, with the personal archive still available. */
+function organizeSimpleHome({centerName='Il tuo centro',unreadCount=0,therapy='Le indicazioni del tuo medico',appointment='Le date proposte dal medico'}={}) {
  const host=document.querySelector('.patient-home-focus #content');
- if(!host || host.querySelector('.simple-stack'))return;
- const stack=document.createElement('div');stack.className='simple-stack';
- host.querySelector('.daily-checkin-card')?.after(stack);
- void offerDailyAssignedQuestionnaire(host);
- const make=(title,icon,tone='')=>{
-  const d=document.createElement('details');d.className='simple-section '+tone;
-  d.innerHTML=`<summary><span class="simple-icon">${uiIcon(icon)}</span><span>${esc(title)}</span><b aria-hidden="true">⌄</b></summary><div class="simple-body"></div>`;
-  stack.append(d);return d.lastElementChild;
+ if(!host||host.querySelector('.mediapp-home'))return;
+ const go=tab=>{state.tab=tab;if(tab==='chat')state.selectedChatPeer=state.selectedCareDoctor;patientView();};
+ const modals=[...host.querySelectorAll('#mediModal,#checkinModal')];
+ const news=host.querySelector('.local-health-news'),territory=host.querySelector('.home-territory');
+ const measures=host.querySelector('.home-measures');
+ const asl=host.querySelector('.home-asl-line'),location=host.querySelector('#homeLocationMsg');
+ const main=document.createElement('div');main.className='mediapp-home';
+ const first=(state.profile?.full_name||'').trim().split(/\s+/)[0];
+ main.innerHTML=`<section class="mediapp-welcome"><p class="mediapp-kicker">CONTINUITÀ ASSISTENZIALE PER TUTTI</p><h1>Ciao${first?' '+esc(first):''}</h1><p>Il tuo centro, vicino a te.</p><div class="mediapp-center">${uiIcon('doctor')}<span>${esc(centerName)}</span></div></section><div class="mediapp-primary" aria-label="Le funzioni principali"></div><details class="mediapp-more"><summary>Archivio e altre funzioni <span aria-hidden="true">⌄</span></summary><div class="mediapp-secondary"></div></details><section class="mediapp-info" aria-label="La tua ASL e notizie di salute"></section><p class="mediapp-service-note">Le comunicazioni non garantiscono una risposta immediata. Per le urgenze usa i consueti canali di emergenza.</p>`;
+ const button=(parent,{label,sub,icon,tab,primary=false,badge=0})=>{
+  const b=document.createElement('button');b.type='button';b.className=primary?'mediapp-action':'mediapp-secondary-action';b.dataset.go=tab;
+  b.innerHTML=`<span class="mediapp-action-icon" aria-hidden="true">${uiIcon(icon)}</span><span class="mediapp-action-copy"><strong>${esc(label)}</strong>${sub?`<small>${esc(sub)}</small>`:''}</span>${badge?`<span class="mediapp-count" aria-label="${badge} messaggi non letti">${badge>99?'99+':badge}</span>`:'<span class="mediapp-action-arrow" aria-hidden="true">›</span>'}`;
+  b.onclick=()=>go(tab);parent.append(b);
  };
- const move=(target,selector)=>host.querySelectorAll(selector).forEach(n=>target.append(n));
- const action=(body,label,tab)=>{const b=document.createElement('button');b.className='btn full';b.textContent=label;b.type='button';b.onclick=()=>{state.tab=tab;if(tab==='chat')state.selectedChatPeer=state.selectedCareDoctor;patientView();};body.append(b);};
- const doctor=make('Scrivi al medico','messages','simple-doctor');
- const name=document.createElement('p');name.textContent=chosenCareDoctor()?.profiles?.full_name||'Scegli il tuo medico';doctor.append(name);
- action(doctor,'Apri la conversazione','chat');move(doctor,'#myDoctor,[data-go="inviteDoctor"]');
- const therapy=make('Terapie','pill','simple-therapy');
- move(therapy,'.home-today-plan,.next-row[data-go="therapy"]');action(therapy,'Apri tutte le terapie','therapy');
- const appointments=make('Appuntamenti','calendar');move(appointments,'.next-row[data-go="followup"]');action(appointments,'Controlli e appuntamenti','followup');
- const reports=make('Referti','report');action(reports,'Consulta e carica i referti','reports');
- const journey=make('Il tuo percorso','search');move(journey,'.home-prevention,.home-path-card');
- const old=journey.querySelector('#homePathContent');if(old)old.hidden=false;
- journey.querySelector('.home-path-toggle')?.remove();
- action(journey,'Questionari del medico','assignedQuestionnaires');action(journey,'Le mie condizioni','conditions');
- const vaccines=make('Diario vaccinazioni','report');action(vaccines,'Apri il diario vaccinazioni','vaccines');
- const journal=make('Diario','diary');action(journal,'Testo, voce e video','journal');
- const measures=make('Le tue misure e dispositivi','heart');move(measures,'.home-measures');action(measures,'Dati del telefono e dispositivi','devices');
- const who=host.querySelector('.who-tips');if(who)host.querySelector('.daily-checkin-card')?.after(who);
- const news=make('Notizie','report');news.parentElement.open=true;move(news,'.local-health-news');
- const services=make('Numeri e link utili','search');services.parentElement.open=true;move(services,'.home-territory');
- // Every original page remains accessible from the bottom Menu.
- host.querySelector('.home-command-grid')?.remove();host.querySelector('.next-card')?.remove();
- configureReferenceHeader(host,services);
+ const primary=main.querySelector('.mediapp-primary');
+ button(primary,{label:'Comunicazioni',sub:'Messaggi del medico e del centro',icon:'messages',tab:'chat',primary:true,badge:unreadCount});
+ button(primary,{label:'Terapie',sub:therapy,icon:'pill',tab:'therapy',primary:true});
+ button(primary,{label:'Appuntamenti',sub:appointment,icon:'calendar',tab:'followup',primary:true});
+ const secondary=main.querySelector('.mediapp-secondary');
+ for(const [label,icon,tab] of [['Referti e documenti','report','reports'],['Il mio diario','diary','journal'],['Diario vaccinazioni','report','vaccines'],['Questionari del medico','form','assignedQuestionnaires'],['Avvisi e notifiche','bell','notifications'],['Medico e centro','doctor','doctor'],['Tutte le funzioni','menu','more']])button(secondary,{label,icon,tab});
+ if(measures){const d=document.createElement('details');d.className='mediapp-more';d.innerHTML='<summary>Le mie misure <span aria-hidden="true">⌄</span></summary>';d.append(measures);secondary.append(d);}
+ const info=main.querySelector('.mediapp-info');
+ if(asl){const section=document.createElement('section');section.className='mediapp-asl';const title=document.createElement('h2');title.textContent='La tua ASL';section.append(title,asl);if(location)section.append(location);info.append(section);}
+ if(news)info.append(news);
+ if(territory){const d=document.createElement('details');d.className='mediapp-more';d.innerHTML='<summary>Informazioni e numeri utili <span aria-hidden="true">⌄</span></summary>';d.append(territory);info.append(d);}
+ host.replaceChildren(main,...modals);
+ const top=document.querySelector('.patient-shell .mobile-top');
+ if(top){top.classList.add('mediapp-top');const brand=top.querySelector('.brand-mini');if(brand){brand.querySelector('.tiny')?.remove();const select=brand.querySelector('.doctor-header-select');if(select)secondary.prepend(select);}
+  if(!top.querySelector('.mediapp-health-cross')){const cross=document.createElement('span');cross.className='mediapp-health-cross';cross.setAttribute('role','img');cross.setAttribute('aria-label','Simbolo sanitario');cross.textContent='✚';top.append(cross);}
+  const logout=top.querySelector('#logout');if(logout){logout.textContent='Esci';logout.classList.add('mediapp-logout');secondary.append(logout);}
+ }
  const medi=document.getElementById('headerMedi');
  if(medi){medi.classList.add('simple-medi');medi.innerHTML='<img src="medi-avatar.png" alt=""><span>Medi</span>';document.querySelector('.patient-shell').append(medi);}
-}
-async function offerDailyAssignedQuestionnaire(host){
- const uid=state.session?.user.id;if(!uid)return;
- let query=sb.from('care_questionnaire_assignments').select('id').eq('patient_id',uid).eq('active',true);
- if(state.selectedCareDoctor)query=query.eq('clinician_id',state.selectedCareDoctor);
- const {data,error}=await query;if(error||!data?.length||!host.isConnected)return;
- const today=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Rome'});
- const submitted=await sb.from('care_questionnaire_responses').select('assignment_id').eq('patient_id',uid).eq('response_date',today);
- if(submitted.error||!host.isConnected)return;
- const complete=new Set((submitted.data||[]).map(r=>r.assignment_id));
- if(data.every(a=>complete.has(a.id)))return;
- const b=document.createElement('button');b.type='button';b.className='btn secondary full';b.textContent='Completa il questionario del medico';
- b.onclick=()=>{state.tab='assignedQuestionnaires';patientView();};host.querySelector('.daily-checkin-card')?.append(b);
-}
-
-function configureReferenceHeader(host,services){
- const top=document.querySelector('.patient-shell .mobile-top');
- if(top){
-  top.classList.add('reference-top');
-  const brand=top.querySelector('.brand-mini');
-  if(brand){brand.querySelector('.brand-mark')?.remove();brand.querySelector('.tiny')?.remove();
-   const select=brand.querySelector('.doctor-header-select');
-   if(select){select.classList.add('reference-doctor-select');services.prepend(select);}}
-  const bell=top.querySelector('#openNotifications');
-  if(bell)bell.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"/><path d="M10 21h4"/></svg>';
-  const logout=top.querySelector('#logout');if(logout){logout.textContent='Esci';logout.classList.add('reference-logout');services.append(logout);}
- }
- const head=host.querySelector('.clinical-home-head'),title=head?.querySelector('h1');
- if(title){title.textContent='Ciao, '+(state.profile.full_name||'').split(' ')[0]+'!';
-  head.querySelector('.simple-greeting')?.remove();
-  const subtitle=document.createElement('p');subtitle.className='simple-greeting';subtitle.textContent='Come stai oggi?';title.after(subtitle);
-  const asl=services.querySelector('.home-asl-line');if(asl)head.firstElementChild.append(asl);
-  const location=services.querySelector('#homeLocationMsg');if(location)head.firstElementChild.append(location);
-  const aslLine=head.querySelector('.home-asl-line'),aslLink=aslLine?.querySelector('a strong')?.closest('a');
-  if(aslLink){const label=aslLine.textContent.includes('zona in cui ti trovi')?'ASL della zona · ':'ASL di appartenenza · ';aslLine.replaceChildren(document.createTextNode(label),aslLink);}
-  if(!head.querySelector('.reference-heart'))head.insertAdjacentHTML('beforeend','<svg class="reference-heart" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M30 51S8 34 8 23c0-11 14-14 22-1 8-13 22-10 22 1 0 11-22 28-22 28Z"/><path d="m48 10 4-7m4 18 7-2m-8 15 6 4"/></svg>');
- }
- const mouths={green:'M21 31Q30 44 39 31',yellow:'M23 35H37',red:'M21 39Q30 25 39 39'};
- const colors={green:'#bfe0c4',yellow:'#f5d496',red:'#eb957d'};
- host.querySelectorAll('.mood-btn').forEach(b=>{
-  const mood=b.dataset.mood,face=b.querySelector('.mood-face');
-  if(face)face.innerHTML=`<svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="28" fill="${colors[mood]}"/><circle cx="22" cy="23" r="3" fill="#343529"/><circle cx="38" cy="23" r="3" fill="#343529"/><path d="${mouths[mood]}" fill="none" stroke="#343529" stroke-width="4" stroke-linecap="round"/></svg>`;
-  if(mood==='red')b.querySelector('strong').textContent='Male';
- });
 }
