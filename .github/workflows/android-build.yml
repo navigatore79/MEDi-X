@@ -27,6 +27,10 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.11.1'
+      - uses: actions/cache@v4
+        with:
+          path: app/src/main/assets/medi-model-it
+          key: medi-italian-model-${{ hashFiles('MEDI_MODEL_MANIFEST.json') }}
       - name: Prepare Italian voice model
         run: python tools/setup_medi_model.py
       - name: Configure Firebase when available

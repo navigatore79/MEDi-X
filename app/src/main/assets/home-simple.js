@@ -5,6 +5,7 @@ function organizeSimpleHome({centerName='Il tuo centro',unreadCount=0,therapy='L
  const go=tab=>{state.tab=tab;if(tab==='chat')state.selectedChatPeer=state.selectedCareDoctor;patientView();};
  const modals=[...host.querySelectorAll('#mediModal,#checkinModal')];
  const news=host.querySelector('.local-health-news'),territory=host.querySelector('.home-territory');
+ const measures=host.querySelector('.home-measures');
  const asl=host.querySelector('.home-asl-line'),location=host.querySelector('#homeLocationMsg');
  const main=document.createElement('div');main.className='mediapp-home';
  const first=(state.profile?.full_name||'').trim().split(/\s+/)[0];
@@ -20,6 +21,7 @@ function organizeSimpleHome({centerName='Il tuo centro',unreadCount=0,therapy='L
  button(primary,{label:'Appuntamenti',sub:appointment,icon:'calendar',tab:'followup',primary:true});
  const secondary=main.querySelector('.mediapp-secondary');
  for(const [label,icon,tab] of [['Referti e documenti','report','reports'],['Il mio diario','diary','journal'],['Diario vaccinazioni','report','vaccines'],['Questionari del medico','form','assignedQuestionnaires'],['Avvisi e notifiche','bell','notifications'],['Medico e centro','doctor','doctor'],['Tutte le funzioni','menu','more']])button(secondary,{label,icon,tab});
+ if(measures){const d=document.createElement('details');d.className='mediapp-more';d.innerHTML='<summary>Le mie misure <span aria-hidden="true">⌄</span></summary>';d.append(measures);secondary.append(d);}
  const info=main.querySelector('.mediapp-info');
  if(asl){const section=document.createElement('section');section.className='mediapp-asl';const title=document.createElement('h2');title.textContent='La tua ASL';section.append(title,asl);if(location)section.append(location);info.append(section);}
  if(news)info.append(news);

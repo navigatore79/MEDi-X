@@ -1,8 +1,8 @@
 :root{--mediapp-ink:#192a20;--mediapp-green:#355f45;--mediapp-cream:#faf6ee}
 .patient-shell.new-ui{background:var(--mediapp-cream);color:var(--mediapp-ink)}
 .patient-home-focus .mobile-content{padding:0 16px 110px!important}
-.patient-shell .mobile-top.mediapp-top{background:var(--mediapp-cream);color:var(--mediapp-ink);padding:17px 16px;border-bottom:1px solid #e4e4d8;min-height:70px;gap:10px}
-.patient-shell .mediapp-top strong,.patient-shell .mediapp-top .icon-btn{color:var(--mediapp-ink)}
+.patient-shell.patient-home-focus .mobile-top.mediapp-top{background:var(--mediapp-cream)!important;color:var(--mediapp-ink);padding:17px 16px!important;border-bottom:1px solid #e4e4d8!important;min-height:70px;gap:10px}
+.patient-shell .mobile-top.mediapp-top strong,.patient-shell .mobile-top.mediapp-top .icon-btn{color:var(--mediapp-ink)!important}
 .mediapp-top .brand-mark{display:block!important;width:38px;height:38px;background:transparent;border:0;box-shadow:none}.mediapp-top .brand-mark img{width:100%;height:100%}
 .mediapp-top .brand-mini strong{font-size:23px;letter-spacing:-.03em}.mediapp-top .brand-mini{gap:10px;min-width:0}.mediapp-top #openNotifications{width:44px;height:44px;background:#eee9de;border:1px solid #dedecf;border-radius:14px;flex-shrink:0}
 .mediapp-health-cross{display:grid;place-items:center;width:36px;height:36px;flex-shrink:0;font-size:30px;color:#496948}
