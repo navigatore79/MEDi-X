@@ -1,8 +1,8 @@
-name: Build Meditaly Android Beta 56.0
+name: Build MEDIapp 85
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, 'release/mediapp-85']
     paths: ['app/**', 'gradle/**', 'vendor-maven/**', 'tools/**', '*.gradle', 'gradle.properties', 'MEDI_MODEL_MANIFEST.json', '.github/workflows/android-build.yml']
 permissions:
   contents: read
@@ -46,7 +46,7 @@ jobs:
       - name: Upload release bundle for original signing
         uses: actions/upload-artifact@v4
         with:
-          name: Meditaly-0.7.42-beta56.0-UNSIGNED-release
+          name: MEDIapp-85-UNSIGNED-release
           path: |
             app/build/outputs/bundle/release/app-release.aab
             app/build/outputs/apk/release/app-release-unsigned.apk
@@ -55,7 +55,7 @@ jobs:
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: Meditaly-0.7.42-beta56.0-debug
+          name: MEDIapp-85-test-APK
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30

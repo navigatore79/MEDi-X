@@ -51,6 +51,8 @@ public class MeditalyMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+        // The MEDIapp communication experience has no automatic daily triage.
+        if ("daily_checkin".equals(remoteMessage.getData().get("type"))) return;
         ensureChannel(this);
         LocalReminderReceiver.ensureChannels(this);
         if("voice_call".equals(remoteMessage.getData().get("type"))){VoiceCallNotifications.incoming(this,remoteMessage.getData());return;}
