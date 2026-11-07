@@ -68,3 +68,12 @@ dependencies {
     implementation 'com.google.guava:guava:33.4.8-android'
     implementation 'com.google.mlkit:text-recognition:16.0.1'
 }
+
+// DICOM dependencies and codecs are bundled, including for offline local ZIP viewing.
+tasks.named('preBuild').configure {
+    doFirst {
+        if (!file('src/main/assets/imaging-viewer-dist/viewer.js').exists()) {
+            throw new GradleException('Visualizzatore DICOM mancante: esegui npm ci --prefix tools/imaging-viewer e npm run build --prefix tools/imaging-viewer dalla radice del progetto.')
+        }
+    }
+}

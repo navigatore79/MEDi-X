@@ -43,6 +43,11 @@ jobs:
           else
             echo 'Firebase secret missing: debug build without remote push.'
           fi
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Bundle local DICOM viewer and codecs
+        run: npm ci --prefix tools/imaging-viewer && npm run build --prefix tools/imaging-viewer
       - name: Build debug APK
         run: gradle --no-daemon :app:assembleDebug
       - name: Build release bundle and APK with original Firebase
