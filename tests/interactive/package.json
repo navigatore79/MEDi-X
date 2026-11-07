@@ -2,7 +2,8 @@
   "private": true,
   "description": "Test locali simulati BETA52; nessun accesso a dati paziente",
   "scripts": {
-    "test": "node --test *.test.cjs"
+    "test": "node --test *.test.cjs",
+    "test:patient": "node --test archive.test.cjs assigned-questionnaires.test.cjs care-reference.test.cjs checkin.test.cjs mediapp-home.test.cjs offline.test.cjs session.test.cjs voice-questionnaire.test.cjs welcome.test.cjs"
   },
   "devDependencies": {
     "jsdom": "30.1.1",

@@ -36,6 +36,7 @@
           if(!window.MEDITALY_SUPABASE) throw new Error('Configurazione Meditaly non disponibile.');
           await load('offline-store.js');
           await load('report-archive.js');
+          await load('imaging-patient.js');
           await load('journal-local.js');
           await load('asl-directory.js');
           await load('home-extras.js');
