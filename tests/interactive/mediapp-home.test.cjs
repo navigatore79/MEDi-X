@@ -23,7 +23,7 @@ test('MEDIapp home has three high-level actions and preserves archives, news, AS
 });
 test('native release increments the build, preserves Firebase/package and does not auto-start triage',()=>{
  const live=fs.readFileSync(root+'live.js','utf8'),gradle=fs.readFileSync(__dirname+'/../../app/build.gradle','utf8');
- assert.match(gradle,/versionCode 85/);assert.match(gradle,/com.ciromaiello.meditaly/);
+ assert.ok(Number(gradle.match(/versionCode (\d+)/)[1]) >= 86);assert.match(gradle,/com.ciromaiello.meditaly/);
  assert.doesNotMatch(live,/if\(state.homeVoicePending\)void startPatientWelcome/);
  assert.match(live,/Sono Medi, il tuo assistente sanitario\./);
  assert.doesNotMatch(live,/data-accept="false">Rifiuta<\/button>/);
